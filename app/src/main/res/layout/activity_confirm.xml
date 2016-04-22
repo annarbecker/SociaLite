@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Location"
-        android:id="@+id/userLocationTextView"
+        android:id="@+id/locationTextView"
         android:layout_below="@+id/userEventTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -43,8 +43,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Date"
-        android:id="@+id/userDateTextView"
-        android:layout_below="@+id/userLocationTextView"
+        android:id="@+id/dateTextView"
+        android:layout_below="@+id/locationTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="20dp"
@@ -57,8 +57,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Time"
-        android:id="@+id/userTimeTextView"
-        android:layout_below="@id/userDateTextView"
+        android:id="@+id/timeTextView"
+        android:layout_below="@id/dateTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="20dp"
@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:text="Invitees"
         android:id="@+id/textView4"
-        android:layout_below="@+id/userTimeTextView"
+        android:layout_below="@+id/timeTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="20dp"
@@ -103,5 +103,32 @@
         android:layout_above="@id/homeButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/userLocationTextView"
+        android:layout_alignTop="@+id/locationTextView"
+        android:layout_alignRight="@+id/userEventTextView"
+        android:layout_alignEnd="@+id/userEventTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/userDateTextView"
+        android:layout_alignTop="@+id/dateTextView"
+        android:layout_alignRight="@+id/userEventTextView"
+        android:layout_alignEnd="@+id/userEventTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/userTimeTextView"
+        android:layout_alignBottom="@+id/timeTextView"
+        android:layout_alignLeft="@+id/userDateTextView"
+        android:layout_alignStart="@+id/userDateTextView" />
 
 </RelativeLayout>

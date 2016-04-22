@@ -34,9 +34,9 @@ public class ConfirmActivity extends AppCompatActivity {
         String date = intent.getStringExtra("date");
         String time = intent.getStringExtra("time");
         mUserEventTextView.setText(event);
-        mUserLocationTextView.setText("Location: " + location);
-        mUserDateTextView.setText("Date: " + date);
-        mUserTimeTextView.setText("Time: " + time);
+        mUserLocationTextView.setText(location);
+        mUserDateTextView.setText(date);
+        mUserTimeTextView.setText(time);
 
         String inviteesString = intent.getStringExtra("inviteeArray");
         String[] inviteesList = inviteesString.split(", ");
