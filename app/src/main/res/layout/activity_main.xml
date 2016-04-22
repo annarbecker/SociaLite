@@ -25,7 +25,7 @@
         android:textColor="@color/colorTextIcons"
         android:textStyle="bold"
         android:background="#99607d8b"
-        android:paddingTop="5dp"
+        android:paddingTop="0dp"
         android:paddingBottom="0dp"
         android:paddingRight="30dp"
         android:paddingLeft="30dp"
