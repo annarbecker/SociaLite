@@ -25,7 +25,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
     private List<String> inviteeArray = new ArrayList<String>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

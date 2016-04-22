@@ -20,11 +20,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mMakePlansButton.setOnClickListener(this);
 
+        mMakePlansButton.setOnClickListener(this);
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/bario.ttf");
         mTextView.setTypeface(myCustomFont);
-
     }
 
     @Override

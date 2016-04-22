@@ -37,7 +37,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         mUserLocationTextView.setText(location);
         mUserDateTextView.setText(date);
         mUserTimeTextView.setText(time);
-
         mHomeButton.setOnClickListener(this);
 
         String inviteesString = intent.getStringExtra("inviteeArray");
