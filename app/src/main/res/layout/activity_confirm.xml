@@ -3,69 +3,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.epicodus.socialite.ConfirmActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/userEventTextView"
+        android:layout_alignEnd="@+id/userEventTextView"
+        android:src="@drawable/concert"
+        android:scaleType="centerCrop"
+        android:layout_above="@+id/locationTextView"
+        android:layout_marginBottom="5dp"
+        android:tint="#4b41260a"/>
+
     <TextView
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="User Event"
         android:id="@+id/userEventTextView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:textAlignment="gravity"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:textColor="@color/colorPrimaryDark" />
+        android:textColor="@color/bright_foreground_inverse_material_light"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignLeft="@+id/locationTextView"
+        android:layout_alignStart="@+id/locationTextView"
+        android:layout_alignRight="@+id/listView"
+        android:layout_alignEnd="@+id/listView"
+        android:gravity="left"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="3dp" />
 
 
     <TextView
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Location"
         android:id="@+id/locationTextView"
-        android:layout_below="@+id/userEventTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimary"
+        android:layout_above="@+id/userLocationTextView"
+        android:layout_alignLeft="@+id/userLocationTextView"
+        android:layout_alignStart="@+id/userLocationTextView" />
 
     <TextView
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date"
+        android:text="Date &amp; Time"
         android:id="@+id/dateTextView"
-        android:layout_below="@+id/locationTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:textColor="@color/colorPrimary" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Time"
-        android:id="@+id/timeTextView"
-        android:layout_below="@id/dateTextView"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="0dp"
+        android:layout_above="@+id/userDateTextView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary" />
+        android:layout_alignParentStart="true" />
 
 
     <Button
@@ -82,20 +85,23 @@
         android:textSize="20sp" />
 
     <TextView
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Invitees"
         android:id="@+id/textView4"
-        android:layout_below="@+id/timeTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimary"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp" />
 
     <ListView
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
@@ -105,30 +111,42 @@
         android:layout_alignParentStart="true" />
 
     <TextView
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/userLocationTextView"
-        android:layout_alignTop="@+id/locationTextView"
-        android:layout_alignRight="@+id/userEventTextView"
-        android:layout_alignEnd="@+id/userEventTextView" />
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/dateTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="0dp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/userDateTextView"
-        android:layout_alignTop="@+id/dateTextView"
-        android:layout_alignRight="@+id/userEventTextView"
-        android:layout_alignEnd="@+id/userEventTextView" />
-
-    <TextView
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/userTimeTextView"
-        android:layout_alignBottom="@+id/timeTextView"
-        android:layout_alignLeft="@+id/userDateTextView"
-        android:layout_alignStart="@+id/userDateTextView" />
+        android:layout_alignTop="@+id/userDateTextView"
+        android:layout_toRightOf="@+id/locationTextView"
+        android:layout_toEndOf="@+id/locationTextView" />
+
+    <TextView
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/userDateTextView"
+        android:layout_above="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="0dp" />
+
+
 
 </RelativeLayout>
