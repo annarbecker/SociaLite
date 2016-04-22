@@ -17,8 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PlanActivity" />
-        <activity android:name=".ConfirmActivity"></activity>
+        <activity
+            android:name=".PlanActivity"
+            android:theme="@style/NoActionBarTheme"/>
+        <activity
+            android:name=".ConfirmActivity"
+            android:theme="@style/NoActionBarTheme"/>
     </application>
 
 </manifest>
