@@ -9,7 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/userEventTextView"
@@ -37,8 +36,8 @@
         android:layout_alignRight="@+id/listView"
         android:layout_alignEnd="@+id/listView"
         android:gravity="left"
-        android:layout_marginLeft="3dp"
-        android:layout_marginBottom="3dp" />
+        android:layout_marginBottom="3dp"
+        android:layout_alignParentLeft="false" />
 
 
     <TextView
@@ -48,12 +47,13 @@
         android:layout_height="wrap_content"
         android:text="Location"
         android:id="@+id/locationTextView"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         android:layout_above="@+id/userLocationTextView"
         android:layout_alignLeft="@+id/userLocationTextView"
-        android:layout_alignStart="@+id/userLocationTextView" />
+        android:layout_alignStart="@+id/userLocationTextView"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -62,13 +62,14 @@
         android:layout_height="wrap_content"
         android:text="Date &amp; Time"
         android:id="@+id/dateTextView"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         android:layout_marginBottom="0dp"
         android:layout_above="@+id/userDateTextView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
 
 
     <Button
@@ -91,13 +92,14 @@
         android:layout_height="wrap_content"
         android:text="Invitees"
         android:id="@+id/textView4"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="0dp" />
 
     <ListView
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -108,7 +110,9 @@
         android:layout_below="@+id/textView4"
         android:layout_above="@id/homeButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:smoothScrollbar="false" />
 
     <TextView
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -121,7 +125,7 @@
         android:layout_above="@+id/dateTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="0dp" />
+        android:layout_marginTop="5dp" />
 
     <TextView
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -130,9 +134,10 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/userTimeTextView"
-        android:layout_alignTop="@+id/userDateTextView"
-        android:layout_toRightOf="@+id/locationTextView"
-        android:layout_toEndOf="@+id/locationTextView" />
+        android:layout_below="@+id/dateTextView"
+        android:layout_toRightOf="@+id/userDateTextView"
+        android:layout_toEndOf="@+id/userDateTextView"
+        android:layout_marginTop="5dp" />
 
     <TextView
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -145,7 +150,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="0dp" />
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="0dp" />
 
 
 
