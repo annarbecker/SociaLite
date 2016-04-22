@@ -14,7 +14,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PlanActivity extends AppCompatActivity {
+public class PlanActivity extends AppCompatActivity implements View.OnClickListener{
     @Bind(R.id.eventEditText) EditText mEventEditText;
     @Bind(R.id.inviteeEditText) EditText mInviteeEditText;
     @Bind(R.id.inviteButton) Button mInviteButton;
@@ -32,30 +32,28 @@ public class PlanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_plan);
         ButterKnife.bind(this);
 
-        mCreateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String event = mEventEditText.getText().toString();
-                String location = mLocationEditText.getText().toString();
-                String date = mDateEditText.getText().toString();
-                String time = mTimeEditText.getText().toString();
-                Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
-                intent.putExtra("event", event);
-                intent.putExtra("location", location);
-                intent.putExtra("date", date);
-                intent.putExtra("time", time);
-                intent.putExtra("inviteeArray", TextUtils.join(", ", inviteeArray));
-                startActivity(intent);
-            }
-        });
+        mCreateButton.setOnClickListener(this);
+        mInviteButton.setOnClickListener(this);
+    }
 
-        mInviteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String invitee = mInviteeEditText.getText().toString();
-                inviteeArray.add(invitee);
-                mInviteeEditText.setText("");
-            }
-        });
+    @Override
+    public void onClick(View v) {
+        if(v == mCreateButton) {
+            String event = mEventEditText.getText().toString();
+            String location = mLocationEditText.getText().toString();
+            String date = mDateEditText.getText().toString();
+            String time = mTimeEditText.getText().toString();
+            Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
+            intent.putExtra("event", event);
+            intent.putExtra("location", location);
+            intent.putExtra("date", date);
+            intent.putExtra("time", time);
+            intent.putExtra("inviteeArray", TextUtils.join(", ", inviteeArray));
+            startActivity(intent);
+        } if(v == mInviteButton) {
+            String invitee = mInviteeEditText.getText().toString();
+            inviteeArray.add(invitee);
+            mInviteeEditText.setText("");
+        }
     }
 }
