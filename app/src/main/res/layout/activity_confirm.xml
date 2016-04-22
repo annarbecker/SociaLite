@@ -55,6 +55,7 @@
         android:layout_alignStart="@+id/userLocationTextView"
         android:layout_marginTop="10dp" />
 
+
     <TextView
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
@@ -98,8 +99,8 @@
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="0dp" />
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp" />
 
     <ListView
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -137,7 +138,8 @@
         android:layout_below="@+id/dateTextView"
         android:layout_toRightOf="@+id/userDateTextView"
         android:layout_toEndOf="@+id/userDateTextView"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -149,10 +151,20 @@
         android:layout_above="@+id/textView4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="0dp" />
 
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:src="@drawable/map"
+        android:scaleType="centerCrop"
+        android:layout_alignTop="@+id/locationTextView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/userTimeTextView" />
 
 
 </RelativeLayout>
