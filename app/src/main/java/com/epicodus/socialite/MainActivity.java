@@ -9,7 +9,7 @@ import android.widget.Button;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     @Bind(R.id.makePlansButton) Button mMakePlansButton;
 
     @Override
@@ -17,13 +17,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        mMakePlansButton.setOnClickListener(this);
+    }
 
-        mMakePlansButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PlanActivity.class);
-                startActivity(intent);
-            }
-        });
+    @Override
+    public void onClick(View v) {
+        if(v == mMakePlansButton) {
+            Intent intent = new Intent(MainActivity.this, PlanActivity.class);
+            startActivity(intent);
+        }
     }
 }
