@@ -13,7 +13,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 /**
  * Created by arbecker on 4/21/16.
- */
+// */
 //public class ConfirmActivityInstrumentationTest {
 //
 //    @Rule
@@ -26,5 +26,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 //        onView(withId(R.id.homeButton)).perform(click());
 //        onView(withId(R.id.textView)).check(matches
 //                (withText("SociaLite")));
-    //}
+//    }
+//}
 
