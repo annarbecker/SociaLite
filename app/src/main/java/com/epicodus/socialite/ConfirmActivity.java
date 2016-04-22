@@ -14,7 +14,7 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ConfirmActivity extends AppCompatActivity {
+public class ConfirmActivity extends AppCompatActivity implements View.OnClickListener{
     @Bind(R.id.userEventTextView) TextView mUserEventTextView;
     @Bind(R.id.userLocationTextView) TextView mUserLocationTextView;
     @Bind(R.id.userDateTextView) TextView mUserDateTextView;
@@ -38,21 +38,23 @@ public class ConfirmActivity extends AppCompatActivity {
         mUserDateTextView.setText(date);
         mUserTimeTextView.setText(time);
 
+        mHomeButton.setOnClickListener(this);
+
         String inviteesString = intent.getStringExtra("inviteeArray");
         String[] inviteesList = inviteesString.split(", ");
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, inviteesList);
         mListView.setAdapter(adapter);
+    }
 
 
-        mHomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ConfirmActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                Toast.makeText(ConfirmActivity.this, "your event has been shared", Toast.LENGTH_SHORT).show();
-                startActivity(intent);
-            }
-        });
+    @Override
+    public void onClick(View v) {
+        if (v == mHomeButton) {
+            Intent intent = new Intent(ConfirmActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Toast.makeText(ConfirmActivity.this, "your event has been shared", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+        }
     }
 }
