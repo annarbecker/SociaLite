@@ -59,6 +59,11 @@ public class PlanActivityInstrumentationTest {
 
         onView(withId(R.id.timeEditText)).perform(typeText("6:00pm"), closeSoftKeyboard())
                 .check(matches(withText("6:00pm")));
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -125,7 +130,5 @@ public class PlanActivityInstrumentationTest {
                 (withText(date)));
         onView(withId(R.id.userTimeTextView)).check(matches
                 (withText(time)));
-        onView(withId(R.id.listView)).check(matches
-                (withText(invitee)));
     }
 }
