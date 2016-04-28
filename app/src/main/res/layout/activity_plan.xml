@@ -67,50 +67,27 @@
         android:layout_alignParentEnd="true" />
 
     <EditText
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/locationEditText"
-        android:layout_below="@+id/inviteButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="Location"
-        android:layout_marginTop="35dp"
-        android:layout_marginBottom="20dp"
-        android:layout_alignRight="@+id/inviteButton"
-        android:layout_alignEnd="@+id/inviteButton" />
-
-    <EditText
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
         android:id="@+id/dateEditText"
-        android:layout_below="@+id/locationEditText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:hint="Date"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_alignRight="@+id/locationEditText"
-        android:layout_alignEnd="@+id/locationEditText" />
+        android:layout_below="@+id/locationPlacesTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="74dp" />
 
     <EditText
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="time"
         android:ems="10"
         android:id="@+id/timeEditText"
-        android:layout_below="@+id/dateEditText"
+        android:hint="Time"
+        android:layout_above="@+id/createButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="Time"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="30dp"
-        android:layout_alignRight="@+id/dateEditText"
-        android:layout_alignEnd="@+id/dateEditText" />
+        android:layout_marginBottom="46dp" />
 
     <Button
         android:layout_width="match_parent"
@@ -124,5 +101,27 @@
         android:textColor="@color/colorTextIcons"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick Location -->"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:id="@+id/locationPlacesTextView"
+        android:layout_below="@+id/inviteButton"
+        android:layout_alignLeft="@+id/inviteeEditText"
+        android:layout_alignStart="@+id/inviteeEditText"
+        android:textSize="25sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/myLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Location..."
+        android:inputType="textMultiLine"
+        android:layout_below="@+id/locationPlacesTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

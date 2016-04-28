@@ -31,4 +31,5 @@ dependencies {
     androidTestCompile('com.android.support.test:runner:0.3') {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
+    compile 'com.google.android.gms:play-services:8.4.0'
 }
