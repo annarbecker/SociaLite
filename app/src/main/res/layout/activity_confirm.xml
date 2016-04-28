@@ -155,16 +155,5 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="0dp" />
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView3"
-        android:src="@drawable/map"
-        android:scaleType="centerCrop"
-        android:layout_alignTop="@+id/locationTextView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/userTimeTextView" />
-
 
 </RelativeLayout>

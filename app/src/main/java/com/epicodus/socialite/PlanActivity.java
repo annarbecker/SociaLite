@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -30,13 +29,13 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.dateEditText) EditText mDateEditText;
     @Bind(R.id.timeEditText) EditText mTimeEditText;
     @Bind(R.id.createButton) Button mCreateButton;
-    @Bind(R.id.locationPlacesTextView) TextView mLocationPlacesTextView;
+    @Bind(R.id.pickLocationButton) Button mPickLocationButton;
     @Bind(R.id.myLocation) AutoCompleteTextView mMyLocation;
 
 
     private List<String> inviteeArray = new ArrayList<String>();
 
-    private PlacePicker.IntentBuilder builder;
+    private PlacePicker.IntentBuilder mBuilder;
     private static final int PLACE_PICKER_FLAG = 1;
 
 
@@ -48,7 +47,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
         mCreateButton.setOnClickListener(this);
         mInviteButton.setOnClickListener(this);
-        mLocationPlacesTextView.setOnClickListener(this);
+        mPickLocationButton.setOnClickListener(this);
     }
 
     @Override
@@ -71,11 +70,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             mInviteeEditText.setText("");
 
 
-        } if(v == mLocationPlacesTextView) {
-
+        } if(v == mPickLocationButton) {
                 try {
-                    builder = new PlacePicker.IntentBuilder();
-                    Intent intent = builder.build(PlanActivity.this);
+                    mBuilder = new PlacePicker.IntentBuilder();
+                    Intent intent = mBuilder.build(PlanActivity.this);
                     // Start the Intent by requesting a result, identified by a request code.
                     startActivityForResult(intent, PLACE_PICKER_FLAG);
 
@@ -97,6 +95,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             switch (requestCode) {
                 case PLACE_PICKER_FLAG:
                     Place place = PlacePicker.getPlace(data, this);
+                    mMyLocation.setVisibility(View.VISIBLE);
                     mMyLocation.setText(place.getName() + ", " + place.getAddress());
                     break;
             }

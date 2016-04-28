@@ -32,26 +32,46 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="35dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pick Location"
+        android:background="@color/colorPrimaryLight"
+        android:textColor="@color/colorTextIcons"
+        android:id="@+id/pickLocationButton"
+        android:padding="3dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_below="@+id/inviteeEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <AutoCompleteTextView
+        android:id="@+id/myLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Event Location"
+        android:inputType="textMultiLine"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/dateEditText"
+        android:layout_alignStart="@+id/dateEditText"
+        android:visibility="invisible" />
 
     <EditText
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/inviteeEditText"
-        android:layout_below="@+id/eventEditText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:hint="Invitee Name"
-        android:layout_toLeftOf="@+id/inviteButton"
-        android:layout_toStartOf="@+id/inviteButton"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/eventEditText"
+        android:layout_alignLeft="@+id/eventEditText"
+        android:layout_alignStart="@+id/eventEditText" />
 
     <Button
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
@@ -59,25 +79,29 @@
         android:background="@color/colorPrimaryLight"
         android:textColor="@color/colorTextIcons"
         android:id="@+id/inviteButton"
-        android:layout_alignBottom="@+id/inviteeEditText"
         android:padding="3dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBottom="@+id/inviteeEditText"
+        android:layout_alignRight="@+id/eventEditText"
+        android:layout_alignEnd="@+id/eventEditText" />
 
     <EditText
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
         android:id="@+id/dateEditText"
         android:hint="Date"
-        android:layout_below="@+id/locationPlacesTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="74dp" />
+        android:layout_above="@+id/timeEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="time"
@@ -87,7 +111,8 @@
         android:layout_above="@+id/createButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="46dp" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" />
 
     <Button
         android:layout_width="match_parent"
@@ -101,27 +126,5 @@
         android:textColor="@color/colorTextIcons"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pick Location -->"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="30dp"
-        android:id="@+id/locationPlacesTextView"
-        android:layout_below="@+id/inviteButton"
-        android:layout_alignLeft="@+id/inviteeEditText"
-        android:layout_alignStart="@+id/inviteeEditText"
-        android:textSize="25sp" />
-
-    <AutoCompleteTextView
-        android:id="@+id/myLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Location..."
-        android:inputType="textMultiLine"
-        android:layout_below="@+id/locationPlacesTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
