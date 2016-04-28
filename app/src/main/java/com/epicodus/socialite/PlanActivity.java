@@ -36,7 +36,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private List<String> inviteeArray = new ArrayList<String>();
-    private String latLang;
+    private String latLong;
 
     private PlacePicker.IntentBuilder mBuilder;
     private static final int PLACE_PICKER_FLAG = 1;
@@ -66,7 +66,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("date", date);
             intent.putExtra("time", time);
             intent.putExtra("inviteeArray", TextUtils.join(", ", inviteeArray));
-            intent.putExtra("latLang", latLang);
+            intent.putExtra("latLong", latLong);
             startActivity(intent);
         } if(v == mInviteButton) {
             String invitee = mInviteeEditText.getText().toString();
@@ -99,10 +99,9 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             switch (requestCode) {
                 case PLACE_PICKER_FLAG:
                     Place place = PlacePicker.getPlace(data, this);
-                    latLang = place.getLatLng().toString();
+                    latLong = place.getLatLng().toString();
                     mMyLocation.setVisibility(View.VISIBLE);
                     mMyLocation.setText(place.getName() + ", " + place.getAddress());
-                    Log.i(TAG, latLang);
                     break;
             }
         }

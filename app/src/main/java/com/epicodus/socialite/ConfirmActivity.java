@@ -23,6 +23,9 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     @Bind(R.id.listView) ListView mListView;
     @Bind(R.id.homeButton) Button mHomeButton;
 
+    private String mlatLong;
+    private String event;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +33,11 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        String event = intent.getStringExtra("event");
+        event = intent.getStringExtra("event");
         String location = intent.getStringExtra("location");
         String date = intent.getStringExtra("date");
         String time = intent.getStringExtra("time");
-        String latLong = intent.getStringExtra("latLang");
+        mlatLong = intent.getStringExtra("latLong");
         mUserEventTextView.setText(event);
         mUserLocationTextView.setText(location);
         mUserDateTextView.setText(date);
@@ -59,7 +62,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(ConfirmActivity.this, "your event has been shared", Toast.LENGTH_SHORT).show();
             startActivity(intent);
         } if(v == mUserLocationTextView) {
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + "latLang" + "?q=" ));
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + mlatLong + "?q=" + event + ""));
             startActivity(mapIntent);
         }
     }
