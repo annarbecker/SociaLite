@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class PlanActivity extends AppCompatActivity implements View.OnClickListener{
+    public static final String TAG = PlanActivity.class.getSimpleName();
     @Bind(R.id.eventEditText) EditText mEventEditText;
     @Bind(R.id.inviteeEditText) EditText mInviteeEditText;
     @Bind(R.id.inviteButton) Button mInviteButton;
@@ -34,6 +36,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private List<String> inviteeArray = new ArrayList<String>();
+    private String latLang;
 
     private PlacePicker.IntentBuilder mBuilder;
     private static final int PLACE_PICKER_FLAG = 1;
@@ -63,6 +66,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("date", date);
             intent.putExtra("time", time);
             intent.putExtra("inviteeArray", TextUtils.join(", ", inviteeArray));
+            intent.putExtra("latLang", latLang);
             startActivity(intent);
         } if(v == mInviteButton) {
             String invitee = mInviteeEditText.getText().toString();
@@ -95,8 +99,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             switch (requestCode) {
                 case PLACE_PICKER_FLAG:
                     Place place = PlacePicker.getPlace(data, this);
+                    latLang = place.getLatLng().toString();
                     mMyLocation.setVisibility(View.VISIBLE);
                     mMyLocation.setText(place.getName() + ", " + place.getAddress());
+                    Log.i(TAG, latLang);
                     break;
             }
         }

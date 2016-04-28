@@ -1,6 +1,7 @@
 package com.epicodus.socialite;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,11 +34,13 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         String location = intent.getStringExtra("location");
         String date = intent.getStringExtra("date");
         String time = intent.getStringExtra("time");
+        String latLong = intent.getStringExtra("latLang");
         mUserEventTextView.setText(event);
         mUserLocationTextView.setText(location);
         mUserDateTextView.setText(date);
         mUserTimeTextView.setText(time);
         mHomeButton.setOnClickListener(this);
+        mUserLocationTextView.setOnClickListener(this);
 
         String inviteesString = intent.getStringExtra("inviteeArray");
         String[] inviteesList = inviteesString.split(", ");
@@ -47,6 +50,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
+
     @Override
     public void onClick(View v) {
         if (v == mHomeButton) {
@@ -54,6 +58,9 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             Toast.makeText(ConfirmActivity.this, "your event has been shared", Toast.LENGTH_SHORT).show();
             startActivity(intent);
+        } if(v == mUserLocationTextView) {
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + "latLang" + "?q=" ));
+            startActivity(mapIntent);
         }
     }
 }
