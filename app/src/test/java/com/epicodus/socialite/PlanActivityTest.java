@@ -3,6 +3,8 @@ package com.epicodus.socialite;
 import android.os.Build;
 import android.widget.TextView;
 
+import com.epicodus.socialite.ui.PlanActivity;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

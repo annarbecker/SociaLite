@@ -15,7 +15,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAX3Atb6BKqolX3c_v8UMJZf2O2IzSntBo"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:theme="@style/NoActionBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,10 +24,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PlanActivity"
+            android:name=".ui.PlanActivity"
             android:theme="@style/NoActionBarTheme"/>
         <activity
-            android:name=".ConfirmActivity"
+            android:name=".ui.ConfirmActivity"
             android:theme="@style/NoActionBarTheme"/>
     </application>
 

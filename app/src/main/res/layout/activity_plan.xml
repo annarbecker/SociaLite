@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
 
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.epicodus.socialite.PlanActivity">
+    tools:context=".ui.PlanActivity">
 
     <TextView
         android:layout_width="wrap_content"

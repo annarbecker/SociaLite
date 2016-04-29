@@ -2,6 +2,8 @@ package com.epicodus.socialite;
 
 import android.support.test.rule.ActivityTestRule;
 
+import com.epicodus.socialite.ui.MainActivity;
+
 import org.junit.Rule;
 import org.junit.Test;
 

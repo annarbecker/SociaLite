@@ -1,4 +1,4 @@
-package com.epicodus.socialite;
+package com.epicodus.socialite.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.epicodus.socialite.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
