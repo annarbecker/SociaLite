@@ -68,7 +68,7 @@ public class EventDetailFragment extends Fragment {
         mAddressLabel.setText(mEvent.getLocation());
         Picasso.with(mContext)
                 .load(mEvent.getImage())
-                .resize(200, 200)
+                .resize(400, 300)
                 .centerCrop()
                 .into(mImageLabel);
 
