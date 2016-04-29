@@ -3,7 +3,10 @@ package com.epicodus.socialite.ui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -42,6 +45,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.createButton) Button mCreateButton;
     @Bind(R.id.pickLocationButton) Button mPickLocationButton;
     @Bind(R.id.myLocation) AutoCompleteTextView mMyLocation;
+    @Bind(R.id.toolbar) Toolbar topToolBar;
 
     private ArrayList<String> inviteeArray = new ArrayList<String>();
     private String latLong;
@@ -56,10 +60,13 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_plan);
         ButterKnife.bind(this);
 
+        setTitle(null);
+        setSupportActionBar(topToolBar);
+        topToolBar.setLogoDescription(getResources().getString(R.string.logo_desc));
+
         mCreateButton.setOnClickListener(this);
         mInviteButton.setOnClickListener(this);
         mPickLocationButton.setOnClickListener(this);
-
         getEventImage();
     }
 
@@ -136,5 +143,32 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                     break;
             }
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if(id == R.id.action_add){
+            Intent intent = new Intent(PlanActivity.this, PlanActivity.class);
+            startActivity(intent);
+            Toast.makeText(PlanActivity.this, "Add", Toast.LENGTH_LONG).show();
+        }
+        if(id == R.id.action_view){
+            Intent intent = new Intent(PlanActivity.this, EventListActivity.class);
+            startActivity(intent);
+            Toast.makeText(PlanActivity.this, "View", Toast.LENGTH_LONG).show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -5,14 +5,14 @@
     tools:context=".MainActivity">
 
     <item android:id="@+id/action_add"
-        android:title="@string/action_refresh"
+        android:title="@string/action_add"
         android:icon="@drawable/ic_add_white_24dp"
-        android:orderInCategory="200"
+        android:orderInCategory="300"
         app:showAsAction="ifRoom" />
 
     <item android:id="@+id/action_view"
-        android:title="@string/action_new"
+        android:title="@string/action_view"
         android:icon="@drawable/ic_view_agenda_white_24dp"
-        android:orderInCategory="300"
+        android:orderInCategory="200"
         app:showAsAction="ifRoom" />
 </menu>

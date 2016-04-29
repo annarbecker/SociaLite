@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,6 +34,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     @Bind(R.id.userTimeTextView) TextView mUserTimeTextView;
     @Bind(R.id.listView) ListView mListView;
     @Bind(R.id.homeButton) Button mHomeButton;
+    @Bind(R.id.toolbar) Toolbar topToolBar;
 
     private String mLatLong;
     private Event newEvent;
@@ -41,6 +45,10 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm);
         ButterKnife.bind(this);
+
+        setTitle(null);
+        setSupportActionBar(topToolBar);
+        topToolBar.setLogoDescription(getResources().getString(R.string.logo_desc));
 
         newEvent = Parcels.unwrap(getIntent().getParcelableExtra("newEvent"));
 
@@ -74,5 +82,32 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + mLatLong + "?q=(" + newEvent.getLocation() + ")"));
             startActivity(mapIntent);
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if(id == R.id.action_add){
+            Intent intent = new Intent(ConfirmActivity.this, ConfirmActivity.class);
+            startActivity(intent);
+            Toast.makeText(ConfirmActivity.this, "Add", Toast.LENGTH_LONG).show();
+        }
+        if(id == R.id.action_view){
+            Intent intent = new Intent(ConfirmActivity.this, EventListActivity.class);
+            startActivity(intent);
+            Toast.makeText(ConfirmActivity.this, "View", Toast.LENGTH_LONG).show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

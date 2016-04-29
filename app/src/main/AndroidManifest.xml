@@ -26,10 +26,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.PlanActivity"/>
-        <activity android:name=".ui.ConfirmActivity"/>
-        <activity android:name=".ui.EventListActivity" />
-        <activity android:name=".ui.EventDetailActivity"/>
+        <activity
+            android:name=".ui.PlanActivity"
+            android:theme="@style/NoActionBarTheme"/>
+        <activity
+            android:name=".ui.ConfirmActivity"
+            android:theme="@style/NoActionBarTheme"/>
+        <activity
+            android:name=".ui.EventListActivity"
+            android:theme="@style/NoActionBarTheme"/>
+        <activity
+            android:name=".ui.EventDetailActivity"
+            android:theme="@style/NoActionBarTheme"/>
     </application>
 
 </manifest>
