@@ -78,10 +78,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(ConfirmActivity.this, "your event has been shared", Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
-        if(v == mUserLocationTextView) {
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + mLatLong + "?q=(" + newEvent.getLocation() + ")"));
-            startActivity(mapIntent);
-        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
