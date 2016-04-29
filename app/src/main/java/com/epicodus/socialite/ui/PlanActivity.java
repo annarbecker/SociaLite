@@ -98,7 +98,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case PLACE_PICKER_FLAG:
-                    Place place = PlacePicker.getPlace(data, this);
+                    Place place = PlacePicker.getPlace(this, data);
                     latLong = place.getLatLng().toString();
                     mMyLocation.setVisibility(View.VISIBLE);
                     mMyLocation.setText(place.getName() + ", " + place.getAddress());
