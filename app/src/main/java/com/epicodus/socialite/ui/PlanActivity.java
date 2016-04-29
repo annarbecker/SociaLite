@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -103,6 +104,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
             Event newEvent = new Event(event, location, date, time, inviteeArray, latLong, image);
             intent.putExtra("newEvent", Parcels.wrap(newEvent));
+            intent.putExtra("inviteeArray", TextUtils.join(", ", inviteeArray));
             startActivity(intent);
         }
         if(v == mInviteButton) {

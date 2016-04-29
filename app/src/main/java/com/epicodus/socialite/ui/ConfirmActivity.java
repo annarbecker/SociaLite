@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -62,12 +63,12 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         mUserLocationTextView.setOnClickListener(this);
 
         Picasso.with(ConfirmActivity.this).load(newEvent.getImage()).into(mImage);
+        Intent intent = getIntent();
+        String inviteesString = intent.getStringExtra("inviteeArray");
+        String[] inviteesList = inviteesString.split(", ");
 
-//        String inviteesString = intent.getStringExtra("inviteeArray");
-//        String[] inviteesList = inviteesString.split(", ");
-//
-//        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, inviteesList);
-//        mListView.setAdapter(adapter);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, inviteesList);
+        mListView.setAdapter(adapter);
     }
 
     @Override
@@ -99,7 +100,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         //noinspection SimplifiableIfStatement
         if(id == R.id.action_add){
-            Intent intent = new Intent(ConfirmActivity.this, ConfirmActivity.class);
+            Intent intent = new Intent(ConfirmActivity.this, PlanActivity.class);
             startActivity(intent);
             Toast.makeText(ConfirmActivity.this, "Add", Toast.LENGTH_LONG).show();
         }

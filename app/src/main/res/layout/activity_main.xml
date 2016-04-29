@@ -24,7 +24,7 @@
             android:minHeight="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="64dp">
+            android:layout_height="54dp">
         </android.support.v7.widget.Toolbar>
 
         <Button
