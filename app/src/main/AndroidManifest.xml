@@ -30,14 +30,18 @@
             android:name=".ui.PlanActivity"
             android:theme="@style/NoActionBarTheme"/>
         <activity
-            android:name=".ui.ConfirmActivity"
+             android:name=".ui.ConfirmActivity"
             android:theme="@style/NoActionBarTheme"/>
         <activity
-            android:name=".ui.EventListActivity"
-            android:theme="@style/NoActionBarTheme"/>
+             android:name=".ui.EventListActivity"
+            android:theme="@style/NoActionBarTheme" />
         <activity
-            android:name=".ui.EventDetailActivity"
-            android:theme="@style/NoActionBarTheme"/>
+             android:name=".ui.EventDetailActivity"
+            android:theme="@style/NoActionBarTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.epicodus.socialite.ui.EventListActivity" />
+        </activity>
     </application>
 
 </manifest>

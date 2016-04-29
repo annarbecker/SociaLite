@@ -1,9 +1,14 @@
 package com.epicodus.socialite.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.adapters.EventListAdapter;
@@ -22,6 +27,7 @@ public class EventListActivity extends AppCompatActivity {
     public static final String TAG = EventListActivity.class.getSimpleName();
     public ArrayList<Event> mEvents = new ArrayList<>();
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    @Bind(R.id.toolbar) Toolbar topToolBar;
     private EventListAdapter mAdapter;
 
     String[] allEventNames = new String[] {"Movie Night", "Beyonce Concert", "Brunch", "Hiking"};
@@ -35,6 +41,9 @@ public class EventListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_list);
         ButterKnife.bind(this);
+
+        setTitle(null);
+        setSupportActionBar(topToolBar);
 
         for (int i =0; i<allEventNames.length; i++) {
             Event event = new Event();
@@ -52,6 +61,27 @@ public class EventListActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new EventListAdapter(this, mEvents);
         mRecyclerView.setAdapter(mAdapter);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.action_add){
+            Intent intent = new Intent(EventListActivity.this, PlanActivity.class);
+            startActivity(intent);
+        }
+        if(id == R.id.action_view){
+            Intent intent = new Intent(EventListActivity.this, EventListActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 
