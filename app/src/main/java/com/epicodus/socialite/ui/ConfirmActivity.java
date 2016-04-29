@@ -50,7 +50,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm);
         ButterKnife.bind(this);
-        getEventImage();
+
 
         newEvent = (Event) Parcels.unwrap(getIntent().getParcelableExtra("newEvent"));
 
@@ -62,6 +62,10 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         mLocation = (newEvent.getLocation());
         mHomeButton.setOnClickListener(this);
         mUserLocationTextView.setOnClickListener(this);
+
+
+        Picasso.with(ConfirmActivity.this).load(newEvent.getImage()).into(mImage);
+
 
         Log.v(TAG, newEvent.getLocation());
 
@@ -88,28 +92,5 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void getEventImage() {
-        final UnsplashService unsplashService = new UnsplashService();
-        unsplashService.getPhotos(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                unsplashService.processPhotos(response);
-                final String eventImage = unsplashService.getImage();
-
-                ConfirmActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(mImage !=null) {
-                            Picasso.with(ConfirmActivity.this).load(eventImage).into(mImage);
-                        }
-                    }
-                });
-            }
-        });
-    }
 }

@@ -12,13 +12,17 @@ import android.widget.Toast;
 
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Event;
+import com.epicodus.socialite.services.UnsplashService;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +30,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class PlanActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String TAG = PlanActivity.class.getSimpleName();
@@ -42,6 +49,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<String> inviteeArray = new ArrayList<String>();
     private String latLong;
     private ArrayList<Event> events = new ArrayList<>();
+    public String image;
 
     private PlacePicker.IntentBuilder mBuilder;
     private static final int PLACE_PICKER_FLAG = 1;
@@ -56,6 +64,30 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         mCreateButton.setOnClickListener(this);
         mInviteButton.setOnClickListener(this);
         mPickLocationButton.setOnClickListener(this);
+
+        getEventImage();
+    }
+
+    private void getEventImage() {
+        final UnsplashService unsplashService = new UnsplashService();
+        unsplashService.getPhotos(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                unsplashService.processPhotos(response);
+                 image = unsplashService.getImage();
+
+                PlanActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -65,7 +97,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             String location = mMyLocation.getText().toString();
             String date = mDateEditText.getText().toString();
             String time = mTimeEditText.getText().toString();
-            String image = "";
+
 
             Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
             Event newEvent = new Event(event, location, date, time, inviteeArray, latLong, image);
