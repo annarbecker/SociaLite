@@ -1,6 +1,7 @@
 package com.epicodus.socialite.ui;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Event;
+import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
@@ -30,6 +32,7 @@ public class EventDetailFragment extends Fragment {
     @Bind(R.id.eventListButton) TextView mEventListButton;
 
     private Event mEvent;
+    private Context mContext;
 
     public static EventDetailFragment newInstance(Event event) {
         EventDetailFragment eventDetailFragment = new EventDetailFragment();
@@ -63,6 +66,11 @@ public class EventDetailFragment extends Fragment {
         mDateLabel.setText(mEvent.getDate());
         mTimeLabel.setText(mEvent.getTime());
         mAddressLabel.setText(mEvent.getLocation());
+        Picasso.with(mContext)
+                .load(mEvent.getImage())
+                .resize(200, 200)
+                .centerCrop()
+                .into(mImageLabel);
 
         return view;
     }

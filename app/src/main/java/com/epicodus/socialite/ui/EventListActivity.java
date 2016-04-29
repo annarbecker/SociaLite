@@ -37,7 +37,9 @@ public class EventListActivity extends AppCompatActivity {
     String[] allEventLocations = new String[] {
             "2284 NW Everett Street, Portland, OR 97203", "400 SW 6th Avenue, Portland, OR 97204", "10750 SW Wedgewood Street, Portland, OR 97225", "50000 Historic Columbia River Highway, Bridal Veil, OR 97010"
     };
-
+    String[] allEventImages = new String[] {
+            "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?crop=entropy&fit=crop&fm=jpg&h=825&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=875", "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?crop=entropy&fit=crop&fm=jpg&h=825&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=875", "https://images.unsplash.com/photo-1450152021501-598b36b17449?crop=entropy&fit=crop&fm=jpg&h=825&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=875", "https://images.unsplash.com/photo-1440431261965-1df24284dcff?crop=entropy&fit=crop&fm=jpg&h=825&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=875"
+    };
 
 
 
@@ -53,6 +55,7 @@ public class EventListActivity extends AppCompatActivity {
             event.setDate(allEventDates[i]);
             event.setTime(allEventTimes[i]);
             event.setLocation(allEventLocations[i]);
+            event.setImage(allEventImages[i]);
             mEvents.add(event);
         }
 

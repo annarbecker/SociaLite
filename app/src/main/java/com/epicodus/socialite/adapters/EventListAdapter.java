@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Event;
 import com.epicodus.socialite.ui.EventDetailActivity;
+import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
@@ -54,7 +55,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         @Bind(R.id.eventNameTextView) TextView mNameTextView;
         @Bind(R.id.dateTextView) TextView mDateTextView;
         @Bind(R.id.timeTextView) TextView mTimeTextView;
-        private Context mContext;
 
 
         public EventViewHolder(View itemView) {
@@ -79,6 +79,11 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
             mNameTextView.setText(event.getName());
             mDateTextView.setText(event.getDate());
             mTimeTextView.setText(event.getTime());
+            Picasso.with(mContext)
+                    .load(event.getImage())
+                    .resize(300, 300)
+                    .centerCrop()
+                    .into(mEventImageView);
         }
     }
 }

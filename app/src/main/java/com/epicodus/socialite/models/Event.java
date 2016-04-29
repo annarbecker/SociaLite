@@ -17,16 +17,18 @@ public class Event {
     private String mTime;
     private ArrayList<String> mInvitees;
     private String mLatLong;
+    private String mImage;
 
     public Event() {}
 
-    public Event (String name, String location, String date, String time, ArrayList<String> invitees, String latLong) {
+    public Event (String name, String location, String date, String time, ArrayList<String> invitees, String latLong, String image) {
         this.mName = name;
         this.mLocation = location;
         this.mDate = date;
         this.mTime = time;
         this.mInvitees = invitees;
         this.mLatLong = latLong;
+        this.mImage = image;
     }
 
     public String getName() {
@@ -49,11 +51,9 @@ public class Event {
         return mLatLong;
     }
 
-    public void setLatLong(String mLatLong) {
-        this.mLatLong = mLatLong;
+    public String getImage() {
+        return mImage;
     }
-
-
 
 //    public ArrayList<Person> getInvitees() {
 //        return mInvitees;
@@ -63,20 +63,24 @@ public class Event {
 //        this.mInvitees.add(invitee);
 //    }
 
-    public void setName(String mName) {
-        this.mName = mName;
+    public void setName(String name) {
+        this.mName = name;
     }
 
-    public void setDate(String mDate) {
-        this.mDate = mDate;
+    public void setDate(String date) {
+        this.mDate = date;
     }
 
-    public void setTime(String mTime) {
-        this.mTime = mTime;
+    public void setTime(String time) {
+        this.mTime = time;
     }
 
-    public void setLocation(String mLocation) {
-        this.mLocation = mLocation;
+    public void setLocation(String location) {
+        this.mLocation = location;
+    }
+
+    public void setImage(String image) {
+        this.mImage = image;
     }
 
 }

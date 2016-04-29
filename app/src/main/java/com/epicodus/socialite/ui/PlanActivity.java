@@ -65,9 +65,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             String location = mMyLocation.getText().toString();
             String date = mDateEditText.getText().toString();
             String time = mTimeEditText.getText().toString();
+            String image = "";
 
             Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
-            Event newEvent = new Event(event, location, date, time, inviteeArray, latLong);
+            Event newEvent = new Event(event, location, date, time, inviteeArray, latLong, image);
             intent.putExtra("newEvent", Parcels.wrap(newEvent));
             startActivity(intent);
 
