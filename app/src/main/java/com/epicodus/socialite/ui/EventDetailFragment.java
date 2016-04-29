@@ -35,7 +35,6 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
     @Bind(R.id.dateTextView) TextView mDateLabel;
     @Bind(R.id.timeTextView) TextView mTimeLabel;
     @Bind(R.id.addressTextView) TextView mAddressLabel;
-    @Bind(R.id.eventListButton) TextView mEventListButton;
 
     private Event mEvent;
     private Context mContext;
@@ -70,7 +69,6 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
                 .into(mImageLabel);
 
         mAddressLabel.setOnClickListener(this);
-        mEventListButton.setOnClickListener(this);
         mDateLabel.setOnClickListener(this);
 
         return view;
@@ -88,10 +86,6 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
             calendarIntent.putExtra(CalendarContract.Events.TITLE, mEvent.getName());
             calendarIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, mEvent.getLocation());
             startActivity(calendarIntent);
-        }
-        if(v == mEventListButton) {
-            Intent intent = new Intent(getActivity(), EventListActivity.class);
-            startActivity(intent);
         }
     }
 }
