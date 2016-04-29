@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setTitle(null);
         setSupportActionBar(topToolBar);
-        topToolBar.setLogo(R.drawable.icon);
         topToolBar.setLogoDescription(getResources().getString(R.string.logo_desc));
     }
 
@@ -66,14 +65,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if(id == R.id.action_add){
+            Intent intent = new Intent(MainActivity.this, PlanActivity.class);
+            startActivity(intent);
+            Toast.makeText(MainActivity.this, "Add", Toast.LENGTH_LONG).show();
         }
-        if(id == R.id.action_refresh){
-            Toast.makeText(MainActivity.this, "Refresh App", Toast.LENGTH_LONG).show();
-        }
-        if(id == R.id.action_new){
-            Toast.makeText(MainActivity.this, "Create Text", Toast.LENGTH_LONG).show();
+        if(id == R.id.action_view){
+            Intent intent = new Intent(MainActivity.this, EventListActivity.class);
+            startActivity(intent);
+            Toast.makeText(MainActivity.this, "View", Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -3,20 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
 
-    <item android:id="@+id/action_refresh"
+    <item android:id="@+id/action_add"
         android:title="@string/action_refresh"
-        android:icon="@drawable/cast_ic_notification_1"
+        android:icon="@drawable/ic_add_white_24dp"
         android:orderInCategory="200"
         app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/action_new"
+    <item android:id="@+id/action_view"
         android:title="@string/action_new"
-        android:icon="@drawable/ic_cast_dark"
+        android:icon="@drawable/ic_view_agenda_white_24dp"
         android:orderInCategory="300"
         app:showAsAction="ifRoom" />
 </menu>
