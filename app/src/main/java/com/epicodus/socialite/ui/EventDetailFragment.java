@@ -3,6 +3,7 @@ package com.epicodus.socialite.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventDetailFragment extends Fragment {
+public class EventDetailFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.eventImageView) ImageView mImageLabel;
     @Bind(R.id.eventNameTextView) TextView mNameLabel;
     @Bind(R.id.dateTextView) TextView mDateLabel;
@@ -46,13 +47,7 @@ public class EventDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mEvent = Parcels.unwrap(getArguments().getParcelable("event"));
-//        mEventListButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), EventListActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+
     }
 
     @Override
@@ -70,6 +65,21 @@ public class EventDetailFragment extends Fragment {
                 .centerCrop()
                 .into(mImageLabel);
 
+        mAddressLabel.setOnClickListener(this);
+        mEventListButton.setOnClickListener(this);
+
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == mAddressLabel) {
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + mEvent.getLatLong() + "?q=(" + mEvent.getLocation() + ")"));
+            startActivity(mapIntent);
+        }
+        if(v == mEventListButton) {
+            Intent intent = new Intent(getActivity(), EventListActivity.class);
+            startActivity(intent);
+        }
     }
 }
