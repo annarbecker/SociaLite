@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.textView) TextView mTextView;
     @Bind(R.id.viewEventsButton) Button mViewEventsButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

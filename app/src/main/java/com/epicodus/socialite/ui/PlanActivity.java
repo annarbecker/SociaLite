@@ -18,14 +18,11 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
-import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 import butterknife.Bind;
@@ -48,12 +45,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
     private ArrayList<String> inviteeArray = new ArrayList<String>();
     private String latLong;
-    private ArrayList<Event> events = new ArrayList<>();
     public String image;
 
     private PlacePicker.IntentBuilder mBuilder;
     private static final int PLACE_PICKER_FLAG = 1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,18 +93,17 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             String date = mDateEditText.getText().toString();
             String time = mTimeEditText.getText().toString();
 
-
             Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
             Event newEvent = new Event(event, location, date, time, inviteeArray, latLong, image);
             intent.putExtra("newEvent", Parcels.wrap(newEvent));
             startActivity(intent);
-
-        } if(v == mInviteButton) {
+        }
+        if(v == mInviteButton) {
             String invitee = mInviteeEditText.getText().toString();
             inviteeArray.add(invitee);
             mInviteeEditText.setText("");
-
-        } if(v == mPickLocationButton) {
+        }
+        if(v == mPickLocationButton) {
             try {
                 mBuilder = new PlacePicker.IntentBuilder();
                 Intent intent = mBuilder.build(PlanActivity.this);
