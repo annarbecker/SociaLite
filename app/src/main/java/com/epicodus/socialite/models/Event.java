@@ -55,6 +55,7 @@ public class Event {
         return mImage;
     }
 
+
 //    public ArrayList<Person> getInvitees() {
 //        return mInvitees;
 //    }
@@ -82,5 +83,7 @@ public class Event {
     public void setImage(String image) {
         this.mImage = image;
     }
+
+
 
 }

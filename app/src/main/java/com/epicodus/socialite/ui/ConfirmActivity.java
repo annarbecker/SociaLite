@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,18 +16,24 @@ import android.widget.Toast;
 
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Event;
+import com.epicodus.socialite.services.UnsplashService;
 import com.google.android.gms.maps.model.LatLng;
+import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class ConfirmActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String TAG = ConfirmActivity.class.getSimpleName();
-
+    @Bind(R.id.imageView) ImageView mImage;
     @Bind(R.id.userEventTextView) TextView mUserEventTextView;
     @Bind(R.id.userLocationTextView) TextView mUserLocationTextView;
     @Bind(R.id.userDateTextView) TextView mUserDateTextView;
@@ -43,6 +50,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm);
         ButterKnife.bind(this);
+        getEventImage();
 
         newEvent = (Event) Parcels.unwrap(getIntent().getParcelableExtra("newEvent"));
 
@@ -56,6 +64,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         mUserLocationTextView.setOnClickListener(this);
 
         Log.v(TAG, newEvent.getLocation());
+
 
 //        String inviteesString = intent.getStringExtra("inviteeArray");
 //        String[] inviteesList = inviteesString.split(", ");
@@ -77,5 +86,30 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + mLatLong + "?q=(" + newEvent.getLocation() + ")"));
             startActivity(mapIntent);
         }
+    }
+
+    private void getEventImage() {
+        final UnsplashService unsplashService = new UnsplashService();
+        unsplashService.getPhotos(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                unsplashService.processPhotos(response);
+                final String eventImage = unsplashService.getImage();
+
+                ConfirmActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(mImage !=null) {
+                            Picasso.with(ConfirmActivity.this).load(eventImage).into(mImage);
+                        }
+                    }
+                });
+            }
+        });
     }
 }

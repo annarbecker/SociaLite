@@ -19,6 +19,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildTypes.each {
+        it.buildConfigField 'String', 'UNSPLASH_API_KEY', UnsplashAPIKey
+    }
 }
 dependencies {
     apt 'org.parceler:parceler:1.1.1'
@@ -38,4 +41,5 @@ dependencies {
     compile 'com.android.support:support-v4:23.3.0'
     compile 'com.android.support:recyclerview-v7:+'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
 }
