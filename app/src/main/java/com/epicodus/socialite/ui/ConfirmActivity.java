@@ -27,6 +27,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
     private String mlatLong;
     private String event;
+    private String location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         Intent intent = getIntent();
         event = intent.getStringExtra("event");
-        String location = intent.getStringExtra("location");
+        location = intent.getStringExtra("location");
         String date = intent.getStringExtra("date");
         String time = intent.getStringExtra("time");
         mlatLong = intent.getStringExtra("latLong");
@@ -64,7 +65,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(ConfirmActivity.this, "your event has been shared", Toast.LENGTH_SHORT).show();
             startActivity(intent);
         } if(v == mUserLocationTextView) {
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + mlatLong + "?q=" + event + ""));
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + mlatLong + "?q=" + location + ""));
             startActivity(mapIntent);
         }
     }
