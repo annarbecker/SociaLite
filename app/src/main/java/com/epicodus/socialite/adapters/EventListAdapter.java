@@ -24,8 +24,6 @@ import butterknife.ButterKnife;
  * Created by arbecker on 4/28/16.
  */
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventViewHolder> {
-    private static final int MAX_WIDTH = 200;
-    private static final int MAX_HEIGHT = 200;
     public static final String TAG = EventListAdapter.class.getSimpleName();
     private ArrayList<Event> mEvents = new ArrayList<>();
     private Context mContext;

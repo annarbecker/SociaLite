@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     @Bind(R.id.makePlansButton) Button mMakePlansButton;
     @Bind(R.id.textView) TextView mTextView;
+    @Bind(R.id.viewEventsButton) Button mViewEventsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
 
         mMakePlansButton.setOnClickListener(this);
+        mViewEventsButton.setOnClickListener(this);
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/bario.ttf");
         mTextView.setTypeface(myCustomFont);
     }
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == mMakePlansButton) {
             Intent intent = new Intent(MainActivity.this, PlanActivity.class);
+            startActivity(intent);
+        }if (v == mViewEventsButton) {
+            Intent intent = new Intent(MainActivity.this, EventListActivity.class);
             startActivity(intent);
         }
     }

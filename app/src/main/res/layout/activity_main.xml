@@ -66,4 +66,18 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Events"
+        android:id="@+id/viewEventsButton"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimaryLight"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorTextIcons"
+        android:layout_above="@+id/makePlansButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp" />
+
 </RelativeLayout>

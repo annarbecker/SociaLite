@@ -29,6 +29,11 @@
         <activity
             android:name=".ui.ConfirmActivity"
             android:theme="@style/NoActionBarTheme"/>
+        <activity
+            android:name=".ui.EventListActivity"
+            android:theme="@style/NoActionBarTheme"/>
+        <activity android:name=".ui.EventDetailActivity"
+            android:theme="@style/NoActionBarTheme"/>
     </application>
 
 </manifest>

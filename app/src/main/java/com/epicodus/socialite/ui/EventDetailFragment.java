@@ -43,13 +43,13 @@ public class EventDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mEvent = Parcels.unwrap(getArguments().getParcelable("event"));
-        mEventListButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), EventListActivity.class);
-                startActivity(intent);
-            }
-        });
+//        mEventListButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), EventListActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
 

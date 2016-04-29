@@ -63,4 +63,20 @@ public class Event {
 //        this.mInvitees.add(invitee);
 //    }
 
+    public void setName(String mName) {
+        this.mName = mName;
+    }
+
+    public void setDate(String mDate) {
+        this.mDate = mDate;
+    }
+
+    public void setTime(String mTime) {
+        this.mTime = mTime;
+    }
+
+    public void setLocation(String mLocation) {
+        this.mLocation = mLocation;
+    }
+
 }
