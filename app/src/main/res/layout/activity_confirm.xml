@@ -109,7 +109,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="1dp"
         android:layout_marginTop="5dp" />
 
     <ListView
@@ -122,7 +122,7 @@
         android:layout_above="@id/homeButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="1dp"
         android:smoothScrollbar="false" />
 
     <TextView
