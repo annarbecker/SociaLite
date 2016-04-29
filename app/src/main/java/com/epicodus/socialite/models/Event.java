@@ -1,25 +1,32 @@
 package com.epicodus.socialite.models;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 
 /**
  * Created by arbecker on 4/28/16.
  */
-
+@Parcel
 public class Event {
     private String mName;
     private String mLocation;
     private String mDate;
     private String mTime;
-    private ArrayList<Person> mInvitees;
+    private ArrayList<String> mInvitees;
+    private String mLatLong;
 
+    public Event() {}
 
-    public Event (String name, String location, String date, String time) {
+    public Event (String name, String location, String date, String time, ArrayList<String> invitees, String latLong) {
         this.mName = name;
         this.mLocation = location;
         this.mDate = date;
         this.mTime = time;
-        this.mInvitees = new ArrayList<>();
+        this.mInvitees = invitees;
+        this.mLatLong = latLong;
     }
 
     public String getName() {
@@ -38,12 +45,22 @@ public class Event {
         return mTime;
     }
 
-    public ArrayList<Person> getInvitees() {
-        return mInvitees;
+    public String getLatLong() {
+        return mLatLong;
     }
 
-    public void addInvitee(Person invitee) {
-        this.mInvitees.add(invitee);
+    public void setLatLong(String mLatLong) {
+        this.mLatLong = mLatLong;
     }
+
+
+
+//    public ArrayList<Person> getInvitees() {
+//        return mInvitees;
+//    }
+
+//    public void addInvitee(Person invitee) {
+//        this.mInvitees.add(invitee);
+//    }
 
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,11 +14,19 @@ import android.widget.Toast;
 
 
 import com.epicodus.socialite.R;
+import com.epicodus.socialite.models.Event;
+import com.google.android.gms.maps.model.LatLng;
+
+import org.parceler.Parcels;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ConfirmActivity extends AppCompatActivity implements View.OnClickListener{
+    public static final String TAG = ConfirmActivity.class.getSimpleName();
+
     @Bind(R.id.userEventTextView) TextView mUserEventTextView;
     @Bind(R.id.userLocationTextView) TextView mUserLocationTextView;
     @Bind(R.id.userDateTextView) TextView mUserDateTextView;
@@ -25,9 +34,9 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     @Bind(R.id.listView) ListView mListView;
     @Bind(R.id.homeButton) Button mHomeButton;
 
-    private String mlatLong;
-    private String event;
-    private String location;
+    private String mLatLong;
+    private String mLocation;
+    private Event newEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,26 +44,26 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_confirm);
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-        event = intent.getStringExtra("event");
-        location = intent.getStringExtra("location");
-        String date = intent.getStringExtra("date");
-        String time = intent.getStringExtra("time");
-        mlatLong = intent.getStringExtra("latLong");
-        mUserEventTextView.setText(event);
-        mUserLocationTextView.setText(location);
-        mUserDateTextView.setText(date);
-        mUserTimeTextView.setText(time);
+        newEvent = (Event) Parcels.unwrap(getIntent().getParcelableExtra("newEvent"));
+
+        mUserEventTextView.setText(newEvent.getName());
+        mUserLocationTextView.setText(newEvent.getLocation());
+        mUserDateTextView.setText(newEvent.getDate());
+        mUserTimeTextView.setText(newEvent.getTime());
+        mLatLong = (newEvent.getLatLong());
+        mLocation = (newEvent.getLocation());
         mHomeButton.setOnClickListener(this);
         mUserLocationTextView.setOnClickListener(this);
 
-        String inviteesString = intent.getStringExtra("inviteeArray");
-        String[] inviteesList = inviteesString.split(", ");
+        Log.v(TAG, newEvent.getLocation());
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, inviteesList);
-        mListView.setAdapter(adapter);
+//        String inviteesString = intent.getStringExtra("inviteeArray");
+//        String[] inviteesList = inviteesString.split(", ");
+//
+//        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, inviteesList);
+//        mListView.setAdapter(adapter);
+
     }
-
 
 
     @Override
@@ -65,7 +74,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(ConfirmActivity.this, "your event has been shared", Toast.LENGTH_SHORT).show();
             startActivity(intent);
         } if(v == mUserLocationTextView) {
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + mlatLong + "?q=" + location + ""));
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + mLatLong + "?q=(" + newEvent.getLocation() + ")"));
             startActivity(mapIntent);
         }
     }
