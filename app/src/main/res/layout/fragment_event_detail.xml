@@ -36,27 +36,6 @@
                 android:textSize="20sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1:00pm"
-                android:id="@+id/timeTextView"
-                android:layout_alignTop="@+id/eventNameTextView"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="05/05/2016"
-                android:id="@+id/dateTextView"
-                android:layout_below="@+id/eventNameTextView"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:textColor="@color/colorTextSecondary" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -75,18 +54,47 @@
                 android:paddingTop="20dp"
                 android:paddingRight="30dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="123 SW Best Ever Ave. Portland, Oregon, 97222"
-                    android:drawableLeft="@android:drawable/ic_dialog_map"
-                    android:drawablePadding="4dp"
-                    android:id="@+id/addressTextView"
-                    android:textColor="@color/colorTextIcons"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center_vertical"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_perm_contact_calendar_white_24dp"
+                android:drawablePadding="4dp"
+                android:text="05/05/2016"
+                android:id="@+id/dateTextView"
+                android:textColor="@color/colorTextIcons"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_av_timer_white_24dp"
+                android:drawablePadding="4dp"
+                android:text="1:00pm"
+                android:id="@+id/timeTextView"
+                android:textColor="@color/colorTextIcons"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="123 SW Best Ever Ave. Portland, Oregon, 97222"
+                android:drawableLeft="@drawable/ic_directions_white_24dp"
+                android:drawablePadding="4dp"
+                android:id="@+id/addressTextView"
+                android:textColor="@color/colorTextIcons"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"
+                android:textIsSelectable="false" />
+
+
 
             </LinearLayout>
 

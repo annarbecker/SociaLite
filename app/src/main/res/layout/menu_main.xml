@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.epicodus.socialite.ui.EventListActivity">
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <item android:id="@+id/action_refresh"
+        android:title="@string/action_refresh"
+        android:icon="@drawable/ic_av_timer_white_24dp.png"
+        android:orderInCategory="200"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <item android:id="@+id/action_new"
+        android:title="@string/action_new"
+        android:src="@drawable/ic_av_timer_white_24dp.png"
+        android:orderInCategory="300"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</menu>

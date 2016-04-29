@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.epicodus.socialite">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
         android:allowBackup="true"
@@ -24,17 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.PlanActivity"
-            android:theme="@style/NoActionBarTheme"/>
-        <activity
-            android:name=".ui.ConfirmActivity"
-            android:theme="@style/NoActionBarTheme"/>
-        <activity
-            android:name=".ui.EventListActivity"
-            android:theme="@style/NoActionBarTheme"/>
-        <activity android:name=".ui.EventDetailActivity"
-            android:theme="@style/NoActionBarTheme"/>
+        <activity android:name=".ui.PlanActivity"/>
+        <activity android:name=".ui.ConfirmActivity"/>
+        <activity android:name=".ui.EventListActivity" />
+        <activity android:name=".ui.EventDetailActivity"/>
     </application>
 
 </manifest>

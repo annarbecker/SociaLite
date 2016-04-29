@@ -5,18 +5,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Event;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
+
+import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -67,6 +71,7 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
 
         mAddressLabel.setOnClickListener(this);
         mEventListButton.setOnClickListener(this);
+        mDateLabel.setOnClickListener(this);
 
         return view;
     }
@@ -76,6 +81,13 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
         if(v == mAddressLabel) {
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + mEvent.getLatLong() + "?q=(" + mEvent.getLocation() + ")"));
             startActivity(mapIntent);
+        }
+        if(v == mDateLabel) {
+            Intent calendarIntent = new Intent(Intent.ACTION_INSERT, CalendarContract.Events.CONTENT_URI);
+            calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, mEvent.getDate());
+            calendarIntent.putExtra(CalendarContract.Events.TITLE, mEvent.getName());
+            calendarIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, mEvent.getLocation());
+            startActivity(calendarIntent);
         }
         if(v == mEventListButton) {
             Intent intent = new Intent(getActivity(), EventListActivity.class);
