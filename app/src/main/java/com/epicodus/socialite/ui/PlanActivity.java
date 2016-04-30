@@ -107,9 +107,11 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
         if(v == mInviteButton) {
-            String invitee = mInviteeEditText.getText().toString();
-            inviteeArray.add(invitee);
-            mInviteeEditText.setText("");
+//            String invitee = mInviteeEditText.getText().toString();
+//            inviteeArray.add(invitee);
+//            mInviteeEditText.setText("");
+            Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
+            startActivity(intent);
         }
         if(v == mPickLocationButton) {
             try {

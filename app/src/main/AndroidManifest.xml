@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.epicodus.socialite">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
 
     <application
         android:allowBackup="true"
@@ -16,31 +19,42 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAX3Atb6BKqolX3c_v8UMJZf2O2IzSntBo"/>
+            android:value="AIzaSyAX3Atb6BKqolX3c_v8UMJZf2O2IzSntBo" />
+
         <activity
             android:name=".ui.MainActivity"
             android:theme="@style/NoActionBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.PlanActivity"
-            android:theme="@style/NoActionBarTheme"/>
-        <activity
-             android:name=".ui.ConfirmActivity"
-            android:theme="@style/NoActionBarTheme"/>
-        <activity
-             android:name=".ui.EventListActivity"
             android:theme="@style/NoActionBarTheme" />
         <activity
-             android:name=".ui.EventDetailActivity"
+            android:name=".ui.ConfirmActivity"
+            android:theme="@style/NoActionBarTheme" />
+        <activity
+            android:name=".ui.EventListActivity"
+            android:theme="@style/NoActionBarTheme" />
+        <activity
+            android:name=".ui.EventDetailActivity"
             android:theme="@style/NoActionBarTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.epicodus.socialite.ui.EventListActivity" />
+        </activity>
+        <activity android:name=".ui.SearchContactsActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+            <intent-filter>
+            <action
+                android:name="android.intent.action.SEARCH"
+                android:launchMode="singleTop"/>
+            </intent-filter>
         </activity>
     </application>
 
