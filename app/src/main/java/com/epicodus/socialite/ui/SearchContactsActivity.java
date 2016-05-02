@@ -3,15 +3,20 @@ package com.epicodus.socialite.ui;
 /**
  * Created by arbecker on 4/29/16.
  */
-import android.app.Activity;
+import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+
 import android.view.Menu;
-import android.widget.SearchView;
+import android.support.v7.widget.SearchView;
+import android.widget.Toast;
 
 import com.epicodus.socialite.R;
 
@@ -33,6 +38,46 @@ public class SearchContactsActivity extends AppCompatActivity {
 
         if (getIntent() != null) {
             handleIntent(getIntent());
+        }
+
+        if (weHavePermissionToReadContacts()) {
+            readTheContacts();
+        } else {
+            requestReadContactsPermissionFirst();
+        }
+    }
+
+    private boolean weHavePermissionToReadContacts() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void readTheContacts() {
+        ContactsContract.Contacts.getLookupUri(getContentResolver(), ContactsContract.Contacts.CONTENT_URI);
+    }
+
+    private void requestReadContactsPermissionFirst() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
+            Toast.makeText(this, "We need permission so you can text your friends.", Toast.LENGTH_LONG).show();
+            requestForResultContactsPermission();
+        } else {
+            requestForResultContactsPermission();
+        }
+    }
+
+    private void requestForResultContactsPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, 123);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 123
+                && grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+            readTheContacts();
+        } else {
+            Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -72,10 +117,8 @@ public class SearchContactsActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search, menu);
         // Associate searchable configuration with the SearchView
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.search).getActionView();
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
 
