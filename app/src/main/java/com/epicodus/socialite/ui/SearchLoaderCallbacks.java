@@ -11,12 +11,18 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.epicodus.socialite.R;
 
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,16 +32,20 @@ import butterknife.ButterKnife;
  */
 public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Cursor> {
     private HashMap<String, String> contact = new HashMap<>();
-
-    Context mContext;
+    private Context mContext;
     public static final String QUERY_KEY = "query";
     public static final String TAG = "SearchLoaderCallbacks";
+    private List<String> names = new ArrayList<String>();
+//    private List<String> phones = new ArrayList<String>();
+
+
     public SearchLoaderCallbacks(Context context) {
         mContext = context;
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int loaderIndex, Bundle args) {
+
         String query = args.getString(QUERY_KEY);
         Uri uri = Uri.withAppendedPath(
                 ContactsContract.CommonDataKinds.Contactables.CONTENT_FILTER_URI, query);
@@ -55,6 +65,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
     @Override
     public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
         final TextView tv  = (TextView) ((Activity)mContext).findViewById(R.id.sample_output);
+
         if(tv == null) {
             Log.e(TAG, "TextView null");
         } else if (mContext == null) {
@@ -89,16 +100,16 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
             String currentLookupKey = cursor.getString(lookupColumnIndex);
             if (!lookupKey.equals(currentLookupKey)) {
                 String displayName = cursor.getString(nameColumnIndex);
-                tv.append("\n" + displayName + "\n");
+                names.add(displayName);
                 lookupKey = currentLookupKey;
             }
 
-            String mimeType = cursor.getString(typeColumnIndex);
-            if (mimeType.equals(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)) {
-                tv.append("\tPhone Number: " + cursor.getString(phoneColumnIndex) + "\n");
-            } else if (mimeType.equals(ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)) {
-                tv.append("\tEmail Address: " + cursor.getString(emailColumnIndex) + "\n");
-            }
+//            String mimeType = cursor.getString(typeColumnIndex);
+//            if (mimeType.equals(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)) {
+//                phones.add("\tPhone Number: " + cursor.getString(phoneColumnIndex));
+//            } else if (mimeType.equals(ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)) {
+//                phones.add("\tEmail Address: " + cursor.getString(emailColumnIndex) + "\n");
+//            }
 
             for(String column : cursor.getColumnNames()) {
                 Log.d(TAG, column + column + ": " +
@@ -115,7 +126,20 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
             }
 
         } while (cursor.moveToNext());
+
+        final ListView mListView = (ListView) ((Activity)mContext).findViewById(R.id.listView2);
+
+        ArrayAdapter adapter = new ArrayAdapter(mContext, android.R.layout.simple_list_item_1, names);
+        mListView.setAdapter(adapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            }
+        });
     }
+
+
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
