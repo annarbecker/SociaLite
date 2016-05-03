@@ -109,12 +109,12 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
                 lookupKey = currentLookupKey;
             }
 
-//            String mimeType = cursor.getString(typeColumnIndex);
-//            if (mimeType.equals(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)) {
-//                phones.add("\tPhone Number: " + cursor.getString(phoneColumnIndex));
-//            } else if (mimeType.equals(ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)) {
-//                phones.add("\tEmail Address: " + cursor.getString(emailColumnIndex) + "\n");
-//            }
+            String mimeType = cursor.getString(typeColumnIndex);
+            if (mimeType.equals(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)) {
+                phoneNumber = cursor.getString(phoneColumnIndex);
+            } else if (mimeType.equals(ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)) {
+                phoneNumber = null;
+            }
 
             for(String column : cursor.getColumnNames()) {
                 Log.d(TAG, column + column + ": " +
