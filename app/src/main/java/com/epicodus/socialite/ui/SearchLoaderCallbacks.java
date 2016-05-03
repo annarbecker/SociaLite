@@ -84,16 +84,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
             return;
         }
 
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, " CONTACT CLICKED!" + tv.getText().toString());
-
-            }
-        });
-
         int phoneColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-        int emailColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS);
         int nameColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Contactables.DISPLAY_NAME);
         int lookupColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Contactables.LOOKUP_KEY);
         int typeColumnIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Contactables.MIMETYPE);
@@ -112,7 +103,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
             String mimeType = cursor.getString(typeColumnIndex);
             if (mimeType.equals(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)) {
                 phoneNumber = cursor.getString(phoneColumnIndex);
-            } else if (mimeType.equals(ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)) {
+            } else {
                 phoneNumber = null;
             }
 

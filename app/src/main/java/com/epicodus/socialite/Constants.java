@@ -12,7 +12,4 @@ public class Constants {
     public static final String FIREBASE_URL_EVENT = FIREBASE_URL + "/" + FIREBASE_EVENT_NEW;
     public static final String FIREBASE_PERSON_NEW = "person";
     public static final String FIREBASE_URL_PERSON = FIREBASE_URL + "/" + FIREBASE_PERSON_NEW;
-
-
-
 }
