@@ -15,8 +15,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.epicodus.socialite.R;
+import com.epicodus.socialite.models.Person;
 
 
 import java.util.ArrayList;
@@ -36,7 +38,8 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
     public static final String QUERY_KEY = "query";
     public static final String TAG = "SearchLoaderCallbacks";
     private List<String> names = new ArrayList<String>();
-//    private List<String> phones = new ArrayList<String>();
+    private String displayName;
+    private String phoneNumber;
 
 
     public SearchLoaderCallbacks(Context context) {
@@ -99,7 +102,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
         do {
             String currentLookupKey = cursor.getString(lookupColumnIndex);
             if (!lookupKey.equals(currentLookupKey)) {
-                String displayName = cursor.getString(nameColumnIndex);
+                displayName = cursor.getString(nameColumnIndex);
                 names.add(displayName);
                 lookupKey = currentLookupKey;
             }
@@ -135,6 +138,9 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Person newContact = new Person(displayName, phoneNumber);
+                String person = ((TextView)view).getText().toString();
+                Toast.makeText(mContext, person + "added to event", Toast.LENGTH_SHORT).show();
             }
         });
     }
