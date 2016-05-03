@@ -4,55 +4,54 @@ import com.google.android.gms.maps.model.LatLng;
 
 import org.parceler.Parcel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by arbecker on 4/28/16.
  */
 @Parcel
 public class Event {
-    private String mName;
-    private String mLocation;
-    private String mDate;
-    private String mTime;
-    private ArrayList<String> mInvitees;
-    private String mLatLong;
-    private String mImage;
+    private String name;
+    private String location;
+    private String date;
+    private String time;
+    private List<String> invitees;
+    private String latLong;
+    private String image;
 
     public Event() {}
 
-    public Event (String name, String location, String date, String time, ArrayList<String> invitees, String latLong, String image) {
-        this.mName = name;
-        this.mLocation = location;
-        this.mDate = date;
-        this.mTime = time;
-        this.mInvitees = invitees;
-        this.mLatLong = latLong;
-        this.mImage = image;
+    public Event (String name, String location, String date, String time, String latLong, String image) {
+        this.name = name;
+        this.location = location;
+        this.date = date;
+        this.time = time;
+        this.latLong = latLong;
+        this.image = image;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public String getLocation() {
-        return mLocation;
+        return location;
     }
 
     public String getDate() {
-        return mDate;
+        return date;
     }
 
     public String getTime() {
-        return mTime;
+        return time;
     }
 
     public String getLatLong() {
-        return mLatLong;
+        return latLong;
     }
 
     public String getImage() {
-        return mImage;
+        return image;
     }
 
 
@@ -65,23 +64,23 @@ public class Event {
 //    }
 
     public void setName(String name) {
-        this.mName = name;
+        this.name = name;
     }
 
     public void setDate(String date) {
-        this.mDate = date;
+        this.date = date;
     }
 
     public void setTime(String time) {
-        this.mTime = time;
+        this.time = time;
     }
 
     public void setLocation(String location) {
-        this.mLocation = location;
+        this.location = location;
     }
 
     public void setImage(String image) {
-        this.mImage = image;
+        this.image = image;
     }
 
 

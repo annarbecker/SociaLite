@@ -14,9 +14,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Event;
 import com.epicodus.socialite.services.UnsplashService;
+import com.firebase.client.Firebase;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -51,6 +53,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<String> inviteeArray = new ArrayList<String>();
     private String latLong;
     public String image;
+    private Event mEvent;
 
     private PlacePicker.IntentBuilder mBuilder;
     private static final int PLACE_PICKER_FLAG = 1;
@@ -101,15 +104,20 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             String time = mTimeEditText.getText().toString();
 
             Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
-            Event newEvent = new Event(event, location, date, time, inviteeArray, latLong, image);
+            Event newEvent = new Event(event, location, date, time, latLong, image);
             intent.putExtra("newEvent", Parcels.wrap(newEvent));
             intent.putExtra("inviteeArray", TextUtils.join(", ", inviteeArray));
             startActivity(intent);
+
+            Firebase ref = new Firebase(Constants.FIREBASE_URL_EVENT);
+            ref.push().setValue(newEvent);
+            Toast.makeText(PlanActivity.this, "Event Saved", Toast.LENGTH_SHORT).show();
         }
         if(v == mInviteButton) {
 //            String invitee = mInviteeEditText.getText().toString();
 //            inviteeArray.add(invitee);
 //            mInviteeEditText.setText("");
+
             Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
             startActivity(intent);
         }
@@ -130,6 +138,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);

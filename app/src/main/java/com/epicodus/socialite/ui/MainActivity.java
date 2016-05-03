@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,7 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,6 +28,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.textView) TextView mTextView;
     @Bind(R.id.viewEventsButton) Button mViewEventsButton;
     @Bind(R.id.toolbar) Toolbar topToolBar;
+
+    private Firebase mSavedEventRef;
+    private ValueEventListener mSavedEventRefListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +46,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setTitle(null);
         setSupportActionBar(topToolBar);
+
+        mSavedEventRef = new Firebase(Constants.FIREBASE_URL_EVENT);
+
+        mSavedEventRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String events = dataSnapshot.getValue().toString();
+                Log.d("Events added", events);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSavedEventRef.removeEventListener(mSavedEventRefListener);
     }
 
     @Override
