@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mSavedEventRef = new Firebase(Constants.FIREBASE_URL_EVENT);
 
-        mSavedEventRef.addValueEventListener(new ValueEventListener() {
+        mSavedEventRefListener = mSavedEventRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String events = dataSnapshot.getValue().toString();
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, PlanActivity.class);
             startActivity(intent);
         }if (v == mViewEventsButton) {
-            Intent intent = new Intent(MainActivity.this, EventListActivity.class);
+            Intent intent = new Intent(MainActivity.this, SavedEventsActivity.class);
             startActivity(intent);
         }
     }
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
         if(id == R.id.action_view){
-            Intent intent = new Intent(MainActivity.this, EventListActivity.class);
+            Intent intent = new Intent(MainActivity.this, SavedEventsActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

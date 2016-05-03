@@ -172,7 +172,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
         if(id == R.id.action_view){
-            Intent intent = new Intent(PlanActivity.this, EventListActivity.class);
+            Intent intent = new Intent(PlanActivity.this, SavedEventsActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

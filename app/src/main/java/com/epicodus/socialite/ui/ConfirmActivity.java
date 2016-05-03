@@ -95,7 +95,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(intent);
         }
         if(id == R.id.action_view){
-            Intent intent = new Intent(ConfirmActivity.this, EventListActivity.class);
+            Intent intent = new Intent(ConfirmActivity.this, SavedEventsActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
