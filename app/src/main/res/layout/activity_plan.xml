@@ -55,8 +55,10 @@
         android:layout_toStartOf="@+id/inviteButton" />
 
     <Button
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="80dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="invite"
         android:background="@color/colorPrimaryLight"
@@ -65,9 +67,8 @@
         android:padding="3dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:layout_alignBottom="@+id/inviteeEditText"
-        android:layout_alignRight="@+id/eventEditText"
-        android:layout_alignEnd="@+id/eventEditText" />
+        android:layout_alignTop="@+id/inviteeEditText"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_marginLeft="@dimen/activity_horizontal_margin"

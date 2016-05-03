@@ -17,8 +17,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Person;
+import com.firebase.client.Firebase;
 
 
 import java.util.ArrayList;
@@ -140,7 +142,11 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Person newContact = new Person(displayName, phoneNumber);
                 String person = ((TextView)view).getText().toString();
-                Toast.makeText(mContext, person + "added to event", Toast.LENGTH_SHORT).show();
+
+                Firebase ref = new Firebase(Constants.FIREBASE_URL_PERSON);
+                ref.push().setValue(newContact);
+                Toast.makeText(mContext, person + " saved to DB", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

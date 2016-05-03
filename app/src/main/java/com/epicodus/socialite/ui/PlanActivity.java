@@ -41,7 +41,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     public static final String TAG = PlanActivity.class.getSimpleName();
 
     @Bind(R.id.eventEditText) EditText mEventEditText;
-    @Bind(R.id.inviteeEditText) EditText mInviteeEditText;
     @Bind(R.id.inviteButton) Button mInviteButton;
     @Bind(R.id.dateEditText) EditText mDateEditText;
     @Bind(R.id.timeEditText) EditText mTimeEditText;
@@ -50,10 +49,8 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.myLocation) AutoCompleteTextView mMyLocation;
     @Bind(R.id.toolbar) Toolbar topToolBar;
 
-    private ArrayList<String> inviteeArray = new ArrayList<String>();
     private String latLong;
     public String image;
-    private Event mEvent;
 
     private PlacePicker.IntentBuilder mBuilder;
     private static final int PLACE_PICKER_FLAG = 1;
@@ -106,7 +103,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
             Event newEvent = new Event(event, location, date, time, latLong, image);
             intent.putExtra("newEvent", Parcels.wrap(newEvent));
-            intent.putExtra("inviteeArray", TextUtils.join(", ", inviteeArray));
             startActivity(intent);
 
             Firebase ref = new Firebase(Constants.FIREBASE_URL_EVENT);
@@ -114,10 +110,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(PlanActivity.this, "Event Saved", Toast.LENGTH_SHORT).show();
         }
         if(v == mInviteButton) {
-//            String invitee = mInviteeEditText.getText().toString();
-//            inviteeArray.add(invitee);
-//            mInviteeEditText.setText("");
-
             Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
             startActivity(intent);
         }
@@ -125,7 +117,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             try {
                 mBuilder = new PlacePicker.IntentBuilder();
                 Intent intent = mBuilder.build(PlanActivity.this);
-                // Start the Intent by requesting a result, identified by a request code.
                 startActivityForResult(intent, PLACE_PICKER_FLAG);
 
             } catch (GooglePlayServicesRepairableException e) {
@@ -158,7 +149,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
