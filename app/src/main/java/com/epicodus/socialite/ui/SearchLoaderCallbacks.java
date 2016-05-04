@@ -5,9 +5,11 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
@@ -43,6 +45,8 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
     private List<String> names = new ArrayList<String>();
     private String displayName;
     private String phoneNumber;
+    private SharedPreferences mSharedPreferences;
+    private String mEvent;
 
 
     public SearchLoaderCallbacks(Context context) {
@@ -66,11 +70,17 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
                 selection, // selection - Which rows to return (condition rows must match)
                 null,      // selection args - can be provided separately and subbed into selection.
                 sortBy);   // string specifying sort order
+
+
+
     }
+
 
     @Override
     public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
         final TextView tv  = (TextView) ((Activity)mContext).findViewById(R.id.sample_output);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        mEvent = mSharedPreferences.getString(Constants.PREFERENCES_EVENT, null);
 
         if(tv == null) {
             Log.e(TAG, "TextView null");
@@ -134,7 +144,8 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String name = ((TextView)view).getText().toString();
                 String phone = phones.get(name);
-                Person newContact = new Person(name, phone);
+                String event = mEvent;
+                Person newContact = new Person(name, phone, event);
 
                 Firebase ref = new Firebase(Constants.FIREBASE_URL_PERSON);
                 ref.push().setValue(newContact);

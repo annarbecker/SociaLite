@@ -62,12 +62,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         mUserLocationTextView.setOnClickListener(this);
 
         Picasso.with(ConfirmActivity.this).load(newEvent.getImage()).into(mImage);
-        Intent intent = getIntent();
-        String inviteesString = intent.getStringExtra("inviteeArray");
-        String[] inviteesList = inviteesString.split(", ");
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, inviteesList);
-        mListView.setAdapter(adapter);
     }
 
     @Override

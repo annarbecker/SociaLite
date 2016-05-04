@@ -1,6 +1,8 @@
 package com.epicodus.socialite.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -55,6 +57,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     private PlacePicker.IntentBuilder mBuilder;
     private static final int PLACE_PICKER_FLAG = 1;
 
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +69,9 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
         setTitle(null);
         setSupportActionBar(topToolBar);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
 
         mCreateButton.setOnClickListener(this);
         mInviteButton.setOnClickListener(this);
@@ -111,6 +120,8 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(v == mInviteButton) {
             Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
+            String event = mEventEditText.getText().toString();
+            addToSharedPreferences(event);
             startActivity(intent);
         }
         if(v == mPickLocationButton) {
@@ -166,5 +177,9 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void addToSharedPreferences(String location) {
+        mEditor.putString(Constants.PREFERENCES_EVENT, location).apply();
     }
 }
