@@ -4,20 +4,20 @@ package com.epicodus.socialite.models;
  * Created by arbecker on 4/28/16.
  */
 public class Person {
-    private String mName;
-    private String mNumber;
+    public String name;
+    public String number;
 
 
     public Person(String name, String number) {
-        this.mName = name;
-        this.mNumber = number;
+        this.name = name;
+        this.number = number;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public String getNumber() {
-        return mNumber;
+        return number;
     }
 }

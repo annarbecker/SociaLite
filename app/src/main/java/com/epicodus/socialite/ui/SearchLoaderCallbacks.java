@@ -36,6 +36,7 @@ import butterknife.ButterKnife;
  */
 public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Cursor> {
     private HashMap<String, String> contact = new HashMap<>();
+    private HashMap<String, String> phones = new HashMap<>();
     private Context mContext;
     public static final String QUERY_KEY = "query";
     public static final String TAG = "SearchLoaderCallbacks";
@@ -103,6 +104,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
             String mimeType = cursor.getString(typeColumnIndex);
             if (mimeType.equals(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)) {
                 phoneNumber = cursor.getString(phoneColumnIndex);
+                phones.put(displayName, phoneNumber);
             } else {
                 phoneNumber = null;
             }
@@ -131,13 +133,14 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Person newContact = new Person(displayName, phoneNumber);
-                String person = ((TextView)view).getText().toString();
+                String name = ((TextView)view).getText().toString();
+                String phone = phones.get(name);
+                Person newContact = new Person(name, phone);
 
                 Firebase ref = new Firebase(Constants.FIREBASE_URL_PERSON);
                 ref.push().setValue(newContact);
-                Toast.makeText(mContext, person + " saved to DB", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(mContext, name + " saved to DB", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, phone + " saved to DB", Toast.LENGTH_SHORT).show();
             }
         });
     }

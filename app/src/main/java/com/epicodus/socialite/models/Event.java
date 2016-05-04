@@ -11,13 +11,13 @@ import java.util.List;
  */
 @Parcel
 public class Event {
-    private String name;
-    private String location;
-    private String date;
-    private String time;
-    private List<String> invitees;
-    private String latLong;
-    private String image;
+    public String name;
+    public String location;
+    public String date;
+    public String time;
+    public List<String> invitees;
+    public String latLong;
+    public String image;
 
     public Event() {}
 
