@@ -122,7 +122,6 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
                 Log.d(TAG, contact.get("Name") + "");
                 Log.d(TAG, contact.get("Phone") + "");
             }
-
         } while (cursor.moveToNext());
 
         final ListView mListView = (ListView) ((Activity)mContext).findViewById(R.id.listView2);
@@ -139,13 +138,10 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
 
                 Firebase ref = new Firebase(Constants.FIREBASE_URL_PERSON);
                 ref.push().setValue(newContact);
-                Toast.makeText(mContext, name + " saved to DB", Toast.LENGTH_SHORT).show();
-                Toast.makeText(mContext, phone + " saved to DB", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, name + phone + " saved to DB", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
