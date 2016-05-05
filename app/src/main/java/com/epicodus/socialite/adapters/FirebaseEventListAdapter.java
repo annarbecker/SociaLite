@@ -13,9 +13,9 @@ import com.firebase.client.Query;
  * Created by arbecker on 5/2/16.
  */
 
-public class FirebaseEventAdapter extends FirebaseRecyclerAdapter<EventViewHolder, Event> {
+public class FirebaseEventListAdapter extends FirebaseRecyclerAdapter<EventViewHolder, Event> {
 
-    public FirebaseEventAdapter(Query query, Class<Event> itemClass) {
+    public FirebaseEventListAdapter(Query query, Class<Event> itemClass) {
         super(query, itemClass);
     }
 
