@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="invite"
-        android:background="@color/colorPrimaryLight"
+        android:background="@color/colorAccent"
         android:textColor="@color/colorTextIcons"
         android:id="@+id/inviteButton"
         android:padding="3dp"
@@ -105,7 +105,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pick Location"
-        android:background="@color/colorPrimaryLight"
+        android:background="@color/colorAccent"
         android:textColor="@color/colorTextIcons"
         android:id="@+id/pickLocationButton"
         android:padding="3dp"
@@ -113,7 +113,8 @@
         android:paddingRight="15dp"
         android:layout_below="@+id/timeEditText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"/>
 
     <AutoCompleteTextView
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -121,7 +122,6 @@
         android:id="@+id/myLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Event Location"
         android:inputType="textMultiLine"
         android:visibility="invisible"
         android:layout_below="@+id/pickLocationButton"
@@ -139,6 +139,6 @@
         android:textStyle="bold"
         android:textColor="@color/colorTextIcons"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

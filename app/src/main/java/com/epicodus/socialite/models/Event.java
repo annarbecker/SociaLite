@@ -18,6 +18,8 @@ public class Event {
     public List<String> invitees;
     public String latLong;
     public String image;
+    public String pushId;
+
 
     public Event() {}
 
@@ -83,6 +85,13 @@ public class Event {
         this.image = image;
     }
 
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
 
 
 }

@@ -7,6 +7,7 @@ public class Person {
     public String name;
     public String number;
     public String event;
+    public String pushId;
 
 
     public Person(String name, String number, String event) {
@@ -25,5 +26,13 @@ public class Person {
 
     public String getEvent() {
         return event;
+    }
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
     }
 }

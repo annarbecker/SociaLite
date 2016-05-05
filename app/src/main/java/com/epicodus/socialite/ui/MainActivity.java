@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.toolbar) Toolbar topToolBar;
 
     private Firebase mSavedEventRef;
+    private Firebase mFirebaseRef;
     private ValueEventListener mSavedEventRefListener;
 
 
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(topToolBar);
 
         mSavedEventRef = new Firebase(Constants.FIREBASE_URL_EVENT);
+        mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
 
         mSavedEventRefListener = mSavedEventRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,7 +85,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_logout, menu);
+        inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -98,6 +103,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, SavedEventsActivity.class);
             startActivity(intent);
         }
+        if (id == R.id.action_logout) {
+            logout();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void logout() {
+        mFirebaseRef.unauth();
+        takeUserToLoginScreenOnUnAuth();
+    }
+
+    private void takeUserToLoginScreenOnUnAuth() {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }
