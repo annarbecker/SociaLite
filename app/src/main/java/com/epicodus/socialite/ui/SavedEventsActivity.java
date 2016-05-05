@@ -1,6 +1,8 @@
 package com.epicodus.socialite.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,10 +23,12 @@ import butterknife.ButterKnife;
 
 public class SavedEventsActivity extends AppCompatActivity {
     private Query mQuery;
-    private Firebase mFirebaseRestaurantsRef;
+    private Firebase mFirebaseEventsRef;
     private FirebaseEventListAdapter mAdapter;
     @Bind(R.id.toolbar) Toolbar topToolBar;
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    private SharedPreferences mSharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +39,18 @@ public class SavedEventsActivity extends AppCompatActivity {
         setTitle(null);
         setSupportActionBar(topToolBar);
 
-        mFirebaseRestaurantsRef = new Firebase(Constants.FIREBASE_URL_EVENT);
+        mFirebaseEventsRef = new Firebase(Constants.FIREBASE_URL_EVENT);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         setUpFirebaseQuery();
         setUpRecyclerView();
     }
 
+
     private void setUpFirebaseQuery() {
-        String location = mFirebaseRestaurantsRef.toString();
-        mQuery = new Firebase(location);
+        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        String event = mFirebaseEventsRef.child(userUid).toString();
+        mQuery = new Firebase(event);
     }
 
     private void setUpRecyclerView() {

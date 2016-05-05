@@ -108,15 +108,19 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             String location = mMyLocation.getText().toString();
             String date = mDateEditText.getText().toString();
             String time = mTimeEditText.getText().toString();
+            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
             Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
             Event newEvent = new Event(event, location, date, time, latLong, image);
             intent.putExtra("newEvent", Parcels.wrap(newEvent));
             startActivity(intent);
 
-            Firebase ref = new Firebase(Constants.FIREBASE_URL_EVENT);
-            ref.push().setValue(newEvent);
-            Toast.makeText(PlanActivity.this, "Event Saved", Toast.LENGTH_SHORT).show();
+            String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+            Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_EVENT).child(userUid);
+            Firebase pushRef = userEventsFirebaseRef.push();
+            String eventPushId = pushRef.getKey();
+            newEvent.setPushId(eventPushId);
+            pushRef.setValue(newEvent);
         }
         if(v == mInviteButton) {
             Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);

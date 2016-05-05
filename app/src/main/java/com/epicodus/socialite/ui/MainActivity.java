@@ -1,7 +1,9 @@
 package com.epicodus.socialite.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
+import com.epicodus.socialite.models.User;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -25,14 +28,20 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+    public static final String TAG = MainActivity.class.getSimpleName();
     @Bind(R.id.makePlansButton) Button mMakePlansButton;
     @Bind(R.id.textView) TextView mTextView;
     @Bind(R.id.viewEventsButton) Button mViewEventsButton;
     @Bind(R.id.toolbar) Toolbar topToolBar;
+    @Bind(R.id.welcomeTextView)TextView mWelcomeTextView;
 
     private Firebase mSavedEventRef;
     private Firebase mFirebaseRef;
     private ValueEventListener mSavedEventRefListener;
+    private String mUId;
+    private Firebase mUserRef;
+    private SharedPreferences mSharedPreferences;
+    private ValueEventListener mUserRefListener;
 
 
     @Override
@@ -40,6 +49,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mUId = mSharedPreferences.getString(Constants.KEY_UID, null);
+        mUserRef = new Firebase(Constants.FIREBASE_URL_USERS).child(mUId);
 
         mMakePlansButton.setOnClickListener(this);
         mViewEventsButton.setOnClickListener(this);
@@ -55,13 +68,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSavedEventRefListener = mSavedEventRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String events = dataSnapshot.getValue().toString();
-                Log.d("Events added", events);
+                if(dataSnapshot.getValue() != null) {
+                    String events = dataSnapshot.getValue().toString();
+                    Log.d("Events added", events);
+                }
             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
 
+            }
+        });
+
+        mUserRefListener = mUserRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                mWelcomeTextView.setText("Welcome, " + user.getName() + ", to");
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                Log.d(TAG, "Read failed");
             }
         });
     }
