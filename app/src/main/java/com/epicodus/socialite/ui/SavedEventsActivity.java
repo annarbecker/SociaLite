@@ -11,7 +11,7 @@ import android.view.MenuItem;
 
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
-import com.epicodus.socialite.adapters.FirebaseEventAdapter;
+import com.epicodus.socialite.adapters.FirebaseEventListAdapter;
 import com.epicodus.socialite.models.Event;
 import com.firebase.client.Firebase;
 import com.firebase.client.Query;
@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 public class SavedEventsActivity extends AppCompatActivity {
     private Query mQuery;
     private Firebase mFirebaseRestaurantsRef;
-    private FirebaseEventAdapter mAdapter;
+    private FirebaseEventListAdapter mAdapter;
     @Bind(R.id.toolbar) Toolbar topToolBar;
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
 
@@ -47,7 +47,7 @@ public class SavedEventsActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
-        mAdapter = new FirebaseEventAdapter(mQuery, Event.class);
+        mAdapter = new FirebaseEventListAdapter(mQuery, Event.class);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
     }

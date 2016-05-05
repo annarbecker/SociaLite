@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +17,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
+import com.epicodus.socialite.adapters.FirebasePersonListAdapter;
 import com.epicodus.socialite.models.Event;
+import com.epicodus.socialite.models.Person;
+import com.firebase.client.Firebase;
+import com.firebase.client.Query;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -35,9 +42,14 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
     @Bind(R.id.dateTextView) TextView mDateLabel;
     @Bind(R.id.timeTextView) TextView mTimeLabel;
     @Bind(R.id.addressTextView) TextView mAddressLabel;
+    @Bind(R.id.personRecyclerView) RecyclerView mRecyclerView;
 
     private Event mEvent;
     private Context mContext;
+    private Query mQuery;
+    private Firebase mFirebasePersonRef;
+    private FirebasePersonListAdapter mAdapter;
+    private Firebase mFirebaseRef;
 
     public static EventDetailFragment newInstance(Event event) {
         EventDetailFragment eventDetailFragment = new EventDetailFragment();
@@ -51,6 +63,8 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mEvent = Parcels.unwrap(getArguments().getParcelable("event"));
+
+
     }
 
     @Override
@@ -71,6 +85,11 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
         mAddressLabel.setOnClickListener(this);
         mDateLabel.setOnClickListener(this);
 
+        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL_PERSON);
+        mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
+        setUpFirebaseQuery();
+        setUpRecyclerView();
+
         return view;
     }
 
@@ -87,5 +106,15 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
             calendarIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, mEvent.getLocation());
             startActivity(calendarIntent);
         }
+    }
+
+    private void setUpFirebaseQuery() {
+        mQuery = mFirebasePersonRef.orderByChild("event").equalTo(mEvent.getName());
+    }
+
+    private void setUpRecyclerView() {
+        mAdapter = new FirebasePersonListAdapter(mQuery, Person.class);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAdapter(mAdapter);
     }
 }

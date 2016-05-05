@@ -4,10 +4,12 @@ package com.epicodus.socialite.models;
  * Created by arbecker on 4/28/16.
  */
 public class Person {
-    public String name;
-    public String number;
-    public String event;
-    public String pushId;
+    String name;
+    String number;
+    String event;
+    String pushId;
+
+    public Person(){}
 
 
     public Person(String name, String number, String event) {

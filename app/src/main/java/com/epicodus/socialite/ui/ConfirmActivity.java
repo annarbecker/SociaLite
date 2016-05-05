@@ -1,24 +1,27 @@
 package com.epicodus.socialite.ui;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
+import com.epicodus.socialite.adapters.FirebasePersonListAdapter;
 import com.epicodus.socialite.models.Event;
+import com.epicodus.socialite.models.Person;
+import com.firebase.client.Firebase;
+import com.firebase.client.Query;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -33,13 +36,19 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     @Bind(R.id.userLocationTextView) TextView mUserLocationTextView;
     @Bind(R.id.userDateTextView) TextView mUserDateTextView;
     @Bind(R.id.userTimeTextView) TextView mUserTimeTextView;
-    @Bind(R.id.listView) ListView mListView;
     @Bind(R.id.homeButton) Button mHomeButton;
     @Bind(R.id.toolbar) Toolbar topToolBar;
+    @Bind(R.id.personRecyclerView) RecyclerView mRecyclerView;
+
 
     private String mLatLong;
     private Event newEvent;
     private String mLocation;
+
+    private Query mQuery;
+    private Firebase mFirebasePersonRef;
+    private FirebasePersonListAdapter mAdapter;
+    private Firebase mFirebaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +71,11 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         mUserLocationTextView.setOnClickListener(this);
 
         Picasso.with(ConfirmActivity.this).load(newEvent.getImage()).into(mImage);
+
+        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL_PERSON);
+        mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
+        setUpFirebaseQuery();
+        setUpRecyclerView();
     }
 
     @Override
@@ -93,5 +107,16 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setUpFirebaseQuery() {
+        mQuery = mFirebasePersonRef.orderByChild("event").equalTo(newEvent.getName());
+
+    }
+
+    private void setUpRecyclerView() {
+        mAdapter = new FirebasePersonListAdapter(mQuery, Person.class);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mAdapter);
     }
 }

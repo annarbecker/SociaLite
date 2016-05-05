@@ -4,8 +4,8 @@ package com.epicodus.socialite.models;
  * Created by arbecker on 5/4/16.
  */
 public class User {
-    private String name;
-    private String email;
+    public String name;
+    public String email;
 
     public User() {}
 

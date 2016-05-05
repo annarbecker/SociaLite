@@ -153,7 +153,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                     latLong = latLong.substring(0, latLong.length() - 1);
 
                     mMyLocation.setVisibility(View.VISIBLE);
-                    mMyLocation.setText(place.getName() + ", " + place.getAddress());
+                    mMyLocation.setText(place.getName() + "\n" + place.getAddress());
                     break;
             }
         }
