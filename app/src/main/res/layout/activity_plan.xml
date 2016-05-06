@@ -1,144 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.PlanActivity">
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        tools:context=".ui.PlanActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="54dp">
-    </android.support.v7.widget.Toolbar>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:minHeight="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+        </android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Event"
-        android:id="@+id/textView3"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/colorTextIcons"
-        android:layout_marginBottom="25dp"
-        android:layout_marginTop="15dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Event"
+            android:id="@+id/textView3"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorTextIcons"
+            android:layout_marginBottom="25dp"
+            android:layout_marginTop="15dp" />
 
-    <EditText
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/eventEditText"
-        android:hint="Event Name"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="0dp" />
+        <EditText
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/eventEditText"
+            android:hint="Event Name"
+            android:layout_below="@+id/textView3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="0dp" />
 
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/inviteeEditText"
-        android:hint="Invitee Name"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/eventEditText"
-        android:layout_alignLeft="@+id/eventEditText"
-        android:layout_alignStart="@+id/eventEditText"
-        android:layout_toLeftOf="@+id/inviteButton"
-        android:layout_toStartOf="@+id/inviteButton" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/inviteeEditText"
+            android:hint="Invitee Name"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/eventEditText"
+            android:layout_alignLeft="@+id/eventEditText"
+            android:layout_alignStart="@+id/eventEditText"
+            android:layout_toLeftOf="@+id/inviteButton"
+            android:layout_toStartOf="@+id/inviteButton" />
 
-    <Button
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="invite"
-        android:background="@color/colorAccent"
-        android:textColor="@color/colorTextIcons"
-        android:id="@+id/inviteButton"
-        android:padding="3dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:layout_alignTop="@+id/inviteeEditText"
-        android:layout_alignParentStart="true" />
+        <Button
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="invite"
+            android:background="@color/colorAccent"
+            android:textColor="@color/colorTextIcons"
+            android:id="@+id/inviteButton"
+            android:padding="3dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_alignTop="@+id/inviteeEditText"
+            android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/dateEditText"
-        android:hint="Date"
-        android:layout_below="@+id/inviteButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+        <EditText
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/dateEditText"
+            android:hint="Date"
+            android:layout_below="@+id/inviteButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" />
 
-    <EditText
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/timeEditText"
-        android:hint="Time"
-        android:layout_below="@+id/dateEditText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp" />
+        <EditText
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:ems="10"
+            android:id="@+id/timeEditText"
+            android:hint="Time"
+            android:layout_below="@+id/dateEditText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp" />
 
-    <Button
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pick Location"
-        android:background="@color/colorAccent"
-        android:textColor="@color/colorTextIcons"
-        android:id="@+id/pickLocationButton"
-        android:padding="3dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:layout_below="@+id/timeEditText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"/>
+        <Button
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick Location"
+            android:background="@color/colorAccent"
+            android:textColor="@color/colorTextIcons"
+            android:id="@+id/pickLocationButton"
+            android:padding="3dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_below="@+id/timeEditText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"/>
 
-    <AutoCompleteTextView
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:id="@+id/myLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:visibility="invisible"
-        android:layout_below="@+id/pickLocationButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        <AutoCompleteTextView
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:id="@+id/myLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:visibility="invisible"
+            android:layout_below="@+id/pickLocationButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create Event"
-        android:id="@+id/createButton"
-        android:layout_gravity="center"
-        android:background="@color/colorPrimary"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorTextIcons"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create Event"
+            android:id="@+id/createButton"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextIcons"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

@@ -1,13 +1,16 @@
 package com.epicodus.socialite.ui;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -46,6 +49,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         mPasswordLoginButton.setOnClickListener(this);
 
+        mEmailEditText.setTextColor(Color.parseColor("#FFFFFF"));
+        mPasswordEditText.setTextColor(Color.parseColor("#FFFFFF"));
+
         mAuthProgressDialog = new ProgressDialog(this);
         mAuthProgressDialog.setTitle("Loading...");
         mAuthProgressDialog.setMessage("Authenticating with Firebase...");
@@ -72,6 +78,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void loginWithPassword() {
         final String email = mEmailEditText.getText().toString();
         String password = mPasswordEditText.getText().toString();
+
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mPasswordEditText.getWindowToken(), 0);
 
         if (email.equals("")) {
             mEmailEditText.setError("Please enter your email");

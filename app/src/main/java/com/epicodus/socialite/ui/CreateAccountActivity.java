@@ -1,12 +1,15 @@
 package com.epicodus.socialite.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -35,6 +38,8 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     private Firebase mFirebaseRef;
     private SharedPreferences.Editor mSharedPreferencesEditor;
     private SharedPreferences mSharedPreferences;
+    private String uid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,11 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mSharedPreferencesEditor = mSharedPreferences.edit();
+
+        mNameEditText.setTextColor(Color.parseColor("#FFFFFF"));
+        mEmailEditText.setTextColor(Color.parseColor("#FFFFFF"));
+        mPasswordEditText.setTextColor(Color.parseColor("#FFFFFF"));
+        mConfirmPasswordEditText.setTextColor(Color.parseColor("#FFFFFF"));
     }
 
     @Override
@@ -65,6 +75,9 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         final String password = mPasswordEditText.getText().toString();
         final String confirmPassword = mConfirmPasswordEditText.getText().toString();
 
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mConfirmPasswordEditText.getWindowToken(), 0);
+
         boolean validEmail = isValidEmail(email);
         boolean validName = isValidName(name);
         boolean validPassword = isValidPassword(password, confirmPassword);
@@ -73,13 +86,16 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         mFirebaseRef.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
             public void onSuccess(Map<String, Object> result) {
-                String uid = result.get("uid").toString();
+                uid = result.get("uid").toString();
                 createUserInFirebaseHelper(name, email, uid);
+
+
                 mFirebaseRef.authWithPassword(email, password, new Firebase.AuthResultHandler() {
 
                     @Override
                     public void onAuthenticated(AuthData authData) {
                         if (authData != null) {
+                            loginWithPassword();
                             String userUid = authData.getUid();
                             mSharedPreferencesEditor.putString(Constants.KEY_UID, userUid).apply();
                             Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
@@ -154,5 +170,23 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
             return false;
         }
         return true;
+    }
+    public void loginWithPassword() {
+        final String email = mEmailEditText.getText().toString();
+        String password = mPasswordEditText.getText().toString();
+
+        if (email.equals("")) {
+            mEmailEditText.setError("Please enter your email");
+        }
+        if (password.equals("")) {
+            mPasswordEditText.setError("Password cannot be blank");
+        }
+        mSharedPreferencesEditor.putString(Constants.KEY_USER_EMAIL, email).apply();
+
+        mSharedPreferencesEditor.putString(Constants.KEY_UID, uid).apply();
+        Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }
