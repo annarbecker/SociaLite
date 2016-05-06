@@ -34,7 +34,7 @@
         android:text="User Event"
         android:id="@+id/userEventTextView"
         android:textAlignment="gravity"
-        android:textSize="30sp"
+        android:textSize="34sp"
         android:textStyle="bold"
         android:textColor="@color/bright_foreground_inverse_material_light"
         android:layout_alignBottom="@+id/imageView"
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:text="Location"
         android:id="@+id/locationTextView"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         android:layout_above="@+id/userLocationTextView"
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:text="Date &amp; Time"
         android:id="@+id/dateTextView"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         android:layout_marginBottom="0dp"
@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:text="Invitees"
         android:id="@+id/textView4"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         android:layout_above="@+id/personRecyclerView"
@@ -114,7 +114,8 @@
         android:id="@+id/userLocationTextView"
         android:layout_above="@+id/dateTextView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="18sp" />
 
     <TextView
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -127,7 +128,8 @@
         android:layout_toRightOf="@+id/userDateTextView"
         android:layout_toEndOf="@+id/userDateTextView"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:textSize="18sp" />
 
     <TextView
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -141,7 +143,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="0dp" />
+        android:layout_marginRight="0dp"
+        android:textSize="18sp" />
 
     <android.support.v7.widget.RecyclerView
         android:paddingLeft="@dimen/activity_horizontal_margin"

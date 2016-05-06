@@ -8,9 +8,9 @@
         android:layout_height="wrap_content"
         android:text="Guest Name"
         android:id="@+id/nameTextView"
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:textColor="@color/colorTextPrimary"
-        android:background="@color/colorPrimaryLight"
+        android:background="#FFFFFF"
         android:padding="10dp"/>
 
 </LinearLayout>
