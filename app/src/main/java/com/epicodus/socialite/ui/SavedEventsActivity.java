@@ -78,6 +78,10 @@ public class SavedEventsActivity extends AppCompatActivity {
             Intent intent = new Intent(SavedEventsActivity.this, SavedEventsActivity.class);
             startActivity(intent);
         }
+        if(id == R.id.action_home) {
+            Intent intent = new Intent(SavedEventsActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 }

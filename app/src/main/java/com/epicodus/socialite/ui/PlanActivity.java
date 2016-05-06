@@ -180,6 +180,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(PlanActivity.this, SavedEventsActivity.class);
             startActivity(intent);
         }
+        if(id == R.id.action_home) {
+            Intent intent = new Intent(PlanActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 

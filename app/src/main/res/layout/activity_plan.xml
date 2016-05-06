@@ -20,10 +20,10 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:textColor="@color/colorTextIcons"
             android:layout_marginBottom="25dp"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="16dp" />
 
         <EditText
             android:layout_marginLeft="@dimen/activity_horizontal_margin"

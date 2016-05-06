@@ -2,7 +2,8 @@
     <string name="app_name">SociaLite</string>
 
     <string name="action_settings">Settings</string>
-    <string name="action_add">Settings</string>
-    <string name="action_view">Settings</string>
+    <string name="action_add">Make Plans</string>
+    <string name="action_view">View Events</string>
     <string name="logo_desc">App logo</string>
+    <string name="action_home">Home</string>
 </resources>

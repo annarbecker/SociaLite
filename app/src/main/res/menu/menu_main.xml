@@ -15,4 +15,10 @@
         android:icon="@drawable/ic_view_agenda_white_24dp"
         android:orderInCategory="200"
         app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_home"
+        android:title="@string/action_home"
+        android:icon="@drawable/ic_home_white_24dp"
+        android:orderInCategory="400"
+        app:showAsAction="ifRoom" />
 </menu>
