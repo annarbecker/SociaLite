@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -57,6 +58,22 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         mEmailEditText.setTextColor(Color.parseColor("#FFFFFF"));
         mPasswordEditText.setTextColor(Color.parseColor("#FFFFFF"));
         mConfirmPasswordEditText.setTextColor(Color.parseColor("#FFFFFF"));
+
+        mConfirmPasswordEditText.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(event.getAction() == KeyEvent.ACTION_DOWN) {
+                    switch (keyCode) {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            createNewUser();
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     @Override

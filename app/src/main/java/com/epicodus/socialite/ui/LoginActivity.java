@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -61,6 +62,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (signupEmail != null) {
             mEmailEditText.setText(signupEmail);
         }
+
+        mPasswordEditText.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(event.getAction() == KeyEvent.ACTION_DOWN) {
+                    switch (keyCode) {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            loginWithPassword();
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     @Override
