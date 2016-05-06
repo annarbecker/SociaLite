@@ -121,6 +121,12 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             String eventPushId = pushRef.getKey();
             newEvent.setPushId(eventPushId);
             pushRef.setValue(newEvent);
+
+            mEventEditText.setText("");
+            mMyLocation.setText("");
+            mMyLocation.setText("");
+            mDateEditText.setText("");
+            mTimeEditText.setText("");
         }
         if(v == mInviteButton) {
             Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
