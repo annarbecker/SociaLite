@@ -70,11 +70,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
                 selection, // selection - Which rows to return (condition rows must match)
                 null,      // selection args - can be provided separately and subbed into selection.
                 sortBy);   // string specifying sort order
-
-
-
     }
-
 
     @Override
     public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
@@ -129,8 +125,6 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
                 } if (column.equals("data1")){
                     contact.put("Phone", cursor.getString(cursor.getColumnIndex(column)));
                 }
-                Log.d(TAG, contact.get("Name") + "");
-                Log.d(TAG, contact.get("Phone") + "");
             }
         } while (cursor.moveToNext());
 
