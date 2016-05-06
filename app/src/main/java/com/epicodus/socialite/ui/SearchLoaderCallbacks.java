@@ -89,7 +89,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
         } else {
             Log.e(TAG, "Nothing is null?!");
         }
-        tv.setText("Search Contacts");
+        tv.setText("Select Contact to Invite");
 
         if (cursor.getCount() == 0) {
             return;
@@ -149,7 +149,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
 
                 Firebase ref = new Firebase(Constants.FIREBASE_URL_PERSON);
                 ref.push().setValue(newContact);
-                Toast.makeText(mContext, name + phone + " saved to DB", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, name + " added to your event", Toast.LENGTH_SHORT).show();
             }
         });
     }

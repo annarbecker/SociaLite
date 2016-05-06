@@ -9,7 +9,8 @@
         android:id="@+id/sample_output"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search Contacts by Name" />
+        android:text="Search Contacts by Name"
+        android:textSize="18dp" />
 
     <ListView
         android:layout_width="match_parent"
