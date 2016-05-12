@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FriendListFragment extends Fragment {
+public class FriendListFragment extends Fragment{
     private Query mQuery;
     private Firebase mFirebaseFriendsRef;
     private FirebasePersonListAdapter mAdapter;
