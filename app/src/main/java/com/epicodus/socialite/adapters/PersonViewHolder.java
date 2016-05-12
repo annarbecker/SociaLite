@@ -52,7 +52,6 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View view) {
                 int itemPosition = getLayoutPosition();
-
                     name = mPersons.get(itemPosition).getName();
                     email = mPersons.get(itemPosition).getEmail();
 

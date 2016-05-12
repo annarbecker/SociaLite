@@ -137,9 +137,9 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String name = ((TextView)view).getText().toString();
-                String phone = phones.get(name);
+                String contact = phones.get(name);
                 String event = mEvent;
-                Person newContact = new Person(name, phone, event);
+                Person newContact = new Person(name, contact, event);
 
                 Firebase ref = new Firebase(Constants.FIREBASE_URL_PERSON);
                 ref.push().setValue(newContact);
