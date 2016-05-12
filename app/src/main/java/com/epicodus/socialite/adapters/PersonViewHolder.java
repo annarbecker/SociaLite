@@ -14,6 +14,9 @@ import android.widget.Toast;
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Person;
+import com.epicodus.socialite.ui.FriendListFragment;
+import com.epicodus.socialite.ui.SearchContactsActivity;
+import com.epicodus.socialite.ui.SearchLoaderCallbacks;
 import com.firebase.client.Firebase;
 
 import org.parceler.Parcels;
@@ -47,22 +50,23 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         event = mSharedPreferences.getString(Constants.PREFERENCES_EVENT, null);
 
-        itemView.setOnClickListener(new View.OnClickListener() {
+        if(mContext.getClass().getSimpleName().equals(SearchContactsActivity.class.getSimpleName())) {
+            itemView.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-                int itemPosition = getLayoutPosition();
+                @Override
+                public void onClick(View view) {
+                    int itemPosition = getLayoutPosition();
                     name = mPersons.get(itemPosition).getName();
                     email = mPersons.get(itemPosition).getEmail();
 
-                Person newContact = new Person(name, email, event);
-                Log.d("NEW CONTACT ADDED", newContact.getName());
-
-                Firebase ref = new Firebase(Constants.FIREBASE_URL_PERSON);
-                ref.push().setValue(newContact);
-            }
-        });
-
+                    Person newContact = new Person(name, email, event);
+                    Log.d("NEW CONTACT ADDED", newContact.getName());
+                    Toast.makeText(mContext, name + " added to event", Toast.LENGTH_SHORT).show();
+                    Firebase ref = new Firebase(Constants.FIREBASE_URL_PERSON);
+                    ref.push().setValue(newContact);
+                }
+            });
+        }
     }
 
     public void bindPerson(Person person) {

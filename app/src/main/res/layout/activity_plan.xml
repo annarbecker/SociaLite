@@ -112,8 +112,7 @@
             android:paddingRight="15dp"
             android:layout_below="@+id/timeEditText"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"/>
+            android:layout_marginTop="10dp"/>
 
         <AutoCompleteTextView
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
