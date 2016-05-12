@@ -22,22 +22,24 @@
                 android:layout_height="240dp"
                 android:id="@+id/eventImageView"
                 android:src="@drawable/drinks"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:tint="#40000000" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 android:text="Event Name"
                 android:id="@+id/eventNameTextView"
                 android:textSize="32sp"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
-                android:layout_marginTop="190dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:paddingBottom="5dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="72dp" />
         </RelativeLayout>
 
         <RelativeLayout

@@ -56,7 +56,6 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
                     name = mPersons.get(itemPosition).getName();
                     email = mPersons.get(itemPosition).getEmail();
 
-
                 Person newContact = new Person(name, email, event);
                 Log.d("NEW CONTACT ADDED", newContact.getName());
 
