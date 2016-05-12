@@ -8,6 +8,7 @@ public class Person {
     String number;
     String event;
     String pushId;
+    String email;
 
     public Person(){}
 
@@ -36,5 +37,13 @@ public class Person {
 
     public void setPushId(String pushId) {
         this.pushId = pushId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

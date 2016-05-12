@@ -30,7 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:name="com.epicodus.socialite.ui.FriendListFragment"
-        tools:layout="@layout/fragment_friend_list" />
+        tools:layout="@layout/fragment_friend_list"
+        android:id="@+id/fragmentFriendList"/>
 
 
 </LinearLayout>
