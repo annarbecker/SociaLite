@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp">
 
     <ImageView
         android:layout_width="130dp"
@@ -23,23 +25,26 @@
             android:layout_height="wrap_content"
             android:id="@+id/eventNameTextView"
             android:textSize="20dp"
-            android:textStyle="bold"
             android:text="Event Name"
             android:textColor="@color/colorPrimary"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="256dp"
             android:layout_height="wrap_content"
             android:text="Date"
             android:id="@+id/dateTextView"
             android:layout_below="@+id/eventNameTextView"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textStyle="italic"/>
+            android:textStyle="bold"
+            android:gravity="end"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="26dp"
+            android:gravity="end">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -47,7 +52,12 @@
                 android:text="Time"
                 android:id="@+id/timeTextView"
                 android:layout_alignParentRight="true"
-                android:textColor="@color/colorAccent"/>
+                android:textColor="@color/colorAccent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:gravity="bottom"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="5dp" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
