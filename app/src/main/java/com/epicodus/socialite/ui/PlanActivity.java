@@ -111,21 +111,26 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
             Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
             Event newEvent = new Event(event, location, date, time, latLong, image);
-            intent.putExtra("newEvent", Parcels.wrap(newEvent));
-            startActivity(intent);
 
-            String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
-            Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_EVENT).child(userUid);
-            Firebase pushRef = userEventsFirebaseRef.push();
-            String eventPushId = pushRef.getKey();
-            newEvent.setPushId(eventPushId);
-            pushRef.setValue(newEvent);
+            if(!event.equals("") && !location.equals("") && !date.equals("") && !time.equals("") && !latLong.equals("")) {
+                intent.putExtra("newEvent", Parcels.wrap(newEvent));
+                startActivity(intent);
 
-            mEventEditText.setText("");
-            mMyLocation.setText("");
-            mMyLocation.setText("");
-            mDateEditText.setText("");
-            mTimeEditText.setText("");
+                String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+                Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_EVENT).child(userUid);
+                Firebase pushRef = userEventsFirebaseRef.push();
+                String eventPushId = pushRef.getKey();
+                newEvent.setPushId(eventPushId);
+                pushRef.setValue(newEvent);
+
+                mEventEditText.setText("");
+                mMyLocation.setText("");
+                mMyLocation.setText("");
+                mDateEditText.setText("");
+                mTimeEditText.setText("");
+            } else {
+                Toast.makeText(PlanActivity.this, "please fill out all event fields", Toast.LENGTH_LONG).show();
+            }
         }
         if(v == mInviteButton) {
             Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
