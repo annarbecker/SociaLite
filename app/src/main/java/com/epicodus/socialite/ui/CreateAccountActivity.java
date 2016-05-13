@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     @Bind(R.id.passwordEditText) EditText mPasswordEditText;
     @Bind(R.id.confirmPasswordEditText) EditText mConfirmPasswordEditText;
     @Bind(R.id.loginTextView) TextView mLoginTextView;
+    @Bind(R.id.textView4) TextView mSignUpTextView;
     private Firebase mFirebaseRef;
     private SharedPreferences.Editor mSharedPreferencesEditor;
     private SharedPreferences mSharedPreferences;
@@ -53,6 +55,9 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mSharedPreferencesEditor = mSharedPreferences.edit();
+
+        Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/bario.ttf");
+        mSignUpTextView.setTypeface(myCustomFont);
 
         mNameEditText.setTextColor(Color.parseColor("#FFFFFF"));
         mEmailEditText.setTextColor(Color.parseColor("#FFFFFF"));

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.emailEditText) EditText mEmailEditText;
     @Bind(R.id.passwordEditText) EditText mPasswordEditText;
     @Bind(R.id.registerTextView) TextView mRegisterTextView;
+    @Bind(R.id.textView4) TextView mLoginTextView;
     private Firebase mFirebaseRef;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mSharedPreferencesEditor;
@@ -49,6 +51,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mSharedPreferencesEditor = mSharedPreferences.edit();
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         mPasswordLoginButton.setOnClickListener(this);
+
+        Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/bario.ttf");
+        mLoginTextView.setTypeface(myCustomFont);
 
         mEmailEditText.setTextColor(Color.parseColor("#FFFFFF"));
         mPasswordEditText.setTextColor(Color.parseColor("#FFFFFF"));

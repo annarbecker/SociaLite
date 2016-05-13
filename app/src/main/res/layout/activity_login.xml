@@ -15,7 +15,7 @@
         android:src="@drawable/event"
         android:layout_above="@+id/linearLayout"
         android:scaleType="centerCrop"
-        android:tint="#30000000" />
+        android:tint="#50000000" />
 
     <TextView
         android:layout_width="match_parent"
@@ -86,7 +86,7 @@
             android:textColor="@color/colorTextIcons"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="Don't have an account? Sign up here!"
+            android:text="Don't have a SociaLite account? Sign up here!"
             android:id="@+id/registerTextView"
             android:layout_gravity="center_horizontal" />
 

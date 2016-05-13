@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mViewEventsButton.setOnClickListener(this);
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/bario.ttf");
         mTextView.setTypeface(myCustomFont);
+        mMakePlansButton.setTypeface(myCustomFont);
+        mViewEventsButton.setTypeface(myCustomFont);
 
         setTitle(null);
         setSupportActionBar(topToolBar);

@@ -61,7 +61,7 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
 
                     Person newContact = new Person(name, email, event);
                     Log.d("NEW CONTACT ADDED", newContact.getName());
-                    Toast.makeText(mContext, name + " added to event", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, name + " added to your event", Toast.LENGTH_SHORT).show();
                     Firebase ref = new Firebase(Constants.FIREBASE_URL_PERSON);
                     ref.push().setValue(newContact);
                 }

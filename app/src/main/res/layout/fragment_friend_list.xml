@@ -10,7 +10,9 @@
         android:layout_height="wrap_content"
         android:text="SociaLite Contacts"
         android:textStyle="bold"
-        android:textSize="16dp"/>
+        android:textSize="16dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/colorPrimary"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

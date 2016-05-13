@@ -11,7 +11,7 @@
         android:id="@+id/sample_output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search Phone Contacts by Name \nor\n Select SociaLite Contacts Below"
+        android:text="Search Phone Contacts by Name \nor\n Select SociaLite Contacts"
         android:textSize="18dp"
         android:textAlignment="center"/>
 
@@ -21,6 +21,7 @@
         android:layout_marginRight="16dp"
         android:layout_height="wrap_content"
         android:text="Phone Contacts"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         android:textSize="16dp"/>
 

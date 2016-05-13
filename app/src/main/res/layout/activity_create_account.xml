@@ -103,7 +103,7 @@
             android:textColor="@color/colorTextIcons"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="Already have an account? Log in here!"
+            android:text="Already have a SociaLite account? Log in here!"
             android:id="@+id/loginTextView"
             android:layout_gravity="center_horizontal" />
 
