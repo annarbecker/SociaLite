@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:text="New Event"
             android:id="@+id/textView3"
-            android:textStyle="bold"
             android:textSize="20sp"
             android:layout_alignParentTop="true"
             android:textColor="@color/colorTextIcons"
@@ -136,7 +135,6 @@
             android:layout_gravity="center"
             android:background="@color/colorPrimary"
             android:textSize="20sp"
-            android:textStyle="bold"
             android:textColor="@color/colorTextIcons"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
