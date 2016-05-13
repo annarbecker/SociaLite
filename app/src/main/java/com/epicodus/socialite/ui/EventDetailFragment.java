@@ -3,6 +3,7 @@ package com.epicodus.socialite.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -68,6 +69,9 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_event_detail, container, false);
         ButterKnife.bind(this, view);
+
+        Typeface myCustomFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bario.ttf");
+        mNameLabel.setTypeface(myCustomFont);
 
         mNameLabel.setText(mEvent.getName());
         mDateLabel.setText(mEvent.getDate());

@@ -1,6 +1,7 @@
 package com.epicodus.socialite.ui;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -57,6 +58,9 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         setTitle(null);
         setSupportActionBar(topToolBar);
+
+        Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/bario.ttf");
+        mUserEventTextView.setTypeface(myCustomFont);
 
         newEvent = Parcels.unwrap(getIntent().getParcelableExtra("newEvent"));
 
