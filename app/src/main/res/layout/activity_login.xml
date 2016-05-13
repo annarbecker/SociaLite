@@ -6,21 +6,31 @@
     tools:context="com.epicodus.socialite.ui.LoginActivity"
     android:background="@color/colorPrimary">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/event"
+        android:layout_above="@+id/linearLayout"
+        android:scaleType="centerCrop"
+        android:tint="#30000000" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="LOGIN"
         android:id="@+id/textView4"
         android:textStyle="bold"
-        android:textSize="30sp"
-        android:textColor="@color/colorAccent"
+        android:textSize="35sp"
+        android:textColor="@color/colorTextIcons"
         android:gravity="center"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:paddingTop="55dp"
-        android:paddingBottom="55dp"
-        android:background="@color/colorTextIcons"/>
+        android:paddingTop="125dp"
+        android:paddingBottom="125dp"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -34,6 +44,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
+        android:id="@+id/linearLayout"
         android:layout_below="@+id/textView4">
 
         <EditText

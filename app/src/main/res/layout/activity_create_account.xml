@@ -3,24 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.epicodus.socialite.ui.CreateAccountActivity"
-    android:background="@color/colorPrimary">
+    tools:context="com.epicodus.socialite.ui.CreateAccountActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:src="@drawable/beach"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="true"
+        android:tint="#30000000"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign up"
+        android:text="SIGN UP"
         android:id="@+id/textView4"
         android:textStyle="bold"
-        android:textSize="30sp"
-        android:textColor="@color/colorAccent"
+        android:textSize="35sp"
+        android:textColor="@color/colorTextIcons"
         android:gravity="center"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:paddingTop="55dp"
-        android:paddingBottom="55dp"
-        android:background="@color/colorTextIcons"/>
+        android:paddingTop="35dp"
+        android:paddingBottom="75dp"
+        android:layout_above="@+id/linearLayout2" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -28,13 +37,13 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:paddingLeft="10dp"
-        android:paddingTop="20dp"
+        android:paddingTop="5dp"
         android:paddingRight="10dp"
         android:paddingBottom="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/textView4">
+        android:id="@+id/linearLayout2">
 
         <EditText
             android:id="@+id/nameEditText"

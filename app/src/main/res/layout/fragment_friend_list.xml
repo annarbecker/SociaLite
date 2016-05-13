@@ -2,7 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.epicodus.socialite.ui.FriendListFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SociaLite Contacts"
+        android:textStyle="bold"
+        android:textSize="16dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
