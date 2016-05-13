@@ -4,13 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="54dp">
-    </android.support.v7.widget.Toolbar>
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:minHeight="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+        </android.support.v7.widget.Toolbar>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Events"
+            android:id="@+id/textView5"
+            android:textColor="@color/colorTextIcons"
+            android:textSize="20sp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="16dp"/>
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
