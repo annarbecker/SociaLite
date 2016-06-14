@@ -13,7 +13,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -54,86 +54,89 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="0dp" />
 
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/inviteeEditText"
-                android:hint="Invitee Name"
-                android:layout_marginTop="30dp"
-                android:layout_below="@+id/eventEditText"
-                android:layout_alignLeft="@+id/eventEditText"
-                android:layout_alignStart="@+id/eventEditText"
-                android:layout_toLeftOf="@+id/inviteButton"
-                android:layout_toStartOf="@+id/inviteButton" />
-
             <Button
+                android:id="@+id/inviteButton"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                style="?android:attr/buttonStyleSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="invite"
+                android:text="Invite"
                 android:textSize="16sp"
                 android:background="@color/colorAccent"
                 android:textColor="@color/colorTextIcons"
-                android:id="@+id/inviteButton"
-                android:padding="3dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:layout_alignTop="@+id/inviteeEditText"
-                android:layout_alignParentStart="true" />
+                android:layout_below="@+id/eventEditText"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/selectdate"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryLight"
+                android:textColor="@color/colorTextIcons"
+                android:text="Select Date"
+                android:layout_below="@+id/inviteButton"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
 
             <EditText
+                android:id="@+id/dateEditText"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="date"
-                android:ems="10"
-                android:id="@+id/dateEditText"
                 android:hint="Date"
-                android:layout_below="@+id/inviteButton"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp" />
+                android:layout_below="@+id/selectdate"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+
+            <Button
+                android:id="@+id/selecttime"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorTextIcons"
+                android:text="Select Time"
+                android:layout_below="@+id/dateEditText"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
 
             <EditText
+                android:id="@+id/timeEditText"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="time"
-                android:ems="10"
-                android:id="@+id/timeEditText"
                 android:hint="Time"
-                android:layout_below="@+id/dateEditText"
-                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/selecttime"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="30dp" />
+                android:layout_marginBottom="10dp" />
 
             <Button
+                android:id="@+id/pickLocationButton"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                style="?android:attr/buttonStyleSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Pick Location"
                 android:textSize="16sp"
-                android:background="@color/colorAccent"
+                android:background="@color/colorPrimaryLight"
                 android:textColor="@color/colorTextIcons"
-                android:id="@+id/pickLocationButton"
-                android:padding="3dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
                 android:layout_below="@+id/timeEditText"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"/>
 
             <AutoCompleteTextView
+                android:id="@+id/myLocation"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:id="@+id/myLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
@@ -144,10 +147,10 @@
                 android:layout_marginBottom="10dp" />
 
             <Button
+                android:id="@+id/createButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Create Event"
-                android:id="@+id/createButton"
                 android:background="@color/colorPrimary"
                 android:textSize="20sp"
                 android:textColor="@color/colorTextIcons"

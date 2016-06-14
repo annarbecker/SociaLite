@@ -1,8 +1,12 @@
 package com.epicodus.socialite.ui;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,7 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.epicodus.socialite.Constants;
@@ -29,6 +35,7 @@ import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 import butterknife.Bind;
@@ -42,12 +49,17 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
     @Bind(R.id.eventEditText) EditText mEventEditText;
     @Bind(R.id.inviteButton) Button mInviteButton;
+    @Bind(R.id.selectdate) Button mSelectDateButton;
+    @Bind(R.id.selecttime) Button mSelectTimeButton;
     @Bind(R.id.dateEditText) EditText mDateEditText;
     @Bind(R.id.timeEditText) EditText mTimeEditText;
     @Bind(R.id.createButton) Button mCreateButton;
     @Bind(R.id.pickLocationButton) Button mPickLocationButton;
     @Bind(R.id.myLocation) AutoCompleteTextView mMyLocation;
     @Bind(R.id.toolbar) Toolbar topToolBar;
+
+
+    private int mYear, mMonth, mDay, mHour, mMinute;
 
     private String latLong;
     public String image;
@@ -73,6 +85,8 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
         mCreateButton.setOnClickListener(this);
         mInviteButton.setOnClickListener(this);
+        mSelectDateButton.setOnClickListener(this);
+        mSelectTimeButton.setOnClickListener(this);
         mPickLocationButton.setOnClickListener(this);
         getEventImage();
 
@@ -129,14 +143,93 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                 mDateEditText.setText("");
                 mTimeEditText.setText("");
             } else {
-                Toast.makeText(PlanActivity.this, "please fill out all event fields", Toast.LENGTH_LONG).show();
+                new AlertDialog.Builder(this)
+                        .setTitle("Almost!")
+                        .setMessage("Please fill out all event fields")
+                        .setPositiveButton("OK", null)
+                        .create()
+                        .show();
             }
         }
         if(v == mInviteButton) {
-            Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
-            String event = mEventEditText.getText().toString();
-            addToSharedPreferences(event);
-            startActivity(intent);
+            if(mEventEditText.getText().toString().equals("")) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this).setTitle("Please enter an event name");
+
+                final EditText eventPrompt = new EditText(this);
+                alertDialogBuilder.setView(eventPrompt);
+
+                alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String eventPromptEditText = eventPrompt.getText().toString();
+                        mEventEditText.setText(eventPromptEditText);
+                    }
+                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            } else {
+                Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
+                String event = mEventEditText.getText().toString();
+                addToSharedPreferences(event);
+                startActivity(intent);
+            }
+
+        }
+        if(v == mSelectDateButton){
+
+            final Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                    new DatePickerDialog.OnDateSetListener() {
+
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
+
+                            mDateEditText.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
+
+
+                        }
+                    }, mYear, mMonth, mDay);
+            datePickerDialog.show();
+        }
+        if(v == mSelectTimeButton) {
+            final Calendar c = Calendar.getInstance();
+            mHour = c.get(Calendar.HOUR_OF_DAY);
+            mMinute = c.get(Calendar.MINUTE);
+
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                    new TimePickerDialog.OnTimeSetListener() {
+
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
+                            if(hourOfDay > 12 && minute < 10) {
+                                mTimeEditText.setText((hourOfDay - 12) + ":0" + minute + " PM");
+                            } if(hourOfDay > 12 && minute >= 10) {
+                                mTimeEditText.setText((hourOfDay - 12) + ":" + minute + " PM");
+                            } if(hourOfDay == 12 && minute < 10 || hourOfDay < 12 && minute < 10) {
+                                mTimeEditText.setText(hourOfDay + ":0" + minute + " PM");
+                            } if(hourOfDay == 12 && minute > 10 || hourOfDay < 12 && minute > 10) {
+                                hourOfDay = hourOfDay - 12;
+                                mTimeEditText.setText(hourOfDay + ":" + minute + " PM");
+                            } if(hourOfDay < 12 && minute < 10) {
+                                mTimeEditText.setText(hourOfDay + ":0" + minute + " AM");
+                            } if(hourOfDay < 12 && minute >= 10) {
+                                mTimeEditText.setText(hourOfDay + ":" + minute + " AM");
+                            } if(hourOfDay == 0 && minute >= 10) {
+                                mTimeEditText.setText(hourOfDay + ":" + minute + " AM");
+                            } if(hourOfDay == 0 && minute < 10) {
+                                mTimeEditText.setText((hourOfDay + 12) + ":0" + minute + " AM");
+                            }
+                        }
+                    }, mHour, mMinute, false);
+            timePickerDialog.show();
+
         }
         if(v == mPickLocationButton) {
             try {
