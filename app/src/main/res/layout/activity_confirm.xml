@@ -85,7 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Share Event"
-        android:id="@+id/homeButton"
+        android:id="@+id/shareButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -155,7 +155,7 @@
         android:id="@+id/personRecyclerView"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_above="@+id/homeButton" />
+        android:layout_above="@+id/shareButton" />
 
 
 </RelativeLayout>

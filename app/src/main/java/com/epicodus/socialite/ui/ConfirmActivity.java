@@ -1,18 +1,25 @@
 package com.epicodus.socialite.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.epicodus.socialite.Constants;
@@ -36,7 +43,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     @Bind(R.id.userLocationTextView) TextView mUserLocationTextView;
     @Bind(R.id.userDateTextView) TextView mUserDateTextView;
     @Bind(R.id.userTimeTextView) TextView mUserTimeTextView;
-    @Bind(R.id.homeButton) Button mHomeButton;
+    @Bind(R.id.shareButton) Button mShareButton;
     @Bind(R.id.toolbar) Toolbar topToolBar;
     @Bind(R.id.personRecyclerView) RecyclerView mRecyclerView;
 
@@ -49,6 +56,9 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     private Firebase mFirebasePersonRef;
     private FirebasePersonListAdapter mAdapter;
     private Firebase mFirebaseRef;
+    private SharedPreferences mSharedPreferences;
+    private String userName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +74,18 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         newEvent = Parcels.unwrap(getIntent().getParcelableExtra("newEvent"));
 
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         mUserEventTextView.setText(newEvent.getName());
         mUserLocationTextView.setText(newEvent.getLocation());
         mUserDateTextView.setText(newEvent.getDate());
         mUserTimeTextView.setText(newEvent.getTime());
         mLatLong = (newEvent.getLatLong());
         mLocation = (newEvent.getLocation());
-        mHomeButton.setOnClickListener(this);
+        mShareButton.setOnClickListener(this);
         mUserLocationTextView.setOnClickListener(this);
+
+        userName = mSharedPreferences.getString(Constants.KEY_USER_NAME, null);
 
         Picasso.with(ConfirmActivity.this).load(newEvent.getImage()).into(mImage);
 
@@ -83,10 +97,47 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if (v == mHomeButton) {
-            Intent intent = new Intent(ConfirmActivity.this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+        if (v == mShareButton) {
+
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Share This Event")
+                    .setMessage("SociaLite friends will receive notification in their account \nFriends without the app will be sent an invite via text and link to download SociaLite")
+                    .setPositiveButton("Send in app invitation & text friends", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intentHome = new Intent(ConfirmActivity.this, MainActivity.class);
+                            intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intentHome);
+
+                            String message = userName + " invited you to: \n" + newEvent.getName() + "\n" + newEvent.getDate() + " at " + newEvent.getTime() + "\n" +newEvent.getLocation() + "\n \n Download SociaLite at: www.google.com";
+                            Toast.makeText(ConfirmActivity.this, message, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Intent.ACTION_SENDTO);
+
+                            intent.setData(Uri.parse("sms:"));  // This ensures only SMS apps respond
+                            intent.putExtra("sms_body", message);
+                            if (intent.resolveActivity(ConfirmActivity.this.getPackageManager()) != null) {
+                                Log.v(TAG, "passed conditional");
+                                startActivity(intent);
+                            }
+
+
+
+                        }
+                    })
+                    .setNeutralButton("Just invite SociaLite friends", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intentHome = new Intent(ConfirmActivity.this, MainActivity.class);
+                            intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intentHome);
+                        }
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .create()
+                    .show();
+
+
         }
     }
     @Override

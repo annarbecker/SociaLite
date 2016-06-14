@@ -18,6 +18,7 @@ public class Constants {
     public static final String KEY_UID = "UID";
     public static final String FIREBASE_URL_USERS = FIREBASE_URL + "/" + FIREBASE_LOCATION_USERS;
     public static final String KEY_USER_EMAIL = "email";
+    public static final String KEY_USER_NAME = "name";
     public static final String FIREBASE_URL_USERS_LIST = "https://socialite-ab.firebaseio.com/users";
 
     public static final String KEY_SOURCE = "source";
