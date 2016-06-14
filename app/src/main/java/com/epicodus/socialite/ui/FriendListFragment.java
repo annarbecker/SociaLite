@@ -54,7 +54,6 @@ public class FriendListFragment extends Fragment{
 
     private void setUpRecyclerView() {
         mAdapter = new FirebasePersonListAdapter(mQuery, Person.class);
-        //In line below, we change 'this' to 'getActivity()' because fragments do not have own context:
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
     }

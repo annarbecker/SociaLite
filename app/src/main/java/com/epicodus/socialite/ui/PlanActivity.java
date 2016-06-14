@@ -176,23 +176,17 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         if(v == mSelectDateButton){
-
             final Calendar c = Calendar.getInstance();
             mYear = c.get(Calendar.YEAR);
             mMonth = c.get(Calendar.MONTH);
             mDay = c.get(Calendar.DAY_OF_MONTH);
 
-
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                     new DatePickerDialog.OnDateSetListener() {
 
                         @Override
-                        public void onDateSet(DatePicker view, int year,
-                                              int monthOfYear, int dayOfMonth) {
-
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                             mDateEditText.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
-
-
                         }
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
@@ -238,8 +232,9 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                 startActivityForResult(intent, PLACE_PICKER_FLAG);
 
             } catch (GooglePlayServicesRepairableException e) {
-                GooglePlayServicesUtil
-                        .getErrorDialog(e.getConnectionStatusCode(), PlanActivity.this, 0);
+                Toast.makeText(PlanActivity.this, "Google Play Services is not available.",
+                        Toast.LENGTH_LONG)
+                        .show();
             } catch (GooglePlayServicesNotAvailableException e) {
                 Toast.makeText(PlanActivity.this, "Google Play Services is not available.",
                         Toast.LENGTH_LONG)
@@ -258,7 +253,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                     latLong = place.getLatLng().toString();
                     latLong = latLong.substring(10);
                     latLong = latLong.substring(0, latLong.length() - 1);
-
                     mMyLocation.setVisibility(View.VISIBLE);
                     mMyLocation.setText(place.getName() + "\n" + place.getAddress());
                     break;
