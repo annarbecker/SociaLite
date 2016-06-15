@@ -111,13 +111,14 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                             startActivity(intentHome);
 
                             String message = userName + " invited you to: \n" + newEvent.getName() + "\n" + newEvent.getDate() + " at " + newEvent.getTime() + "\n" +newEvent.getLocation() + "\n \n Download SociaLite at: www.google.com";
-                            Toast.makeText(ConfirmActivity.this, message, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Intent.ACTION_SENDTO);
 
-                            intent.setData(Uri.parse("sms:"));  // This ensures only SMS apps respond
+                            String phoneNumber = "5037587197";
+                            String phoneNumber2 = "5037585865";
+                            Uri smsUri = Uri.parse("smsto:" + phoneNumber + "," + phoneNumber2);
+                            Intent intent = new Intent(Intent.ACTION_SENDTO, smsUri);
+                            intent.putExtra("address", phoneNumber);
                             intent.putExtra("sms_body", message);
-                            if (intent.resolveActivity(ConfirmActivity.this.getPackageManager()) != null) {
-                                Log.v(TAG, "passed conditional");
+                            if (intent.resolveActivity(getPackageManager()) != null) {
                                 startActivity(intent);
                             }
 
