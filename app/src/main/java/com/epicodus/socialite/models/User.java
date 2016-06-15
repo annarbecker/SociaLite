@@ -6,6 +6,7 @@ package com.epicodus.socialite.models;
 public class User {
     public String name;
     public String email;
+    public String userId;
 
     public User() {}
 
@@ -20,5 +21,13 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
