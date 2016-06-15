@@ -59,11 +59,17 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
                     name = mPersons.get(itemPosition).getName();
                     email = mPersons.get(itemPosition).getEmail();
 
-                    Person newContact = new Person(name, email, event);
+                    Person newContact = new Person(name, event);
+                    newContact.setEmail(email);
+
                     Log.d("NEW CONTACT ADDED", newContact.getName());
                     Toast.makeText(mContext, name + " added to your event", Toast.LENGTH_SHORT).show();
-                    Firebase ref = new Firebase(Constants.FIREBASE_URL_PERSON);
-                    ref.push().setValue(newContact);
+
+                    Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_PERSON).child(event);
+                    Firebase pushRef = userEventsFirebaseRef.push();
+                    String eventPushId = pushRef.getKey();
+                    newContact.setPushId(eventPushId);
+                    pushRef.setValue(newContact);
                 }
             });
         }

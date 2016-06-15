@@ -89,7 +89,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         Picasso.with(ConfirmActivity.this).load(newEvent.getImage()).into(mImage);
 
-        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL_PERSON);
+        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL_PERSON  + "/" + newEvent.getName());
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         setUpFirebaseQuery();
         setUpRecyclerView();
@@ -112,11 +112,12 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
                             String message = userName + " invited you to: \n" + newEvent.getName() + "\n" + newEvent.getDate() + " at " + newEvent.getTime() + "\n" +newEvent.getLocation() + "\n \n Download SociaLite at: www.google.com";
 
-                            String phoneNumber = "5037587197";
-                            String phoneNumber2 = "5037585865";
-                            Uri smsUri = Uri.parse("smsto:" + phoneNumber + "," + phoneNumber2);
+
+
+                            //loop through users with phone number, add property to user socialite user or not - if !sociaLite user get phone number - save as phone number + index nubmer
+
+                            Uri smsUri = Uri.parse("smsto:" + "5037587197, 5037585865, 5037587387");
                             Intent intent = new Intent(Intent.ACTION_SENDTO, smsUri);
-                            intent.putExtra("address", phoneNumber);
                             intent.putExtra("sms_body", message);
                             if (intent.resolveActivity(getPackageManager()) != null) {
                                 startActivity(intent);
@@ -153,8 +154,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         if(id == R.id.action_add){
             Intent intent = new Intent(ConfirmActivity.this, PlanActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
             startActivity(intent);
         }
         if(id == R.id.action_view){
@@ -169,7 +168,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setUpFirebaseQuery() {
-        mQuery = mFirebasePersonRef.orderByChild("event").equalTo(newEvent.getName());
+        mQuery = mFirebasePersonRef;
 
     }
 

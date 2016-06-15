@@ -86,7 +86,7 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
         mAddressLabel.setOnClickListener(this);
         mDateLabel.setOnClickListener(this);
 
-        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL_PERSON);
+        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL_PERSON  + "/" + mEvent.getName());
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         setUpFirebaseQuery();
         setUpRecyclerView();
@@ -110,7 +110,7 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
     }
 
     private void setUpFirebaseQuery() {
-        mQuery = mFirebasePersonRef.orderByChild("event").equalTo(mEvent.getName());
+        mQuery = mFirebasePersonRef;
     }
 
     private void setUpRecyclerView() {

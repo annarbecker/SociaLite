@@ -5,18 +5,17 @@ package com.epicodus.socialite.models;
  */
 public class Person {
     String name;
-    String contact;
+    String phone;
     String event;
     String pushId;
     String email;
     Boolean isGoing = false;
+    String eventId;
 
     public Person(){}
 
-
-    public Person(String name, String contact, String event) {
+    public Person(String name, String event) {
         this.name = name;
-        this.contact = contact;
         this.event = event;
     }
 
@@ -24,8 +23,8 @@ public class Person {
         return name;
     }
 
-    public String getContact() {
-        return contact;
+    public String getPhone() {
+        return phone;
     }
 
     public String getEvent() {
@@ -48,7 +47,19 @@ public class Person {
         this.email = email;
     }
 
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public void confirmInvite() {
         isGoing = true;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
     }
 }

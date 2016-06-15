@@ -137,13 +137,18 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String name = ((TextView)view).getText().toString();
-                String contact = phones.get(name);
+                String phone = phones.get(name);
                 String event = mEvent;
-                Person newContact = new Person(name, contact, event);
+                Person newContact = new Person(name, event);
+                newContact.setPhone(phone);
 
-                Firebase ref = new Firebase(Constants.FIREBASE_URL_PERSON);
-                ref.push().setValue(newContact);
                 Toast.makeText(mContext, name + " added to your event", Toast.LENGTH_SHORT).show();
+
+                Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_PERSON).child(event);
+                Firebase pushRef = userEventsFirebaseRef.push();
+                String eventPushId = pushRef.getKey();
+                newContact.setPushId(eventPushId);
+                pushRef.setValue(newContact);
             }
         });
     }

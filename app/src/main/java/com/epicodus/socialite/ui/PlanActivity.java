@@ -272,12 +272,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         if(id == R.id.action_add) {
             Intent intent = new Intent(PlanActivity.this, PlanActivity.class);
             startActivity(intent);
-
-            mEventEditText.setText("");
-            mMyLocation.setText("");
-            mMyLocation.setText("");
-            mDateEditText.setText("");
-            mTimeEditText.setText("");
         }
         if(id == R.id.action_view){
             mEventEditText.setText("");

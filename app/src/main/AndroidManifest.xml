@@ -29,8 +29,7 @@
             android:theme="@style/NoActionBarTheme"/>
         <activity
             android:name=".ui.PlanActivity"
-            android:theme="@style/NoActionBarTheme"
-            android:launchMode="singleTask" />
+            android:theme="@style/NoActionBarTheme" />
         <activity
             android:name=".ui.ConfirmActivity"
             android:theme="@style/NoActionBarTheme" />
@@ -47,7 +46,7 @@
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
+                android:resource="@xml/searchable"/>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.epicodus.socialite.ui.PlanActivity"
