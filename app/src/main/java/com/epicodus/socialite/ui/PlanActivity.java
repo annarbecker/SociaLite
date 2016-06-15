@@ -269,15 +269,31 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id == R.id.action_add){
+        if(id == R.id.action_add) {
             Intent intent = new Intent(PlanActivity.this, PlanActivity.class);
             startActivity(intent);
+
+            mEventEditText.setText("");
+            mMyLocation.setText("");
+            mMyLocation.setText("");
+            mDateEditText.setText("");
+            mTimeEditText.setText("");
         }
         if(id == R.id.action_view){
+            mEventEditText.setText("");
+            mMyLocation.setText("");
+            mMyLocation.setText("");
+            mDateEditText.setText("");
+            mTimeEditText.setText("");
             Intent intent = new Intent(PlanActivity.this, SavedEventsActivity.class);
             startActivity(intent);
         }
         if(id == R.id.action_home) {
+            mEventEditText.setText("");
+            mMyLocation.setText("");
+            mMyLocation.setText("");
+            mDateEditText.setText("");
+            mTimeEditText.setText("");
             Intent intent = new Intent(PlanActivity.this, MainActivity.class);
             startActivity(intent);
         }
