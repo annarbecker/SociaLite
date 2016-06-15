@@ -1,22 +1,18 @@
 package com.epicodus.socialite.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Person;
-import com.epicodus.socialite.ui.FriendListFragment;
 import com.epicodus.socialite.ui.SearchContactsActivity;
-import com.epicodus.socialite.ui.SearchLoaderCallbacks;
 import com.firebase.client.Firebase;
 
 import org.parceler.Parcels;
