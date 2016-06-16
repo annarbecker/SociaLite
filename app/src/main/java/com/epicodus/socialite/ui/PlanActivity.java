@@ -236,11 +236,11 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                                 hourOfDay = hourOfDay - 12;
                                 mTimeEditText.setText(hourOfDay + ":" + minute + " PM");
                             } if(hourOfDay < 12 && minute < 10) {
-                                mTimeEditText.setText(hourOfDay + ":0" + minute + " AM");
+                                mTimeEditText.setText((hourOfDay * -1) + ":0" + minute + " AM");
                             } if(hourOfDay < 12 && minute >= 10) {
-                                mTimeEditText.setText(hourOfDay + ":" + minute + " AM");
+                                mTimeEditText.setText((hourOfDay * -1) + ":" + minute + " AM");
                             } if(hourOfDay == 0 && minute >= 10) {
-                                mTimeEditText.setText(hourOfDay + ":" + minute + " AM");
+                                mTimeEditText.setText(hourOfDay  + ":" + minute + " AM");
                             } if(hourOfDay == 0 && minute < 10) {
                                 mTimeEditText.setText((hourOfDay + 12) + ":0" + minute + " AM");
                             }
