@@ -1,5 +1,6 @@
 package com.epicodus.socialite.ui;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
@@ -13,10 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -83,7 +86,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
 
-//        addToSharedPreferences(mEventEditText.getText().toString());
         mEventEditText.setText(mSharedPreferences.getString(Constants.PREFERENCES_EVENT, null));
 
         mCreateButton.setOnClickListener(this);
@@ -91,7 +93,23 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         mSelectDateButton.setOnClickListener(this);
         mSelectTimeButton.setOnClickListener(this);
         mPickLocationButton.setOnClickListener(this);
+        mMyLocation.setKeyListener(null);
+        mDateEditText.setKeyListener(null);
+        mTimeEditText.setKeyListener(null);
+
+
         getEventImage();
+
+//        mEventEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (!hasFocus) {
+//                    hideKeyboard(v);
+//                }
+//            }
+//        });
+
+
     }
 
     private void getEventImage() {
@@ -115,6 +133,12 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+//    public void hideKeyboard(View view) {
+//        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+//        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+//    }
+
 
     @Override
     public void onClick(View v) {
