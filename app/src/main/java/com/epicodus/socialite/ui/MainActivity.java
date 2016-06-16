@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == mMakePlansButton) {
             mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
+            mEditor.putString(Constants.INVITEE_PHONE_NUMBERS, "").apply();
             Intent intent = new Intent(MainActivity.this, PlanActivity.class);
             startActivity(intent);
         }if (v == mViewEventsButton) {
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(id == R.id.action_add){
             mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
+            mEditor.putString(Constants.INVITEE_PHONE_NUMBERS, "").apply();
             Intent intent = new Intent(MainActivity.this, PlanActivity.class);
             startActivity(intent);
         }

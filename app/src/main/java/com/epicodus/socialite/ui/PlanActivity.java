@@ -295,6 +295,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
         if(id == R.id.action_add) {
             mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
+            mEditor.putString(Constants.INVITEE_PHONE_NUMBERS, "").apply();
             Intent intent = new Intent(PlanActivity.this, PlanActivity.class);
             startActivity(intent);
         }

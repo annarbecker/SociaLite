@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -47,6 +48,10 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
     private String phoneNumber;
     private SharedPreferences mSharedPreferences;
     private String mEvent;
+    private SharedPreferences.Editor mSharedPreferencesEditor;
+    private ArrayList<String> phoneNumbersList = new ArrayList<>();
+
+
 
 
     public SearchLoaderCallbacks(Context context) {
@@ -55,6 +60,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
 
     @Override
     public Loader<Cursor> onCreateLoader(int loaderIndex, Bundle args) {
+
 
         String query = args.getString(QUERY_KEY);
         Uri uri = Uri.withAppendedPath(
@@ -77,6 +83,8 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
         final TextView tv  = (TextView) ((Activity)mContext).findViewById(R.id.sample_output);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         mEvent = mSharedPreferences.getString(Constants.PREFERENCES_EVENT, null);
+        mSharedPreferencesEditor = mSharedPreferences.edit();
+
 
         if(tv == null) {
             Log.e(TAG, "TextView null");
@@ -142,6 +150,13 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
                 Person newContact = new Person(name, event);
                 newContact.setPhone(phone);
 
+                phoneNumbersList.add(phone);
+                Log.d("phone added to array", phone);
+                String phoneNumbers = TextUtils.join(", ", phoneNumbersList);
+                Log.d("phone", phoneNumbers);
+
+                addToSharedPreferences(phoneNumbers);
+
                 Toast.makeText(mContext, name + " added to your event", Toast.LENGTH_SHORT).show();
 
                 Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_PERSON).child(event);
@@ -149,11 +164,17 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
                 String eventPushId = pushRef.getKey();
                 newContact.setPushId(eventPushId);
                 pushRef.setValue(newContact);
+
+
             }
         });
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
+    }
+
+    private void addToSharedPreferences(String phoneNumber) {
+        mSharedPreferencesEditor.putString(Constants.INVITEE_PHONE_NUMBERS, phoneNumber).apply();
     }
 }

@@ -100,8 +100,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if (v == mShareButton) {
-
-
             new AlertDialog.Builder(this)
                     .setTitle("Share This Event")
                     .setMessage("SociaLite friends will receive notification in their account\n\nFriends without the app will be sent an invite via text and link to download SociaLite")
@@ -113,20 +111,15 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                             startActivity(intentHome);
 
                             String message = userName + " invited you to: \n" + newEvent.getName() + "\n" + newEvent.getDate() + " at " + newEvent.getTime() + "\n" +newEvent.getLocation() + "\n \n Download SociaLite at: www.google.com";
-
-
-
-                            //loop through users with phone number, add property to user socialite user or not - if !sociaLite user get phone number - save as phone number + index nubmer
-
-                            Uri smsUri = Uri.parse("smsto:" + "5037587197, 5037585865, 5037587387");
+                            String phoneNumbers = mSharedPreferences.getString(Constants.INVITEE_PHONE_NUMBERS, null);
+                            Log.v("phoneNumbers", phoneNumbers);
+                            Uri smsUri = Uri.parse("smsto:" + phoneNumbers);
                             Intent intent = new Intent(Intent.ACTION_SENDTO, smsUri);
                             intent.putExtra("sms_body", message);
+
                             if (intent.resolveActivity(getPackageManager()) != null) {
                                 startActivity(intent);
                             }
-
-
-
                         }
                     })
                     .setNeutralButton("Just invite SociaLite friends", new DialogInterface.OnClickListener() {
@@ -156,6 +149,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         if(id == R.id.action_add){
             mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
+            mEditor.putString(Constants.INVITEE_PHONE_NUMBERS, "").apply();
             Intent intent = new Intent(ConfirmActivity.this, PlanActivity.class);
             startActivity(intent);
         }

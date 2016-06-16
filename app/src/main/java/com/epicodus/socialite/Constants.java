@@ -21,6 +21,7 @@ public class Constants {
     public static final String KEY_USER_EMAIL = "email";
     public static final String KEY_USER_NAME = "name";
     public static final String FIREBASE_URL_USERS_LIST = "https://socialite-ab.firebaseio.com/users";
+    public static final String INVITEE_PHONE_NUMBERS = "phoneNumbers";
 
     public static final String KEY_SOURCE = "source";
     public static final String SOURCE_SAVED = "saved";
