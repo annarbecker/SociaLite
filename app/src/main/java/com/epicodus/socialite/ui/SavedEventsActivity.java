@@ -28,6 +28,7 @@ public class SavedEventsActivity extends AppCompatActivity {
     @Bind(R.id.toolbar) Toolbar topToolBar;
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
 
 
     @Override
@@ -41,6 +42,7 @@ public class SavedEventsActivity extends AppCompatActivity {
 
         mFirebaseEventsRef = new Firebase(Constants.FIREBASE_URL_EVENT);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
 
         setUpFirebaseQuery();
         setUpRecyclerView();
@@ -70,6 +72,7 @@ public class SavedEventsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id == R.id.action_add){
+            mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
             Intent intent = new Intent(SavedEventsActivity.this, PlanActivity.class);
             startActivity(intent);
         }

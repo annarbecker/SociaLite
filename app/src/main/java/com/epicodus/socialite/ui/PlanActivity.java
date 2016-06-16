@@ -83,13 +83,15 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
 
+//        addToSharedPreferences(mEventEditText.getText().toString());
+        mEventEditText.setText(mSharedPreferences.getString(Constants.PREFERENCES_EVENT, null));
+
         mCreateButton.setOnClickListener(this);
         mInviteButton.setOnClickListener(this);
         mSelectDateButton.setOnClickListener(this);
         mSelectTimeButton.setOnClickListener(this);
         mPickLocationButton.setOnClickListener(this);
         getEventImage();
-
     }
 
     private void getEventImage() {
@@ -123,12 +125,16 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             String time = mTimeEditText.getText().toString();
             mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-            Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
+
             Event newEvent = new Event(event, location, date, time, latLong, image);
 
             if(!event.equals("") && !location.equals("") && !date.equals("") && !time.equals("") && !latLong.equals("")) {
+                Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
                 intent.putExtra("newEvent", Parcels.wrap(newEvent));
                 startActivity(intent);
+                finish();
 
                 String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
                 Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_EVENT).child(userUid);
@@ -136,12 +142,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                 String eventPushId = pushRef.getKey();
                 newEvent.setPushId(eventPushId);
                 pushRef.setValue(newEvent);
-
-                mEventEditText.setText("");
-                mMyLocation.setText("");
-                mMyLocation.setText("");
-                mDateEditText.setText("");
-                mTimeEditText.setText("");
             } else {
                 new AlertDialog.Builder(this)
                         .setTitle("Almost!")
@@ -270,31 +270,23 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         if(id == R.id.action_add) {
+            mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
             Intent intent = new Intent(PlanActivity.this, PlanActivity.class);
             startActivity(intent);
         }
         if(id == R.id.action_view){
-            mEventEditText.setText("");
-            mMyLocation.setText("");
-            mMyLocation.setText("");
-            mDateEditText.setText("");
-            mTimeEditText.setText("");
+
             Intent intent = new Intent(PlanActivity.this, SavedEventsActivity.class);
             startActivity(intent);
         }
         if(id == R.id.action_home) {
-            mEventEditText.setText("");
-            mMyLocation.setText("");
-            mMyLocation.setText("");
-            mDateEditText.setText("");
-            mTimeEditText.setText("");
             Intent intent = new Intent(PlanActivity.this, MainActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void addToSharedPreferences(String location) {
-        mEditor.putString(Constants.PREFERENCES_EVENT, location).apply();
+    private void addToSharedPreferences(String event) {
+        mEditor.putString(Constants.PREFERENCES_EVENT, event).apply();
     }
 }

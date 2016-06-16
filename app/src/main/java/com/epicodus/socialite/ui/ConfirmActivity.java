@@ -57,6 +57,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     private FirebasePersonListAdapter mAdapter;
     private Firebase mFirebaseRef;
     private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
     private String userName;
 
 
@@ -75,6 +76,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         newEvent = Parcels.unwrap(getIntent().getParcelableExtra("newEvent"));
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
 
         mUserEventTextView.setText(newEvent.getName());
         mUserLocationTextView.setText(newEvent.getLocation());
@@ -153,6 +155,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         int id = item.getItemId();
 
         if(id == R.id.action_add){
+            mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
             Intent intent = new Intent(ConfirmActivity.this, PlanActivity.class);
             startActivity(intent);
         }

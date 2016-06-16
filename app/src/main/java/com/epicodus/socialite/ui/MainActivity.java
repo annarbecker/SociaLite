@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == mMakePlansButton) {
+            mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
             Intent intent = new Intent(MainActivity.this, PlanActivity.class);
             startActivity(intent);
         }if (v == mViewEventsButton) {
@@ -127,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         if(id == R.id.action_add){
+            mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
             Intent intent = new Intent(MainActivity.this, PlanActivity.class);
             startActivity(intent);
         }
