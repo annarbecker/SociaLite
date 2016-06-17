@@ -19,17 +19,22 @@ public class Event {
     String latLong;
     String image;
     String pushId;
+    Long millisecondDate;
+    Long dateInverse;
+
 
 
     public Event() {}
 
-    public Event (String name, String location, String date, String time, String latLong, String image) {
+    public Event (String name, String location, String date, String time, String latLong, String image, Long millisecondDate) {
         this.name = name;
         this.location = location;
         this.date = date;
         this.time = time;
         this.latLong = latLong;
         this.image = image;
+        this.millisecondDate = millisecondDate;
+        this.dateInverse = millisecondDate*-1;
     }
 
     public String getName() {
@@ -93,5 +98,12 @@ public class Event {
         this.pushId = pushId;
     }
 
+    public Long getMillisecondDate() {
+        return millisecondDate;
+    }
+
+    public void setMillisecondDate(Long millisecondDate) {
+        this.millisecondDate = millisecondDate;
+    }
 
 }

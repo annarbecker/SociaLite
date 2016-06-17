@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,6 +64,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private int mYear, mMonth, mDay, mHour, mMinute;
+    private Long mMillisecondDate;
 
     private String latLong;
     public String image;
@@ -150,7 +152,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 
-            Event newEvent = new Event(event, location, date, time, latLong, image);
+            Event newEvent = new Event(event, location, date, time, latLong, image, mMillisecondDate);
 
             if(!event.equals("") && !location.equals("") && !date.equals("") && !time.equals("") && !latLong.equals("")) {
                 Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
@@ -211,6 +213,11 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                             mDateEditText.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
+
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(year, monthOfYear, dayOfMonth);
+                            mMillisecondDate = calendar.getTimeInMillis();
+                            Log.d("date", mMillisecondDate+"");
                         }
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
