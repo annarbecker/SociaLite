@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Person;
+import com.epicodus.socialite.ui.ConfirmActivity;
+import com.epicodus.socialite.ui.EventDetailFragment;
 import com.epicodus.socialite.ui.SearchContactsActivity;
 import com.firebase.client.Firebase;
 
@@ -35,6 +37,7 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
     private String name;
     private String email;
     private String event;
+    private Boolean RSVP;
 
 
     public PersonViewHolder(View itemView, ArrayList<Person> persons) {
@@ -46,28 +49,23 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         event = mSharedPreferences.getString(Constants.PREFERENCES_EVENT, null);
 
-        if(mContext.getClass().getSimpleName().equals(SearchContactsActivity.class.getSimpleName())) {
-            itemView.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View view) {
-                    int itemPosition = getLayoutPosition();
-                    name = mPersons.get(itemPosition).getName();
-                    email = mPersons.get(itemPosition).getEmail();
-
-                    Person newContact = new Person(name, event);
-                    newContact.setEmail(email);
-
-                    Log.d("NEW CONTACT ADDED", newContact.getName());
-                    Toast.makeText(mContext, name + " added to your event", Toast.LENGTH_SHORT).show();
-
-                    Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_PERSON).child(event);
-                    Firebase pushRef = userEventsFirebaseRef.push();
-                    String eventPushId = pushRef.getKey();
-                    newContact.setPushId(eventPushId);
-                    pushRef.setValue(newContact);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int itemPosition = getLayoutPosition();
+                name = mPersons.get(itemPosition).getName();
+                mPersons.get(itemPosition).confirmInvite();
+                if(mPersons.get(itemPosition).getGoing()) {
+                    Log.d("NEW CONTACT RSVPD", name);
+                    mNameTextView.setBackgroundColor(0xff00ffff);
                 }
-            });
+
+            }
+        });
+
+
+        if(mContext.getClass().getSimpleName().equals(ConfirmActivity.class.getSimpleName())) {
+            itemView.setOnClickListener(null);
         }
     }
 

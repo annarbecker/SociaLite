@@ -40,7 +40,7 @@ public class SavedEventsActivity extends AppCompatActivity {
         setTitle(null);
         setSupportActionBar(topToolBar);
 
-        mFirebaseEventsRef = new Firebase(Constants.FIREBASE_URL_EVENT);
+        mFirebaseEventsRef = new Firebase(Constants.FIREBASE_URL_USER_EVENT);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
 

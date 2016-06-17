@@ -162,11 +162,12 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
 
                 String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
-                Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_EVENT).child(userUid);
+                Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_USER_EVENT).child(userUid);
                 Firebase pushRef = userEventsFirebaseRef.push();
                 String eventPushId = pushRef.getKey();
                 newEvent.setPushId(eventPushId);
                 pushRef.setValue(newEvent);
+
             } else {
                 new AlertDialog.Builder(this)
                         .setTitle("Almost!")

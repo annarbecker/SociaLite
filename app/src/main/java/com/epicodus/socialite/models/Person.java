@@ -10,7 +10,6 @@ public class Person {
     String pushId;
     String email;
     Boolean isGoing = false;
-    String eventId;
 
     public Person(){}
 
@@ -55,11 +54,7 @@ public class Person {
         isGoing = true;
     }
 
-    public String getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
+    public Boolean getGoing() {
+        return isGoing;
     }
 }

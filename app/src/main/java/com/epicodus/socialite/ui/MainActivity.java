@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setTitle(null);
         setSupportActionBar(topToolBar);
 
-        mSavedEventRef = new Firebase(Constants.FIREBASE_URL_EVENT);
+        mSavedEventRef = new Firebase(Constants.FIREBASE_URL_USER_EVENT);
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
 
         mSavedEventRefListener = mSavedEventRef.addValueEventListener(new ValueEventListener() {
