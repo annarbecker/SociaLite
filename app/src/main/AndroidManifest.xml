@@ -29,7 +29,7 @@
             android:theme="@style/NoActionBarTheme"/>
         <activity
             android:name=".ui.PlanActivity"
-            android:theme="@style/NoActionBarTheme" />
+            android:theme="@style/NoActionBarTheme"/>
         <activity
             android:name=".ui.ConfirmActivity"
             android:theme="@style/NoActionBarTheme" />

@@ -151,10 +151,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
                 newContact.setPhone(phone);
 
                 phoneNumbersList.add(phone);
-                Log.d("phone added to array", phone);
                 String phoneNumbers = TextUtils.join(", ", phoneNumbersList);
-                Log.d("phone", phoneNumbers);
-
                 addToSharedPreferences(phoneNumbers);
 
                 Toast.makeText(mContext, name + " added to your event", Toast.LENGTH_SHORT).show();

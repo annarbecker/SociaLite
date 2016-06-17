@@ -101,15 +101,15 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
 
         getEventImage();
-
-//        mEventEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (!hasFocus) {
-//                    hideKeyboard(v);
-//                }
-//            }
-//        });
+        mEventEditText.requestFocus();
+        mEventEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
 
 
     }
@@ -136,10 +136,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-//    public void hideKeyboard(View view) {
-//        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
-//        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-//    }
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
 
     @Override
@@ -157,7 +157,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             if(!event.equals("") && !location.equals("") && !date.equals("") && !time.equals("") && !latLong.equals("")) {
                 Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-
                 intent.putExtra("newEvent", Parcels.wrap(newEvent));
                 startActivity(intent);
                 finish();
