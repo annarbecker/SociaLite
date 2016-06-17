@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,15 +30,11 @@ import butterknife.ButterKnife;
  */
 public class PersonViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.nameTextView) TextView mNameTextView;
+    @Bind(R.id.nameTextView2) TextView mNameTextView2;
 
     private Context mContext;
     private ArrayList<Person> mPersons = new ArrayList<>();
-    private SharedPreferences mSharedPreferences;
-
     private String name;
-    private String email;
-    private String event;
-    private Boolean RSVP;
 
 
     public PersonViewHolder(View itemView, ArrayList<Person> persons) {
@@ -45,9 +42,9 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
         mContext = itemView.getContext();
         mPersons = persons;
+        mNameTextView.setVisibility(View.INVISIBLE);
 
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        event = mSharedPreferences.getString(Constants.PREFERENCES_EVENT, null);
+
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +54,7 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
                 mPersons.get(itemPosition).confirmInvite();
                 if(mPersons.get(itemPosition).getGoing()) {
                     Log.d("NEW CONTACT RSVPD", name);
-                    mNameTextView.setBackgroundColor(0xff00ffff);
+                    //update record in firebase
                 }
 
             }
@@ -65,12 +62,14 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
 
 
         if(mContext.getClass().getSimpleName().equals(ConfirmActivity.class.getSimpleName())) {
-            itemView.setOnClickListener(null);
+            itemView.setClickable(false);
+            mNameTextView.setVisibility(View.VISIBLE);
         }
     }
 
     public void bindPerson(Person person) {
         mNameTextView.setText(person.getName());
+        mNameTextView2.setText(person.getName());
     }
 
 

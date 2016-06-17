@@ -9,6 +9,7 @@ public class Person {
     String event;
     String pushId;
     String email;
+    String going;
     Boolean isGoing = false;
 
     public Person(){}
