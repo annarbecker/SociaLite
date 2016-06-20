@@ -21,7 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.support.design.widget.FloatingActionButton;
 
 
 import com.epicodus.socialite.Constants;
@@ -35,10 +35,6 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -49,9 +45,10 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     @Bind(R.id.userLocationTextView) TextView mUserLocationTextView;
     @Bind(R.id.userDateTextView) TextView mUserDateTextView;
     @Bind(R.id.userTimeTextView) TextView mUserTimeTextView;
-    @Bind(R.id.shareButton) Button mShareButton;
     @Bind(R.id.toolbar) Toolbar topToolBar;
     @Bind(R.id.personRecyclerView) RecyclerView mRecyclerView;
+    @Bind(R.id.fab) FloatingActionButton mShareButton;
+
 
 
     private String mLatLong;

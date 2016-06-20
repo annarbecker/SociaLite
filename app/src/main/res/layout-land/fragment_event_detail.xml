@@ -1,0 +1,117 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.epicodus.socialite.ui.EventDetailFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:id="@+id/eventImageView"
+                    android:src="@drawable/drinks"
+                    android:scaleType="centerCrop"
+                    android:tint="#40000000"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Event Name"
+                    android:id="@+id/eventNameTextView"
+                    android:textSize="32sp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:paddingBottom="5dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignBottom="@+id/eventImageView"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="20dp"
+                    android:paddingRight="30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_event_black_24dp"
+                        android:drawablePadding="6dp"
+                        android:text="05/05/2016"
+                        android:id="@+id/dateTextView"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                        android:drawablePadding="6dp"
+                        android:text="1:00pm"
+                        android:id="@+id/timeTextView"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="123 SW Best Ever Ave. Portland, Oregon, 97222"
+                        android:drawableLeft="@drawable/ic_directions_black_24dp"
+                        android:drawablePadding="6dp"
+                        android:id="@+id/addressTextView"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        android:textIsSelectable="false" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Invitees"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/personRecyclerView"
+                        android:layout_marginBottom="5dp"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</FrameLayout>

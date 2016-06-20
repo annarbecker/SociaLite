@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.ConfirmActivity">
 
     <ScrollView
@@ -36,6 +37,21 @@
                 android:layout_height="54dp">
             </android.support.v7.widget.Toolbar>
 
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/fab_margin"
+                android:clickable="true"
+                android:src="@drawable/ic_send_white_36dp"
+                android:layout_alignBottom="@+id/imageView"
+                android:cropToPadding="false"
+                app:backgroundTint="@color/colorPrimaryLight"/>
+
+
             <TextView
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
@@ -64,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:text="Location"
                 android:id="@+id/locationTextView"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
                 android:layout_alignParentLeft="true"
@@ -81,7 +97,7 @@
                 android:id="@+id/userLocationTextView"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:layout_below="@id/locationTextView"/>
 
             <TextView
@@ -91,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:text="Date &amp; Time"
                 android:id="@+id/dateTextView"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
                 android:layout_marginBottom="0dp"
@@ -112,7 +128,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="0dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:layout_below="@+id/dateTextView"/>
 
             <TextView
@@ -122,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:text="Time"
                 android:id="@+id/userTimeTextView"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:layout_alignTop="@+id/userDateTextView"
                 android:layout_alignEnd="@+id/userLocationTextView" />
 
@@ -133,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:text="Invitees"
                 android:id="@+id/textView4"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
                 android:layout_below="@+id/userTimeTextView"
@@ -147,20 +163,7 @@
                 android:layout_height="140dp"
                 android:id="@+id/personRecyclerView"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_below="@+id/textView4"/>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Share Event"
-                android:id="@+id/shareButton"
-                android:background="@color/colorPrimary"
-                android:textColor="@color/colorTextIcons"
-                android:textSize="20sp"
-                android:onClick="screenShot"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true" />
 
         </RelativeLayout>
     </LinearLayout>
