@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v == mMakePlansButton) {
             mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
             mEditor.putString(Constants.INVITEE_PHONE_NUMBERS, "").apply();
+            mEditor.putString(Constants.PREFERENCES_CREATE_EVENT, "").apply();
             Intent intent = new Intent(MainActivity.this, PlanActivity.class);
             startActivity(intent);
         }if (v == mViewEventsButton) {

@@ -7,16 +7,16 @@ public class Person {
     String name;
     String phone;
     String event;
-    String pushId;
     String email;
-    String going;
-    Boolean isGoing = false;
+    String RSVP;
+    String rsvp;
 
     public Person(){}
 
-    public Person(String name, String event) {
+    public Person(String name, String event, String RSVP) {
         this.name = name;
         this.event = event;
+        this.RSVP = RSVP;
     }
 
     public String getName() {
@@ -31,14 +31,6 @@ public class Person {
         return event;
     }
 
-    public String getPushId() {
-        return pushId;
-    }
-
-    public void setPushId(String pushId) {
-        this.pushId = pushId;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -51,11 +43,9 @@ public class Person {
         this.phone = phone;
     }
 
-    public void confirmInvite() {
-        isGoing = true;
+    public String getRSVP() {
+        return RSVP;
     }
 
-    public Boolean getGoing() {
-        return isGoing;
-    }
+
 }

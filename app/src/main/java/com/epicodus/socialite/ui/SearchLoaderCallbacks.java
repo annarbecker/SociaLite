@@ -47,11 +47,9 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
     private String displayName;
     private String phoneNumber;
     private SharedPreferences mSharedPreferences;
-    private String mEvent;
+    private String mEventCreatedDate;
     private SharedPreferences.Editor mSharedPreferencesEditor;
     private ArrayList<String> phoneNumbersList = new ArrayList<>();
-
-
 
 
     public SearchLoaderCallbacks(Context context) {
@@ -70,19 +68,19 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
         String sortBy = ContactsContract.CommonDataKinds.Contactables.LOOKUP_KEY;
 
         return new CursorLoader(
-                mContext,  // Context
-                uri,       // URI representing the table/resource to be queried
-                null,      // projection - the list of columns to return.  Null means "all"
-                selection, // selection - Which rows to return (condition rows must match)
-                null,      // selection args - can be provided separately and subbed into selection.
-                sortBy);   // string specifying sort order
+                mContext,
+                uri,
+                null,
+                selection,
+                null,
+                sortBy);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
         final TextView tv  = (TextView) ((Activity)mContext).findViewById(R.id.sample_output);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        mEvent = mSharedPreferences.getString(Constants.PREFERENCES_EVENT, null);
+        mEventCreatedDate = mSharedPreferences.getString(Constants.PREFERENCES_CREATE_EVENT, null);
         mSharedPreferencesEditor = mSharedPreferences.edit();
 
 
@@ -146,8 +144,9 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String name = ((TextView)view).getText().toString();
                 String phone = phones.get(name);
-                String event = mEvent;
-                Person newContact = new Person(name, event);
+                String event = mEventCreatedDate;
+                String RSVP = "no";
+                Person newContact = new Person(name, event, RSVP);
                 newContact.setPhone(phone);
 
                 phoneNumbersList.add(phone);
@@ -158,11 +157,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
 
                 Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_PERSON).child(event);
                 Firebase pushRef = userEventsFirebaseRef.push();
-                String eventPushId = pushRef.getKey();
-                newContact.setPushId(eventPushId);
                 pushRef.setValue(newContact);
-
-
             }
         });
     }

@@ -3,8 +3,10 @@ package com.epicodus.socialite.ui;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +35,10 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -46,11 +52,14 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     @Bind(R.id.shareButton) Button mShareButton;
     @Bind(R.id.toolbar) Toolbar topToolBar;
     @Bind(R.id.personRecyclerView) RecyclerView mRecyclerView;
+//    @Bind(R.id.screenImageView) ImageView mScreenImageView;
+//    @Bind(R.id.capture_screen_shot) Button mTakeScreenShotButton;
 
 
     private String mLatLong;
     private Event newEvent;
     private String mLocation;
+    Bitmap mbitmap;
 
     private Query mQuery;
     private Firebase mFirebasePersonRef;
@@ -73,6 +82,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/bario.ttf");
         mUserEventTextView.setTypeface(myCustomFont);
 
+
         newEvent = Parcels.unwrap(getIntent().getParcelableExtra("newEvent"));
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -91,13 +101,43 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         Picasso.with(ConfirmActivity.this).load(newEvent.getImage()).into(mImage);
 
-        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL_PERSON  + "/" + newEvent.getName());
+        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL_PERSON  + "/" + newEvent.getCreateEventTimestamp());
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         setUpFirebaseQuery();
         setUpRecyclerView();
     }
 
     //.setMessage("SociaLite friends will receive in app invitations\n\nFriends without the app will be sent an invite via text and link to download SociaLite")
+
+//    public void screenShot(View view) {
+//        mbitmap = getBitmapOFRootView(mTakeScreenShotButton);
+//        mScreenImageView.setImageBitmap(mbitmap);
+//        createImage(mbitmap);
+//    }
+//
+//    public Bitmap getBitmapOFRootView(View v) {
+//        View rootview = v.getRootView();
+//        rootview.setDrawingCacheEnabled(true);
+//        Bitmap bitmap1 = rootview.getDrawingCache();
+//        return bitmap1;
+//    }
+//
+//    public void createImage(Bitmap bmp) {
+//        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//        bmp.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
+//        File file = new File(Environment.getExternalStorageDirectory() +
+//                "/capturedscreenandroid.jpg");
+//        Log.d("image file", file+"");
+//        try {
+//            file.createNewFile();
+//            FileOutputStream outputStream = new FileOutputStream(file);
+//            outputStream.write(bytes.toByteArray());
+//            outputStream.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
 
 
     @Override
@@ -152,6 +192,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         if(id == R.id.action_add){
             mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
             mEditor.putString(Constants.INVITEE_PHONE_NUMBERS, "").apply();
+            mEditor.putString(Constants.PREFERENCES_CREATE_EVENT, "").apply();
             Intent intent = new Intent(ConfirmActivity.this, PlanActivity.class);
             startActivity(intent);
         }
@@ -168,7 +209,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
     private void setUpFirebaseQuery() {
         mQuery = mFirebasePersonRef;
-
     }
 
     private void setUpRecyclerView() {

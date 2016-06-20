@@ -10,6 +10,7 @@ import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,9 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
         Typeface myCustomFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bario.ttf");
         mNameLabel.setTypeface(myCustomFont);
 
+        Log.d("event time created", mEvent.getCreateEventTimestamp()+" time set");
+
+
         mNameLabel.setText(mEvent.getName());
         mDateLabel.setText(mEvent.getDate());
         mTimeLabel.setText(mEvent.getTime());
@@ -87,7 +91,7 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
         mAddressLabel.setOnClickListener(this);
         mDateLabel.setOnClickListener(this);
 
-        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL_PERSON  + "/" + mEvent.getName());
+        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL_PERSON  + "/" + mEvent.getCreateEventTimestamp());
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         setUpFirebaseQuery();
         setUpRecyclerView();

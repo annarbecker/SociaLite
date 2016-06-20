@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Event;
+import com.epicodus.socialite.models.Person;
 import com.epicodus.socialite.services.UnsplashService;
 import com.firebase.client.Firebase;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -38,8 +39,11 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import org.parceler.Parcels;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 
 import butterknife.Bind;
@@ -65,9 +69,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
     private int mYear, mMonth, mDay, mHour, mMinute;
     private Long mMillisecondDate;
-
     private String latLong;
-    public String image;
+    private String image;
+    private String mEventCreateDate;
+    private String event;
 
     private PlacePicker.IntentBuilder mBuilder;
     private static final int PLACE_PICKER_FLAG = 1;
@@ -87,6 +92,8 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
+
+
 
         mEventEditText.setText(mSharedPreferences.getString(Constants.PREFERENCES_EVENT, null));
 
@@ -145,14 +152,17 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == mCreateButton) {
+            mEventCreateDate = mSharedPreferences.getString(Constants.PREFERENCES_CREATE_EVENT, null);
+            Log.d("set timestamp", mEventCreateDate+" time set");
+
+
             String event = mEventEditText.getText().toString();
             String location = mMyLocation.getText().toString();
             String date = mDateEditText.getText().toString();
             String time = mTimeEditText.getText().toString();
             mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-
-            Event newEvent = new Event(event, location, date, time, latLong, image, mMillisecondDate);
+            Event newEvent = new Event(event, location, date, time, latLong, image, mMillisecondDate, mEventCreateDate);
 
             if(!event.equals("") && !location.equals("") && !date.equals("") && !time.equals("") && !latLong.equals("")) {
                 Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
@@ -194,9 +204,14 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
             } else {
-                Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
-                String event = mEventEditText.getText().toString();
+                Date currentDate = new Date();
+                Long eventCreated = currentDate.getTime();
+                mEventCreateDate = eventCreated.toString();
+                event = mEventEditText.getText().toString();
                 addToSharedPreferences(event);
+                addTimeToSharedPreferences(mEventCreateDate);
+
+                Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
                 startActivity(intent);
             }
 
@@ -303,6 +318,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         if(id == R.id.action_add) {
             mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
             mEditor.putString(Constants.INVITEE_PHONE_NUMBERS, "").apply();
+            mEditor.putString(Constants.PREFERENCES_CREATE_EVENT, "").apply();
             Intent intent = new Intent(PlanActivity.this, PlanActivity.class);
             startActivity(intent);
         }
@@ -320,5 +336,9 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
     private void addToSharedPreferences(String event) {
         mEditor.putString(Constants.PREFERENCES_EVENT, event).apply();
+    }
+
+    private void addTimeToSharedPreferences(String createDate) {
+        mEditor.putString(Constants.PREFERENCES_CREATE_EVENT, createDate).apply();
     }
 }

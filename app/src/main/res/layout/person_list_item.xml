@@ -4,23 +4,9 @@
     android:layout_height="wrap_content">
 
 
-
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Guest Name"
-            android:id="@+id/nameTextView2"
-            android:textSize="16sp"
-            android:textColor="@color/colorTextPrimary"
-            android:background="#FFFFFF"
-            android:padding="10dp"
-            android:checked="false" />
 
         <TextView
             android:id="@+id/nameTextView"
@@ -34,22 +20,19 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guest Name"
+            android:id="@+id/nameTextView2"
+            android:textSize="16sp"
+            android:textColor="@color/colorTextPrimary"
+            android:background="#FFFFFF"
+            android:padding="10dp"
+            android:checked="false" />
+
 
 
     </RelativeLayout>
-
-
-
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Guest Name"-->
-        <!--android:id="@+id/nameTextView"-->
-        <!--android:textSize="16sp"-->
-        <!--android:textColor="@color/colorTextPrimary"-->
-        <!--android:background="#FFFFFF"-->
-        <!--android:padding="10dp"/>-->
-
-
 
 </LinearLayout>

@@ -21,12 +21,12 @@ public class Event {
     String pushId;
     Long millisecondDate;
     Long dateInverse;
-
+    String createEventTimestamp;
 
 
     public Event() {}
 
-    public Event (String name, String location, String date, String time, String latLong, String image, Long millisecondDate) {
+    public Event (String name, String location, String date, String time, String latLong, String image, Long millisecondDate, String createEventTimestamp) {
         this.name = name;
         this.location = location;
         this.date = date;
@@ -35,6 +35,7 @@ public class Event {
         this.image = image;
         this.millisecondDate = millisecondDate;
         this.dateInverse = millisecondDate*-1;
+        this.createEventTimestamp = createEventTimestamp;
     }
 
     public String getName() {
@@ -60,15 +61,6 @@ public class Event {
     public String getImage() {
         return image;
     }
-
-
-//    public ArrayList<Person> getInvitees() {
-//        return mInvitees;
-//    }
-
-//    public void addInvitee(Person invitee) {
-//        this.mInvitees.add(invitee);
-//    }
 
     public void setName(String name) {
         this.name = name;
@@ -106,4 +98,7 @@ public class Event {
         this.millisecondDate = millisecondDate;
     }
 
+    public String getCreateEventTimestamp() {
+        return createEventTimestamp;
+    }
 }
