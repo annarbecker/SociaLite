@@ -12,10 +12,14 @@ import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Person;
 import com.epicodus.socialite.ui.ConfirmActivity;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.Query;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,6 +38,7 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
     private String event;
     private String RSVP;
     private String phone;
+    private String pushId;
 
 
     public PersonViewHolder(final View itemView, ArrayList<Person> persons) {
@@ -50,17 +55,19 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
                 name = mPersons.get(itemPosition).getName();
                 event = mPersons.get(itemPosition).getEvent();
                 phone = mPersons.get(itemPosition).getPhone();
+                pushId = mPersons.get(itemPosition).getPushId();
+
 
                 if (isChecked) {
                     Log.d("RSVP YES", name);
                     RSVP = "yes";
 
-//                    updateRSVP(RSVP);
+                    updateRSVP(RSVP);
 
                 } else {
                     Log.d("RSVP NO", name);
                     RSVP = "no";
-//                    updateRSVP(RSVP);
+                    updateRSVP(RSVP);
                 }
             }
         });
@@ -75,7 +82,7 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
 
     public void bindPerson(Person person) {
         if(person.getRSVP().equals("yes")) {
-            Log.d("problem", "problem");
+            Log.d("check the box", name+"");
             mNameCheckBox.setChecked(true);
             mNameTextView.setText(person.getName());
             mNameCheckBox.setText(person.getName());
@@ -88,9 +95,20 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void updateRSVP(String RSVP) {
-        Firebase ref = new Firebase(Constants.FIREBASE_URL_PERSON + "/" + event);
-        HashMap<String, Object> updatedRSVP = new HashMap<String, Object>();
-        updatedRSVP.put("RSVP", RSVP);
-        ref.updateChildren(updatedRSVP);
+
+        Firebase m_objFireBaseRef = new Firebase(Constants.FIREBASE_URL);
+        Firebase objRef = m_objFireBaseRef.child(event);
+        Firebase taskRef = objRef.child(pushId);
+        Map<String,Object> taskMap = new HashMap<String,Object>();
+        taskMap.put("RSVP", RSVP);
+        taskMap.put("event", event);
+        taskMap.put("name", name);
+        taskMap.put("phone", phone);
+        taskMap.put("pushId", pushId);
+        taskRef.updateChildren(taskMap);
+
     }
+
+
+
 }

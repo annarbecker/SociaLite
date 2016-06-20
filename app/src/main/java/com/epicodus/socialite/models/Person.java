@@ -3,6 +3,7 @@ package com.epicodus.socialite.models;
 /**
  * Created by arbecker on 4/28/16.
  */
+
 public class Person {
     String name;
     String phone;
@@ -10,6 +11,8 @@ public class Person {
     String email;
     String RSVP;
     String rsvp;
+
+    String pushId;
 
     public Person(){}
 
@@ -45,6 +48,14 @@ public class Person {
 
     public String getRSVP() {
         return RSVP;
+    }
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
     }
 
 }

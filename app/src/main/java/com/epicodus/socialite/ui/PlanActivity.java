@@ -248,22 +248,30 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute) {
+//                            mTimeEditText.setText(hourOfDay + ":" + minute);
+
                             if(hourOfDay > 12 && minute < 10) {
                                 mTimeEditText.setText((hourOfDay - 12) + ":0" + minute + " PM");
-                            } if(hourOfDay > 12 && minute >= 10) {
+                            }
+                            if(hourOfDay > 12 && minute >= 10) {
                                 mTimeEditText.setText((hourOfDay - 12) + ":" + minute + " PM");
-                            } if(hourOfDay == 12 && minute < 10 || hourOfDay < 12 && minute < 10) {
+                            }
+                            if(hourOfDay == 12 && minute < 10 || hourOfDay < 12 && minute < 10) {
                                 mTimeEditText.setText(hourOfDay + ":0" + minute + " PM");
-                            } if(hourOfDay == 12 && minute > 10 || hourOfDay < 12 && minute > 10) {
-                                hourOfDay = hourOfDay - 12;
+                            }
+                            if(hourOfDay == 12 && minute > 10 || hourOfDay < 12 && minute > 10) {
                                 mTimeEditText.setText(hourOfDay + ":" + minute + " PM");
-                            } if(hourOfDay < 12 && minute < 10) {
-                                mTimeEditText.setText((hourOfDay * -1) + ":0" + minute + " AM");
-                            } if(hourOfDay < 12 && minute >= 10) {
-                                mTimeEditText.setText((hourOfDay * -1) + ":" + minute + " AM");
-                            } if(hourOfDay == 0 && minute >= 10) {
-                                mTimeEditText.setText(hourOfDay  + ":" + minute + " AM");
-                            } if(hourOfDay == 0 && minute < 10) {
+                            }
+                            if(hourOfDay < 12 && minute < 10) {
+                                mTimeEditText.setText((hourOfDay) + ":0" + minute + " AM");
+                            }
+                            if(hourOfDay < 12 && minute >= 10) {
+                                mTimeEditText.setText((hourOfDay) + ":" + minute + " AM");
+                            }
+                            if(hourOfDay == 0 && minute >= 10) {
+                                mTimeEditText.setText((hourOfDay  + 12) + ":" + minute + " AM");
+                            }
+                            if(hourOfDay == 0 && minute < 10) {
                                 mTimeEditText.setText((hourOfDay + 12) + ":0" + minute + " AM");
                             }
                         }

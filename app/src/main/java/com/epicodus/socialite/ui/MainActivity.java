@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 User user = dataSnapshot.getValue(User.class);
                 mWelcomeTextView.setText(user.getName());
                 addToSharedPreferences(user.getName());
-
             }
 
             @Override

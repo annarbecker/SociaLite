@@ -29,6 +29,8 @@ import com.squareup.picasso.Picasso;
 import org.parceler.Parcels;
 
 
+import java.util.Calendar;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -89,9 +91,8 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
                 .into(mImageLabel);
 
         mAddressLabel.setOnClickListener(this);
-        mDateLabel.setOnClickListener(this);
 
-        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL_PERSON  + "/" + mEvent.getCreateEventTimestamp());
+        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL + "/" + mEvent.getCreateEventTimestamp());
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         setUpFirebaseQuery();
         setUpRecyclerView();
@@ -104,13 +105,6 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
         if(v == mAddressLabel) {
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + mEvent.getLatLong() + "?q=(" + mEvent.getLocation() + ")"));
             startActivity(mapIntent);
-        }
-        if(v == mDateLabel) {
-            Intent calendarIntent = new Intent(Intent.ACTION_INSERT, CalendarContract.Events.CONTENT_URI);
-            calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, mEvent.getDate());
-            calendarIntent.putExtra(CalendarContract.Events.TITLE, mEvent.getName());
-            calendarIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, mEvent.getLocation());
-            startActivity(calendarIntent);
         }
     }
 

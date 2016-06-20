@@ -96,7 +96,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         Picasso.with(ConfirmActivity.this).load(newEvent.getImage()).into(mImage);
 
-        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL_PERSON  + "/" + newEvent.getCreateEventTimestamp());
+        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL  + "/" + newEvent.getCreateEventTimestamp());
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         setUpFirebaseQuery();
         setUpRecyclerView();

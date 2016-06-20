@@ -155,9 +155,12 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
 
                 Toast.makeText(mContext, name + " added to your event", Toast.LENGTH_SHORT).show();
 
-                Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_PERSON).child(event);
+                Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL).child(event);
                 Firebase pushRef = userEventsFirebaseRef.push();
+                String pushId = pushRef.getKey();
+                newContact.setPushId(pushId);
                 pushRef.setValue(newContact);
+
             }
         });
     }
