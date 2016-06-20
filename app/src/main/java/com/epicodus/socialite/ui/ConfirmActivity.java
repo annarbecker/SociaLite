@@ -115,7 +115,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Intent intentHome = new Intent(ConfirmActivity.this, MainActivity.class);
-                            intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intentHome);
 
                             String message = userName + " invited you to: \n" + newEvent.getName() + "\n" + newEvent.getDate() + " at " + newEvent.getTime() + "\n" +newEvent.getLocation() + "\n \n Download SociaLite at: www.google.com";
