@@ -52,8 +52,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     @Bind(R.id.shareButton) Button mShareButton;
     @Bind(R.id.toolbar) Toolbar topToolBar;
     @Bind(R.id.personRecyclerView) RecyclerView mRecyclerView;
-//    @Bind(R.id.screenImageView) ImageView mScreenImageView;
-//    @Bind(R.id.capture_screen_shot) Button mTakeScreenShotButton;
 
 
     private String mLatLong;
@@ -106,39 +104,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         setUpFirebaseQuery();
         setUpRecyclerView();
     }
-
-    //.setMessage("SociaLite friends will receive in app invitations\n\nFriends without the app will be sent an invite via text and link to download SociaLite")
-
-//    public void screenShot(View view) {
-//        mbitmap = getBitmapOFRootView(mTakeScreenShotButton);
-//        mScreenImageView.setImageBitmap(mbitmap);
-//        createImage(mbitmap);
-//    }
-//
-//    public Bitmap getBitmapOFRootView(View v) {
-//        View rootview = v.getRootView();
-//        rootview.setDrawingCacheEnabled(true);
-//        Bitmap bitmap1 = rootview.getDrawingCache();
-//        return bitmap1;
-//    }
-//
-//    public void createImage(Bitmap bmp) {
-//        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//        bmp.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
-//        File file = new File(Environment.getExternalStorageDirectory() +
-//                "/capturedscreenandroid.jpg");
-//        Log.d("image file", file+"");
-//        try {
-//            file.createNewFile();
-//            FileOutputStream outputStream = new FileOutputStream(file);
-//            outputStream.write(bytes.toByteArray());
-//            outputStream.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
 
     @Override
     public void onClick(View v) {

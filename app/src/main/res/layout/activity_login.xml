@@ -21,8 +21,8 @@
                 android:focusableInTouchMode="true">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="215dp"
                     android:id="@+id/imageView2"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentStart="true"
@@ -52,7 +52,6 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:paddingLeft="10dp"
-                    android:paddingTop="30dp"
                     android:paddingRight="10dp"
                     android:paddingBottom="50dp"
                     android:layout_alignParentLeft="true"
@@ -96,15 +95,16 @@
                         android:textSize="20sp"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:textColor="@color/colorTextIcons"
                         android:textStyle="bold"
                         android:textSize="15sp"
-                        android:text="Don't have a SociaLite account? Sign up here!"
+                        android:text="Don't have a SociaLite account? \n Sign up here!"
                         android:id="@+id/registerTextView"
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_gravity="center_horizontal"
+                        android:textAlignment="center" />
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>

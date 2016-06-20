@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.epicodus.socialite.ui.CreateAccountActivity">
+    tools:context="com.epicodus.socialite.ui.CreateAccountActivity"
+    android:background="@color/colorPrimary">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,18 +21,16 @@
                 android:focusableInTouchMode="true">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="215dp"
                     android:id="@+id/imageView3"
                     android:src="@drawable/beach"
-                    android:layout_alignParentStart="false"
-                    android:layout_alignParentTop="true"
                     android:tint="#30000000"
                     android:scaleType="centerCrop"/>
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="215dp"
                     android:text="SIGN UP"
                     android:id="@+id/textView4"
                     android:textStyle="bold"
@@ -42,8 +41,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:paddingTop="35dp"
-                    android:paddingBottom="75dp"
-                    android:layout_above="@+id/linearLayout2" />
+                    android:paddingBottom="75dp" />
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -113,15 +111,16 @@
                         android:textSize="20sp"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:textColor="@color/colorTextIcons"
                         android:textStyle="bold"
                         android:textSize="15sp"
-                        android:text="Already have a SociaLite account? Log in here!"
+                        android:text="Already have a SociaLite account? \n Log in here!"
                         android:id="@+id/loginTextView"
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_gravity="center_horizontal"
+                        android:textAlignment="center" />
 
                 </LinearLayout>
             </RelativeLayout>

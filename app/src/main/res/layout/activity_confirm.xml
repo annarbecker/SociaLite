@@ -39,7 +39,7 @@
             <TextView
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="User Event"
                 android:id="@+id/userEventTextView"
@@ -165,27 +165,4 @@
         </RelativeLayout>
     </LinearLayout>
     </ScrollView>
-
-
-
-
-    <!--<Button-->
-        <!--style="?android:attr/buttonStyleSmall"-->
-        <!--android:id="@+id/capture_screen_shot"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:onClick="screenShot"-->
-        <!--android:text="Take Screen Shot"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_toEndOf="@+id/userTimeTextView" />-->
-
-    <!--<ImageView-->
-        <!--android:id="@+id/screenImageView"-->
-        <!--android:layout_width="200dp"-->
-        <!--android:layout_height="250dp"-->
-        <!--android:background="#ccc"-->
-        <!--android:padding="5dp" />-->
-
-
-
 </RelativeLayout>
