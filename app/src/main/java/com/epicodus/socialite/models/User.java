@@ -18,16 +18,4 @@ public class User {
     public String getName() {
         return name;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 }

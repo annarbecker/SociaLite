@@ -29,7 +29,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    public static final String TAG = LoginActivity.class.getSimpleName();
     @Bind(R.id.passwordLoginButton) Button mPasswordLoginButton;
     @Bind(R.id.emailEditText) EditText mEmailEditText;
     @Bind(R.id.passwordEditText) EditText mPasswordEditText;
@@ -70,15 +69,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         mEmailEditText.requestFocus();
-//        mEmailEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (!hasFocus) {
-//                    hideKeyboard(v);
-//                }
-//            }
-//        });
-
         mPasswordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -132,7 +122,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     String userUid = authData.getUid();
                     String userInfo = authData.toString();
-                    Log.d(TAG, "Currently logged in: " + userInfo);
 
                     mSharedPreferencesEditor.putString(Constants.KEY_UID, userUid).apply();
 

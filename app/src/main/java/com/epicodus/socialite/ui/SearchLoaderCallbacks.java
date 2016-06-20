@@ -31,9 +31,6 @@ import java.util.HashMap;
 import java.util.List;
 
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 /**
  * Created by arbecker on 4/29/16.
  */
@@ -43,7 +40,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
     private Context mContext;
     public static final String QUERY_KEY = "query";
     public static final String TAG = "SearchLoaderCallbacks";
-    private List<String> names = new ArrayList<String>();
+    private List<String> names = new ArrayList<>();
     private String displayName;
     private String phoneNumber;
     private SharedPreferences mSharedPreferences;
@@ -87,9 +84,9 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
         if(tv == null) {
             Log.e(TAG, "TextView null");
         } else if (mContext == null) {
-            Log.e(TAG, "Context is null?");
+            Log.e(TAG, "Context is null");
         } else {
-            Log.e(TAG, "Nothing is null?!");
+            Log.e(TAG, "Nothing is null");
         }
         tv.setText("Select Contact to Invite");
 
@@ -122,8 +119,8 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
             }
 
             for(String column : cursor.getColumnNames()) {
-                Log.d(TAG, column + column + ": " +
-                        cursor.getString(cursor.getColumnIndex(column)) + "\n");
+//                Log.d(TAG, column + column + ": " +
+//                        cursor.getString(cursor.getColumnIndex(column)) + "\n");
 
                 if((column).equals("sort_key")) {
                     contact.put("Name", cursor.getString(cursor.getColumnIndex(column)));

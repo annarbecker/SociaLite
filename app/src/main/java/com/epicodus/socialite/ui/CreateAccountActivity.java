@@ -65,22 +65,6 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         mPasswordEditText.setTextColor(Color.parseColor("#FFFFFF"));
         mConfirmPasswordEditText.setTextColor(Color.parseColor("#FFFFFF"));
 
-        mConfirmPasswordEditText.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(event.getAction() == KeyEvent.ACTION_DOWN) {
-                    switch (keyCode) {
-                        case KeyEvent.KEYCODE_DPAD_CENTER:
-                        case KeyEvent.KEYCODE_ENTER:
-                            createNewUser();
-                            return true;
-                        default:
-                            break;
-                    }
-                }
-                return false;
-            }
-        });
-
         mNameEditText.requestFocus();
         mConfirmPasswordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

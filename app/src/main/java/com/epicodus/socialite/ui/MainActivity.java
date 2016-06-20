@@ -27,7 +27,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    public static final String TAG = MainActivity.class.getSimpleName();
     @Bind(R.id.makePlansButton) Button mMakePlansButton;
     @Bind(R.id.textView) TextView mTextView;
     @Bind(R.id.viewEventsButton) Button mViewEventsButton;
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue() != null) {
                     String events = dataSnapshot.getValue().toString();
-                    Log.d("Events added", events);
+
                 }
             }
 
@@ -90,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                Log.d(TAG, "Read failed");
+                Log.d("ERROR", "Read failed");
             }
         });
 

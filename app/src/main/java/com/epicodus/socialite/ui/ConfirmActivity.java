@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,11 +17,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
-
 
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
@@ -54,12 +51,9 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     private String mLatLong;
     private Event newEvent;
     private String mLocation;
-    Bitmap mbitmap;
-
     private Query mQuery;
     private Firebase mFirebasePersonRef;
     private FirebasePersonListAdapter mAdapter;
-    private Firebase mFirebaseRef;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
     private String userName;
@@ -97,7 +91,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         Picasso.with(ConfirmActivity.this).load(newEvent.getImage()).into(mImage);
 
         mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL  + "/" + newEvent.getCreateEventTimestamp());
-        mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         setUpFirebaseQuery();
         setUpRecyclerView();
     }
@@ -114,9 +107,8 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                             Intent intentHome = new Intent(ConfirmActivity.this, MainActivity.class);
                             startActivity(intentHome);
 
-                            String message = userName + " invited you to: \n" + newEvent.getName() + "\n" + newEvent.getDate() + " at " + newEvent.getTime() + "\n" +newEvent.getLocation() + "\n \n Download SociaLite at: www.google.com";
+                            String message = userName + " invited you to: \n" + newEvent.getName() + "\n" + newEvent.getDate() + " at " + newEvent.getTime() + "\n" +newEvent.getLocation() + "\n \n Invite sent via SociaLite www.google.com";
                             String phoneNumbers = mSharedPreferences.getString(Constants.INVITEE_PHONE_NUMBERS, null);
-                            Log.v("phoneNumbers", phoneNumbers);
                             Uri smsUri = Uri.parse("smsto:" + phoneNumbers);
                             Intent intent = new Intent(Intent.ACTION_SENDTO, smsUri);
                             intent.putExtra("sms_body", message);
@@ -136,8 +128,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                     })
                     .create()
                     .show();
-
-
         }
     }
     @Override

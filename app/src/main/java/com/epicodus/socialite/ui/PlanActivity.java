@@ -20,28 +20,22 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Event;
-import com.epicodus.socialite.models.Person;
 import com.epicodus.socialite.services.UnsplashService;
 import com.firebase.client.Firebase;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import org.parceler.Parcels;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.security.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -53,8 +47,6 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class PlanActivity extends AppCompatActivity implements View.OnClickListener{
-    public static final String TAG = PlanActivity.class.getSimpleName();
-
     @Bind(R.id.eventEditText) EditText mEventEditText;
     @Bind(R.id.inviteButton) Button mInviteButton;
     @Bind(R.id.selectdate) Button mSelectDateButton;
@@ -92,9 +84,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
-
-
-
         mEventEditText.setText(mSharedPreferences.getString(Constants.PREFERENCES_EVENT, null));
 
         mCreateButton.setOnClickListener(this);
@@ -153,9 +142,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == mCreateButton) {
             mEventCreateDate = mSharedPreferences.getString(Constants.PREFERENCES_CREATE_EVENT, null);
-            Log.d("set timestamp", mEventCreateDate+" time set");
-
-
             String event = mEventEditText.getText().toString();
             String location = mMyLocation.getText().toString();
             String date = mDateEditText.getText().toString();
@@ -248,8 +234,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute) {
-//                            mTimeEditText.setText(hourOfDay + ":" + minute);
-
                             if(hourOfDay > 12 && minute < 10) {
                                 mTimeEditText.setText((hourOfDay - 12) + ":0" + minute + " PM");
                             }

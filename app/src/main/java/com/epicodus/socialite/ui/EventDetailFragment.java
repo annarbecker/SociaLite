@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,15 +27,10 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
-
-import java.util.Calendar;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class EventDetailFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.eventImageView) ImageView mImageLabel;
     @Bind(R.id.eventNameTextView) TextView mNameLabel;
@@ -50,7 +44,6 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
     private Query mQuery;
     private Firebase mFirebasePersonRef;
     private FirebasePersonListAdapter mAdapter;
-    private Firebase mFirebaseRef;
 
     public static EventDetailFragment newInstance(Event event) {
         EventDetailFragment eventDetailFragment = new EventDetailFragment();
@@ -93,7 +86,6 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
         mAddressLabel.setOnClickListener(this);
 
         mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL + "/" + mEvent.getCreateEventTimestamp());
-        mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         setUpFirebaseQuery();
         setUpRecyclerView();
 

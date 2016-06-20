@@ -34,14 +34,6 @@ public class Person {
         return event;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public void setPhone(String phone) {
         this.phone = phone;
     }

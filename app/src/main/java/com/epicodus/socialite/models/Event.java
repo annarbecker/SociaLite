@@ -1,9 +1,7 @@
 package com.epicodus.socialite.models;
 
-import com.google.android.gms.maps.model.LatLng;
 
 import org.parceler.Parcel;
-
 import java.util.List;
 
 /**
@@ -15,7 +13,6 @@ public class Event {
     String location;
     String date;
     String time;
-    List<String> invitees;
     String latLong;
     String image;
     String pushId;
@@ -66,10 +63,6 @@ public class Event {
         this.name = name;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public void setTime(String time) {
         this.time = time;
     }
@@ -82,20 +75,8 @@ public class Event {
         this.image = image;
     }
 
-    public String getPushId() {
-        return pushId;
-    }
-
     public void setPushId(String pushId) {
         this.pushId = pushId;
-    }
-
-    public Long getMillisecondDate() {
-        return millisecondDate;
-    }
-
-    public void setMillisecondDate(Long millisecondDate) {
-        this.millisecondDate = millisecondDate;
     }
 
     public String getCreateEventTimestamp() {
