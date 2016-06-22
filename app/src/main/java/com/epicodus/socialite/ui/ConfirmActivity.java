@@ -142,8 +142,15 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         if(id == R.id.action_add){
             mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
-            mEditor.putString(Constants.INVITEE_PHONE_NUMBERS, "").apply();
+            mEditor.putString(Constants.PREFERENCES_DATE, "").apply();
+            mEditor.putString(Constants.PREFERENCES_TIME, "").apply();
+            mEditor.putString(Constants.PREFERENCES_LOCATION, "").apply();
+            mEditor.putString(Constants.PREFERENCES_LAT_LONG, "").apply();
             mEditor.putString(Constants.PREFERENCES_CREATE_EVENT, "").apply();
+            mEditor.putString(Constants.PREFERENCES_IMAGE, "").apply();
+            mEditor.putString(Constants.PREFERENCES_MILLISECOND_DATE, "").apply();
+            mEditor.putString(Constants.INVITEE_PHONE_NUMBERS, "").apply();
+
             Intent intent = new Intent(ConfirmActivity.this, PlanActivity.class);
             startActivity(intent);
         }

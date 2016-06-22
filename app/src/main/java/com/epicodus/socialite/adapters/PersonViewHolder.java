@@ -12,6 +12,7 @@ import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Person;
 import com.epicodus.socialite.ui.ConfirmActivity;
+import com.epicodus.socialite.ui.SearchContactsActivity;
 import com.firebase.client.Firebase;
 
 
@@ -67,6 +68,7 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
             itemView.setClickable(false);
             mNameCheckBox.setVisibility(View.INVISIBLE);
         }
+
     }
 
     public void bindPerson(Person person) {

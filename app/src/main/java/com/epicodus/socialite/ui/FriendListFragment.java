@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.adapters.FirebasePersonListAdapter;
+import com.epicodus.socialite.adapters.FirebaseUserListAdapter;
 import com.epicodus.socialite.models.Person;
+import com.epicodus.socialite.models.User;
 import com.firebase.client.Firebase;
 import com.firebase.client.Query;
 
@@ -23,7 +25,7 @@ import butterknife.ButterKnife;
 public class FriendListFragment extends Fragment{
     private Query mQuery;
     private Firebase mFirebaseFriendsRef;
-    private FirebasePersonListAdapter mAdapter;
+    private FirebaseUserListAdapter mAdapter;
     @Bind(R.id.friendRecyclerView) RecyclerView mRecyclerView;
 
     @Override
@@ -50,7 +52,7 @@ public class FriendListFragment extends Fragment{
     }
 
     private void setUpRecyclerView() {
-        mAdapter = new FirebasePersonListAdapter(mQuery, Person.class);
+        mAdapter = new FirebaseUserListAdapter(mQuery, User.class);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
     }

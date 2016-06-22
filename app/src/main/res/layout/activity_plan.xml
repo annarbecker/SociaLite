@@ -55,19 +55,6 @@
                 android:layout_marginBottom="0dp"
                 android:windowSoftInputMode="stateVisible"/>
 
-            <Button
-                android:id="@+id/inviteButton"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Invite Friends"
-                android:textSize="16sp"
-                android:background="@color/colorAccent"
-                android:textColor="@color/colorTextIcons"
-                android:layout_below="@+id/eventEditText"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/selectdate"
@@ -78,7 +65,7 @@
                 android:background="@color/colorPrimaryLight"
                 android:textColor="@color/colorTextIcons"
                 android:text="Select Date"
-                android:layout_below="@+id/inviteButton"
+                android:layout_below="@+id/eventEditText"
                 android:textSize="16sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
@@ -139,12 +126,26 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Location"
                 android:inputType="textMultiLine"
-                android:visibility="invisible"
                 android:layout_below="@+id/pickLocationButton"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/inviteButton"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Invite Friends"
+                android:textSize="16sp"
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorTextIcons"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@+id/myLocation"/>
 
             <Button
                 android:id="@+id/createButton"
@@ -156,7 +157,7 @@
                 android:textColor="@color/colorTextIcons"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/myLocation"/>
+                android:layout_below="@+id/inviteButton"/>
 
         </RelativeLayout>
         </LinearLayout>

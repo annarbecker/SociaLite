@@ -8,9 +8,9 @@ public class Person {
     String name;
     String phone;
     String event;
-    String email;
     String RSVP;
     String rsvp;
+    String email;
 
     String pushId;
 

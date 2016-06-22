@@ -119,8 +119,6 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
             }
 
             for(String column : cursor.getColumnNames()) {
-//                Log.d(TAG, column + column + ": " +
-//                        cursor.getString(cursor.getColumnIndex(column)) + "\n");
 
                 if((column).equals("sort_key")) {
                     contact.put("Name", cursor.getString(cursor.getColumnIndex(column)));

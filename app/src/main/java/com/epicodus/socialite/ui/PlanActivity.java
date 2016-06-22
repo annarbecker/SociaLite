@@ -64,7 +64,9 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     private String latLong;
     private String image;
     private String mEventCreateDate;
-    private String event;
+    private String date;
+    private String time;
+    private String location;
 
     private PlacePicker.IntentBuilder mBuilder;
     private static final int PLACE_PICKER_FLAG = 1;
@@ -85,6 +87,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
         mEventEditText.setText(mSharedPreferences.getString(Constants.PREFERENCES_EVENT, null));
+        Log.d("EVENT NAME", "event name " + mSharedPreferences.getString(Constants.PREFERENCES_EVENT, null));
+        mTimeEditText.setText(mSharedPreferences.getString(Constants.PREFERENCES_TIME, null));
+        mDateEditText.setText(mSharedPreferences.getString(Constants.PREFERENCES_DATE, null));
+        mMyLocation.setText(mSharedPreferences.getString(Constants.PREFERENCES_LOCATION, null));
 
         mCreateButton.setOnClickListener(this);
         mInviteButton.setOnClickListener(this);
@@ -143,14 +149,23 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         if(v == mCreateButton) {
             mEventCreateDate = mSharedPreferences.getString(Constants.PREFERENCES_CREATE_EVENT, null);
             String event = mEventEditText.getText().toString();
-            String location = mMyLocation.getText().toString();
-            String date = mDateEditText.getText().toString();
-            String time = mTimeEditText.getText().toString();
+            location = mMyLocation.getText().toString();
+            date = mDateEditText.getText().toString();
+            time = mTimeEditText.getText().toString();
             mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-            Event newEvent = new Event(event, location, date, time, latLong, image, mMillisecondDate, mEventCreateDate);
 
-            if(!event.equals("") && !location.equals("") && !date.equals("") && !time.equals("") && !latLong.equals("")) {
+            if((mEventEditText.getText().toString()).equals("") || (mMyLocation.getText().toString()).equals("") || (mDateEditText.getText().toString()).equals("") || (mTimeEditText.getText().toString()).equals("")) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Almost!")
+                        .setMessage("Please fill out all event fields")
+                        .setPositiveButton("OK", null)
+                        .create()
+                        .show();
+            } else {
+                Long milliSecondDateLong = Long.valueOf(mSharedPreferences.getString(Constants.PREFERENCES_MILLISECOND_DATE, null));
+                Event newEvent = new Event(event, location, date, time, latLong, image, milliSecondDateLong, mEventCreateDate);
+
                 Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("newEvent", Parcels.wrap(newEvent));
@@ -163,39 +178,29 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                 String eventPushId = pushRef.getKey();
                 newEvent.setPushId(eventPushId);
                 pushRef.setValue(newEvent);
-
-            } else {
+            }
+        }
+        if(v == mInviteButton) {
+            if((mEventEditText.getText().toString()).equals("") || (mMyLocation.getText().toString()).equals("") || (mDateEditText.getText().toString()).equals("") || (mTimeEditText.getText().toString()).equals("")) {
                 new AlertDialog.Builder(this)
                         .setTitle("Almost!")
                         .setMessage("Please fill out all event fields")
                         .setPositiveButton("OK", null)
                         .create()
                         .show();
-            }
-        }
-        if(v == mInviteButton) {
-            if(mEventEditText.getText().toString().equals("")) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this).setTitle("Please enter an event name");
 
-                final EditText eventPrompt = new EditText(this);
-                alertDialogBuilder.setView(eventPrompt);
-
-                alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        String eventPromptEditText = eventPrompt.getText().toString();
-                        mEventEditText.setText(eventPromptEditText);
-                    }
-                });
-
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
             } else {
                 Date currentDate = new Date();
                 Long eventCreated = currentDate.getTime();
                 mEventCreateDate = eventCreated.toString();
-                event = mEventEditText.getText().toString();
-                addToSharedPreferences(event);
-                addTimeToSharedPreferences(mEventCreateDate);
+
+                addEventNameToSharedPreferences(mEventEditText.getText().toString());
+                addCreateTimeToSharedPreferences(mEventCreateDate);
+                addDateToSharedPreferences(mDateEditText.getText().toString());
+                addTimeToSharedPreferences(mTimeEditText.getText().toString());
+                addLocationToSharedPreferences(mMyLocation.getText().toString());
+                addLatLongToSharedPreferences(latLong);
+                addImageToSharedPreferences(image);
 
                 Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
                 startActivity(intent);
@@ -218,7 +223,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                             Calendar calendar = Calendar.getInstance();
                             calendar.set(year, monthOfYear, dayOfMonth);
                             mMillisecondDate = calendar.getTimeInMillis();
-                            Log.d("date", mMillisecondDate+"");
+                            addMillisecondDateToSharedPreferences(mMillisecondDate.toString());
                         }
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
@@ -309,8 +314,15 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
         if(id == R.id.action_add) {
             mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
-            mEditor.putString(Constants.INVITEE_PHONE_NUMBERS, "").apply();
+            mEditor.putString(Constants.PREFERENCES_DATE, "").apply();
+            mEditor.putString(Constants.PREFERENCES_TIME, "").apply();
+            mEditor.putString(Constants.PREFERENCES_LOCATION, "").apply();
+            mEditor.putString(Constants.PREFERENCES_LAT_LONG, "").apply();
             mEditor.putString(Constants.PREFERENCES_CREATE_EVENT, "").apply();
+            mEditor.putString(Constants.PREFERENCES_IMAGE, "").apply();
+            mEditor.putString(Constants.PREFERENCES_MILLISECOND_DATE, "").apply();
+            mEditor.putString(Constants.INVITEE_PHONE_NUMBERS, "").apply();
+
             Intent intent = new Intent(PlanActivity.this, PlanActivity.class);
             startActivity(intent);
         }
@@ -326,11 +338,35 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    private void addToSharedPreferences(String event) {
+    private void addEventNameToSharedPreferences(String event) {
         mEditor.putString(Constants.PREFERENCES_EVENT, event).apply();
     }
 
-    private void addTimeToSharedPreferences(String createDate) {
+    private void addCreateTimeToSharedPreferences(String createDate) {
         mEditor.putString(Constants.PREFERENCES_CREATE_EVENT, createDate).apply();
+    }
+
+    private void addDateToSharedPreferences(String date) {
+        mEditor.putString(Constants.PREFERENCES_DATE, date).apply();
+    }
+
+    private void addTimeToSharedPreferences(String time) {
+        mEditor.putString(Constants.PREFERENCES_TIME, time).apply();
+    }
+
+    private void addLocationToSharedPreferences(String location) {
+        mEditor.putString(Constants.PREFERENCES_LOCATION, location).apply();
+    }
+
+    private void addLatLongToSharedPreferences(String latLong) {
+        mEditor.putString(Constants.PREFERENCES_LAT_LONG, latLong).apply();
+    }
+
+    private void addImageToSharedPreferences(String image) {
+        mEditor.putString(Constants.PREFERENCES_IMAGE, image).apply();
+    }
+
+    private void addMillisecondDateToSharedPreferences(String milliseconds) {
+        mEditor.putString(Constants.PREFERENCES_MILLISECOND_DATE, milliseconds).apply();
     }
 }

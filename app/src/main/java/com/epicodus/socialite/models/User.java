@@ -6,7 +6,7 @@ package com.epicodus.socialite.models;
 public class User {
     String name;
     String email;
-    String userId;
+    String pushId;
 
     public User() {}
 
@@ -18,4 +18,17 @@ public class User {
     public String getName() {
         return name;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
+
 }
