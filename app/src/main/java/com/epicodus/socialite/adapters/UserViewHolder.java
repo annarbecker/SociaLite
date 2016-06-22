@@ -53,6 +53,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     private String image;
     private Long millisecondDate;
     private String mCurrentUser;
+    private String organizer;
 
     public UserViewHolder(final View itemView, ArrayList<User> users) {
         super(itemView);
@@ -70,7 +71,8 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
         latLong = mSharedPreferences.getString(Constants.PREFERENCES_LAT_LONG, null);
         image = mSharedPreferences.getString(Constants.PREFERENCES_IMAGE, null);
         millisecondDate = Long.valueOf(mSharedPreferences.getString(Constants.PREFERENCES_MILLISECOND_DATE, null));
-
+        organizer = mSharedPreferences.getString(Constants.KEY_USER_NAME, null);
+        Log.d("organizer", organizer+"");
         mNameCheckBox.setVisibility(View.INVISIBLE);
 
     itemView.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +105,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
                 String eventPushId = eventPushRef.getKey();
                 newEvent.setPushId(eventPushId);
                 eventPushRef.setValue(newEvent);
+                newEvent.setOrganizer(organizer);
             }
 
         }

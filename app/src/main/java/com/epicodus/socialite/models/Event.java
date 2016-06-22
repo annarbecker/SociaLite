@@ -20,6 +20,7 @@ public class Event {
     Long dateInverse;
     String createEventTimestamp;
     String alert;
+    String organizer;
 
 
     public Event() {}
@@ -99,5 +100,13 @@ public class Event {
 
     public Long getMillisecondDate() {
         return millisecondDate;
+    }
+
+    public String getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(String organizer) {
+        this.organizer = organizer;
     }
 }

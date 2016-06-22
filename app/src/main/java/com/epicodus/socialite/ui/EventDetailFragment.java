@@ -34,6 +34,7 @@ import butterknife.ButterKnife;
 public class EventDetailFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.eventImageView) ImageView mImageLabel;
     @Bind(R.id.eventNameTextView) TextView mNameLabel;
+    @Bind(R.id.organizerTextView) TextView mOrganizerLabel;
     @Bind(R.id.dateTextView) TextView mDateLabel;
     @Bind(R.id.timeTextView) TextView mTimeLabel;
     @Bind(R.id.addressTextView) TextView mAddressLabel;
@@ -68,12 +69,10 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
         ButterKnife.bind(this, view);
 
         Typeface myCustomFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/bario.ttf");
+
         mNameLabel.setTypeface(myCustomFont);
-
-        Log.d("event time created", mEvent.getCreateEventTimestamp()+" time set");
-
-
         mNameLabel.setText(mEvent.getName());
+        mOrganizerLabel.setText("Event Organizer: " +mEvent.getOrganizer());
         mDateLabel.setText(mEvent.getDate());
         mTimeLabel.setText(mEvent.getTime());
         mAddressLabel.setText(mEvent.getLocation());

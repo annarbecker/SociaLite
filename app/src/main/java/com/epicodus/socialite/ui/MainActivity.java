@@ -1,5 +1,8 @@
 package com.epicodus.socialite.ui;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String latLong;
     private Long millisecondDate;
     private String image;
+    private String organizer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,11 +102,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         latLong = newEvent.getLatLong();
                         millisecondDate = newEvent.getMillisecondDate();
                         image = newEvent.getImage();
+                        organizer = newEvent.getOrganizer();
 
                         if(newEvent.getAlert().equals("yes")) {
-                        new AlertDialog.Builder(mContext)
+                            new AlertDialog.Builder(mContext)
                                 .setCancelable(false)
-                                .setTitle("New Event Invite")
+                                .setTitle("New Event Invite From " + organizer)
                                 .setMessage(eventName + "\n" + eventDate + " at" + eventTime + "\n" + eventLocation)
                                 .setPositiveButton("See Full Invitation", new DialogInterface.OnClickListener() {
                                     @Override
@@ -246,6 +251,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         eventMap.put("latLong", latLong);
         eventMap.put("location", eventLocation);
         eventMap.put("millisecondDate", millisecondDate);
+        eventMap.put("organizer", organizer);
         eventRef.updateChildren(eventMap);
     }
 }

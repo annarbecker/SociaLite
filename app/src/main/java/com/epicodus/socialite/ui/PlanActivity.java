@@ -167,6 +167,8 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 Long milliSecondDateLong = Long.valueOf(mSharedPreferences.getString(Constants.PREFERENCES_MILLISECOND_DATE, null));
                 Event newEvent = new Event(event, location, date, time, latLong, image, milliSecondDateLong, mEventCreateDate, alert);
+                Log.d("event organizer", mSharedPreferences.getString(Constants.KEY_USER_NAME, null+""));
+                newEvent.setOrganizer(mSharedPreferences.getString(Constants.KEY_USER_NAME, null));
 
                 Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
