@@ -19,11 +19,12 @@ public class Event {
     Long millisecondDate;
     Long dateInverse;
     String createEventTimestamp;
+    String alert;
 
 
     public Event() {}
 
-    public Event (String name, String location, String date, String time, String latLong, String image, Long millisecondDate, String createEventTimestamp) {
+    public Event (String name, String location, String date, String time, String latLong, String image, Long millisecondDate, String createEventTimestamp, String alert) {
         this.name = name;
         this.location = location;
         this.date = date;
@@ -33,6 +34,7 @@ public class Event {
         this.millisecondDate = millisecondDate;
         this.dateInverse = millisecondDate*-1;
         this.createEventTimestamp = createEventTimestamp;
+        this.alert = alert;
     }
 
     public String getName() {
@@ -79,7 +81,23 @@ public class Event {
         this.pushId = pushId;
     }
 
+    public String getPushId() {
+        return pushId;
+    }
+
     public String getCreateEventTimestamp() {
         return createEventTimestamp;
+    }
+
+    public String getAlert() {
+        return alert;
+    }
+
+    public void setAlert(String alert) {
+        this.alert = alert;
+    }
+
+    public Long getMillisecondDate() {
+        return millisecondDate;
     }
 }

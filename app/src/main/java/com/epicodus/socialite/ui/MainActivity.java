@@ -1,9 +1,12 @@
 package com.epicodus.socialite.ui;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,11 +20,16 @@ import android.widget.TextView;
 
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
+import com.epicodus.socialite.models.Event;
 import com.epicodus.socialite.models.User;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,6 +49,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SharedPreferences mSharedPreferences;
     private ValueEventListener mUserRefListener;
     private SharedPreferences.Editor mEditor;
+    private Context mContext;
+    private String eventName;
+    private String eventDate;
+    private String eventTime;
+    private String eventLocation;
+    private String eventId;
+    private String createEventTimestamp;
+    private String latLong;
+    private Long millisecondDate;
+    private String image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        mContext = this;
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
         mUId = mSharedPreferences.getString(Constants.KEY_UID, null);
@@ -61,15 +80,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setTitle(null);
         setSupportActionBar(topToolBar);
 
-        mSavedEventRef = new Firebase(Constants.FIREBASE_URL_USER_EVENT);
+        mSavedEventRef = new Firebase(Constants.FIREBASE_URL_USER_EVENT + "/" + mUId);
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
 
         mSavedEventRefListener = mSavedEventRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue() != null) {
-                    String events = dataSnapshot.getValue().toString();
+                    for(DataSnapshot eventSnapshot: dataSnapshot.getChildren()) {
+                        final Event newEvent = eventSnapshot.getValue(Event.class);
+                        eventName = newEvent.getName();
+                        eventDate = newEvent.getDate();
+                        eventTime = newEvent.getTime();
+                        eventLocation = newEvent.getLocation();
+                        eventId = newEvent.getPushId();
+                        createEventTimestamp = newEvent.getCreateEventTimestamp();
+                        latLong = newEvent.getLatLong();
+                        millisecondDate = newEvent.getMillisecondDate();
+                        image = newEvent.getImage();
 
+                        if(newEvent.getAlert().equals("yes")) {
+                        new AlertDialog.Builder(mContext)
+                                .setCancelable(false)
+                                .setTitle("New Event Invite")
+                                .setMessage(eventName + "\n" + eventDate + " at" + eventTime + "\n" + eventLocation)
+                                .setPositiveButton("See Full Invitation", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        updateAlert();
+                                        Intent intent = new Intent(MainActivity.this, SavedEventsActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setNegativeButton("View Later", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        updateAlert();
+                                    }
+                                })
+                                .create()
+                                .show();
+                        }
+                    }
                 }
             }
 
@@ -78,6 +130,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+
+
 
         mUserRefListener = mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -175,5 +229,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void addToSharedPreferences(String name) {
         mEditor.putString(Constants.KEY_USER_NAME, name).apply();
+    }
+
+    public void updateAlert() {
+        Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_USER_EVENT);
+        Firebase eventListRef = firebaseRef.child(mUId);
+        Firebase eventRef = eventListRef.child(eventId);
+        Map<String,Object> eventMap = new HashMap<String,Object>();
+        eventMap.put("alert", "no");
+        eventMap.put("name", eventName);
+        eventMap.put("date", eventDate);
+        eventMap.put("time", eventTime);
+        eventMap.put("pushId", eventId);
+        eventMap.put("createEventTimestamp", createEventTimestamp);
+        eventMap.put("image", image);
+        eventMap.put("latLong", latLong);
+        eventMap.put("location", eventLocation);
+        eventMap.put("millisecondDate", millisecondDate);
+        eventRef.updateChildren(eventMap);
     }
 }

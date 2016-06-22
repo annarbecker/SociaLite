@@ -96,7 +96,8 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
             if(mUsers.get(itemPosition).getPushId().equals(mCurrentUser)) {
                 Log.d("EVENT ADDED", "event is already added to users list");
             } else {
-                Event newEvent = new Event(eventName, location, date, time, latLong, image, millisecondDate, mEventCreatedDate);
+                String alert = "yes";
+                Event newEvent = new Event(eventName, location, date, time, latLong, image, millisecondDate, mEventCreatedDate, alert);
                 Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_USER_EVENT).child(uid);
                 Firebase eventPushRef = userEventsFirebaseRef.push();
                 String eventPushId = eventPushRef.getKey();
