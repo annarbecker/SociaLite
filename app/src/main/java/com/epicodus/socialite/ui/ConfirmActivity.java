@@ -100,8 +100,8 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         if (v == mShareButton) {
             new AlertDialog.Builder(this)
                     .setTitle("Share This Event")
-                    .setMessage("Friends will receive their invitation via text")
-                    .setPositiveButton("Send Invitation", new DialogInterface.OnClickListener() {
+                    .setMessage("SociaLite users will receive invitations in their account\n\nFriends without SociaLite be sent invitations via text")
+                    .setPositiveButton("Send SociaLite & Text Invitations", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Intent intentHome = new Intent(ConfirmActivity.this, MainActivity.class);
@@ -118,7 +118,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                             }
                         }
                     })
-                    .setNeutralButton("Don't Send", new DialogInterface.OnClickListener() {
+                    .setNeutralButton("Just Invite SociaLite Friends,\nDon't Send Text Invites", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Intent intentHome = new Intent(ConfirmActivity.this, MainActivity.class);

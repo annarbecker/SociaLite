@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -51,8 +50,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="0dp"
                 android:windowSoftInputMode="stateVisible"/>
 
 
@@ -67,7 +64,7 @@
                 android:text="Select Date"
                 android:layout_below="@+id/eventEditText"
                 android:textSize="16sp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="10dp"/>
 
             <EditText
@@ -78,8 +75,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Date"
                 android:layout_below="@+id/selectdate"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:singleLine="false" />
 
             <Button
@@ -104,8 +101,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Time"
                 android:layout_below="@+id/selecttime"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
 
             <Button
                 android:id="@+id/pickLocationButton"
@@ -118,7 +115,8 @@
                 android:background="@color/colorPrimaryLight"
                 android:textColor="@color/colorTextIcons"
                 android:layout_below="@+id/timeEditText"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
 
             <AutoCompleteTextView
                 android:id="@+id/myLocation"
@@ -130,8 +128,8 @@
                 android:inputType="textMultiLine"
                 android:layout_below="@+id/pickLocationButton"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
 
             <Button
                 android:id="@+id/inviteButton"
@@ -144,7 +142,7 @@
                 android:background="@color/colorAccent"
                 android:textColor="@color/colorTextIcons"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="40dp"
                 android:layout_below="@+id/myLocation"/>
 
             <Button

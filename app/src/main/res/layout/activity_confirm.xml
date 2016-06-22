@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.ConfirmActivity">
+    tools:context=".ui.ConfirmActivity"
+    android:backgroundTint="@color/common_action_bar_splitter">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -37,21 +38,6 @@
                 android:layout_height="54dp">
             </android.support.v7.widget.Toolbar>
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_margin="@dimen/fab_margin"
-                android:clickable="true"
-                android:src="@drawable/ic_send_white_36dp"
-                android:layout_alignBottom="@+id/imageView"
-                android:cropToPadding="false"
-                app:backgroundTint="@color/colorPrimaryLight"/>
-
-
             <TextView
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
@@ -64,13 +50,27 @@
                 android:textStyle="bold"
                 android:textColor="@color/bright_foreground_inverse_material_light"
                 android:layout_alignBottom="@+id/imageView"
-
                 android:gravity="center_vertical|center"
                 android:layout_marginBottom="3dp"
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@+id/imageView"
                 android:layout_alignParentStart="true" />
+
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:src="@drawable/ic_send_white_36dp"
+                android:cropToPadding="false"
+                app:backgroundTint="@color/colorPrimaryLight"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_marginEnd="33dp"
+                android:layout_alignBottom="@+id/locationTextView"
+                android:layout_alignParentEnd="true" />
 
 
             <TextView
