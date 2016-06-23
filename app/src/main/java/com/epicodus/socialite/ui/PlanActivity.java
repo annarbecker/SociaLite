@@ -149,25 +149,24 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == mCreateButton) {
             mEventCreateDate = mSharedPreferences.getString(Constants.PREFERENCES_CREATE_EVENT, null);
+            Log.d("created", mEventCreateDate+" event create date");
             String event = mEventEditText.getText().toString();
             location = mMyLocation.getText().toString();
             date = mDateEditText.getText().toString();
             time = mTimeEditText.getText().toString();
             alert = "no";
-            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 
-            if((mEventEditText.getText().toString()).equals("") || (mMyLocation.getText().toString()).equals("") || (mDateEditText.getText().toString()).equals("") || (mTimeEditText.getText().toString()).equals("")) {
+            if((mEventEditText.getText().toString()).equals("") || (mMyLocation.getText().toString()).equals("") || (mDateEditText.getText().toString()).equals("") || (mTimeEditText.getText().toString()).equals("") || (mEventCreateDate.equals(""))) {
                 new AlertDialog.Builder(this)
                         .setTitle("Almost!")
-                        .setMessage("Please fill out all event fields")
+                        .setMessage("Please fill out all event fields & add invitees")
                         .setPositiveButton("OK", null)
                         .create()
                         .show();
             } else {
                 Long milliSecondDateLong = Long.valueOf(mSharedPreferences.getString(Constants.PREFERENCES_MILLISECOND_DATE, null));
                 Event newEvent = new Event(event, location, date, time, latLong, image, milliSecondDateLong, mEventCreateDate, alert);
-                Log.d("event organizer", mSharedPreferences.getString(Constants.KEY_USER_NAME, null+""));
                 newEvent.setOrganizer(mSharedPreferences.getString(Constants.KEY_USER_NAME, null));
 
                 Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);

@@ -46,8 +46,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     @Bind(R.id.personRecyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.fab) FloatingActionButton mShareButton;
 
-
-
     private String mLatLong;
     private Event newEvent;
     private String mLocation;
@@ -90,9 +88,12 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         Picasso.with(ConfirmActivity.this).load(newEvent.getImage()).into(mImage);
 
-        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL  + "/" + newEvent.getCreateEventTimestamp());
-        setUpFirebaseQuery();
-        setUpRecyclerView();
+        String eventTimeStamp = newEvent.getCreateEventTimestamp();
+        if(eventTimeStamp != null) {
+            mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL  + "/" + eventTimeStamp);
+            setUpFirebaseQuery();
+            setUpRecyclerView();
+        }
     }
 
     @Override
@@ -100,7 +101,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         if (v == mShareButton) {
             new AlertDialog.Builder(this)
                     .setTitle("Share This Event")
-                    .setMessage("SociaLite users will receive invitations in their account\n\nFriends without SociaLite be sent invitations via text")
+                    .setMessage("SociaLite users will receive invitations in their account\n\nFriends without SociaLite will receive invitations via text")
                     .setPositiveButton("Send SociaLite & Text Invitations", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -118,7 +119,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                             }
                         }
                     })
-                    .setNeutralButton("Just Invite SociaLite Friends,\nDon't Send Text Invites", new DialogInterface.OnClickListener() {
+                    .setNeutralButton("Just Send SociaLite Invitations", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Intent intentHome = new Intent(ConfirmActivity.this, MainActivity.class);

@@ -23,7 +23,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAX3Atb6BKqolX3c_v8UMJZf2O2IzSntBo" />
-
         <activity
             android:name=".ui.MainActivity"
             android:theme="@style/NoActionBarTheme"/>
@@ -69,5 +68,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

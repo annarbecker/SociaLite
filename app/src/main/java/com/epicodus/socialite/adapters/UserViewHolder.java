@@ -72,7 +72,6 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
         image = mSharedPreferences.getString(Constants.PREFERENCES_IMAGE, null);
         millisecondDate = Long.valueOf(mSharedPreferences.getString(Constants.PREFERENCES_MILLISECOND_DATE, null));
         organizer = mSharedPreferences.getString(Constants.KEY_USER_NAME, null);
-        Log.d("organizer", organizer+"");
         mNameCheckBox.setVisibility(View.INVISIBLE);
 
     itemView.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +81,9 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
             name = mUsers.get(itemPosition).getName();
             phone = mUsers.get(itemPosition).getEmail();
             event = mEventCreatedDate;
+            if(mEventCreatedDate == null) {
+                Log.d("no", "no invitees selected");
+            }
             RSVP = "no";
             String uid = mUsers.get(itemPosition).getPushId();
 
@@ -104,8 +106,8 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
                 Firebase eventPushRef = userEventsFirebaseRef.push();
                 String eventPushId = eventPushRef.getKey();
                 newEvent.setPushId(eventPushId);
-                eventPushRef.setValue(newEvent);
                 newEvent.setOrganizer(organizer);
+                eventPushRef.setValue(newEvent);
             }
 
         }
