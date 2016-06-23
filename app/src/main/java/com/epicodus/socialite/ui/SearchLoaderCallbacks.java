@@ -31,9 +31,6 @@ import java.util.HashMap;
 import java.util.List;
 
 
-/**
- * Created by arbecker on 4/29/16.
- */
 public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Cursor> {
     private HashMap<String, String> contact = new HashMap<>();
     private HashMap<String, String> phones = new HashMap<>();

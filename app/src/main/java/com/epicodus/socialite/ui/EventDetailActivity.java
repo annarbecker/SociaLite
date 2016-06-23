@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.adapters.EventPagerAdapter;
 import com.epicodus.socialite.models.Event;
-
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -15,9 +14,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by arbecker on 4/28/16.
- */
+
 public class EventDetailActivity extends AppCompatActivity {
     @Bind(R.id.viewPager)
     ViewPager mViewPager;

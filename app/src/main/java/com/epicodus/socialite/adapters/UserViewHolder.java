@@ -5,11 +5,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,21 +15,14 @@ import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Event;
 import com.epicodus.socialite.models.Person;
 import com.epicodus.socialite.models.User;
-import com.epicodus.socialite.models.User;
-import com.epicodus.socialite.ui.ConfirmActivity;
-import com.epicodus.socialite.ui.SearchContactsActivity;
-import com.epicodus.socialite.util.FirebaseRecyclerAdapter;
 import com.firebase.client.Firebase;
-import com.firebase.client.Query;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by arbecker on 6/20/16.
- */
+
 public class UserViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.nameTextView) TextView mNameTextView;
     @Bind(R.id.nameTextView2) CheckBox mNameCheckBox;
@@ -81,9 +71,6 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
             name = mUsers.get(itemPosition).getName();
             phone = mUsers.get(itemPosition).getEmail();
             event = mEventCreatedDate;
-            if(mEventCreatedDate == null) {
-                Log.d("no", "no invitees selected");
-            }
             RSVP = "no";
             String uid = mUsers.get(itemPosition).getPushId();
 

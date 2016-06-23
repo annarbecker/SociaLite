@@ -2,7 +2,6 @@ package com.epicodus.socialite.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -12,9 +11,7 @@ import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Person;
 import com.epicodus.socialite.ui.ConfirmActivity;
-import com.epicodus.socialite.ui.SearchContactsActivity;
 import com.firebase.client.Firebase;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,9 +20,7 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by arbecker on 5/4/16.
- */
+
 public class PersonViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.nameTextView) TextView mNameTextView;
     @Bind(R.id.nameTextView2) CheckBox mNameCheckBox;
@@ -73,7 +68,6 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
 
     public void bindPerson(Person person) {
         if(person.getRSVP().equals("yes")) {
-            Log.d("check the box", name+"");
             mNameCheckBox.setChecked(true);
             mNameTextView.setText(person.getName());
             mNameCheckBox.setText(person.getName());

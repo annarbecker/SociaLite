@@ -1,8 +1,6 @@
 package com.epicodus.socialite.ui;
 
-/**
- * Created by arbecker on 4/29/16.
- */
+
 import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;

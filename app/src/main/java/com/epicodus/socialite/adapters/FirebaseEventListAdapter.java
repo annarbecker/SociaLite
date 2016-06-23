@@ -9,9 +9,6 @@ import com.epicodus.socialite.models.Event;
 import com.epicodus.socialite.util.FirebaseRecyclerAdapter;
 import com.firebase.client.Query;
 
-/**
- * Created by arbecker on 5/2/16.
- */
 
 public class FirebaseEventListAdapter extends FirebaseRecyclerAdapter<EventViewHolder, Event> {
 

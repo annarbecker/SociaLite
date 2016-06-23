@@ -9,9 +9,7 @@ import com.epicodus.socialite.ui.EventDetailFragment;
 
 import java.util.ArrayList;
 
-/**
- * Created by arbecker on 4/28/16.
- */
+
 public class EventPagerAdapter extends FragmentPagerAdapter{
     private ArrayList<Event> mEvents;
 

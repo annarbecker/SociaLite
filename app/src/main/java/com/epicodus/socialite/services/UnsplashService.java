@@ -1,12 +1,9 @@
 package com.epicodus.socialite.services;
 
-import android.util.Log;
 
 import com.epicodus.socialite.Constants;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -16,9 +13,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * Created by arbecker on 4/29/16.
- */
+
 public class UnsplashService {
     public static final String TAG = UnsplashService.class.getSimpleName();
     public static String imageUrl;
@@ -48,8 +43,6 @@ public class UnsplashService {
                 JSONObject photoDatabaseJON = new JSONObject(jsonData);
                 JSONObject urlsJSON = photoDatabaseJON.getJSONObject("urls");
                 imageUrl = urlsJSON.getString("regular");
-                Log.v(TAG, "image URL: " + imageUrl);
-
             }
         } catch(IOException e) {
             e.printStackTrace();

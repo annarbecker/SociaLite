@@ -11,9 +11,7 @@ import android.view.ViewGroup;
 
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
-import com.epicodus.socialite.adapters.FirebasePersonListAdapter;
 import com.epicodus.socialite.adapters.FirebaseUserListAdapter;
-import com.epicodus.socialite.models.Person;
 import com.epicodus.socialite.models.User;
 import com.firebase.client.Firebase;
 import com.firebase.client.Query;

@@ -1,8 +1,5 @@
 package com.epicodus.socialite.models;
 
-/**
- * Created by arbecker on 4/28/16.
- */
 
 public class Person {
     String name;

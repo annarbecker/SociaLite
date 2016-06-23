@@ -9,9 +9,7 @@ import com.epicodus.socialite.models.User;
 import com.epicodus.socialite.util.FirebaseRecyclerAdapter;
 import com.firebase.client.Query;
 
-/**
- * Created by arbecker on 6/20/16.
- */
+
 public class FirebaseUserListAdapter extends FirebaseRecyclerAdapter<UserViewHolder, User> {
 
     public FirebaseUserListAdapter(Query query, Class<User> itemClass) {

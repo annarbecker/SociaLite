@@ -2,11 +2,8 @@ package com.epicodus.socialite.models;
 
 
 import org.parceler.Parcel;
-import java.util.List;
 
-/**
- * Created by arbecker on 4/28/16.
- */
+
 @Parcel
 public class Event {
     String name;
@@ -21,7 +18,6 @@ public class Event {
     String createEventTimestamp;
     String alert;
     String organizer;
-
 
     public Event() {}
 
@@ -92,10 +88,6 @@ public class Event {
 
     public String getAlert() {
         return alert;
-    }
-
-    public void setAlert(String alert) {
-        this.alert = alert;
     }
 
     public Long getMillisecondDate() {

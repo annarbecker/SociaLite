@@ -19,9 +19,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by arbecker on 5/2/16.
- */
+
 public class EventViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.eventImageView) ImageView mEventImageView;
     @Bind(R.id.eventNameTextView) TextView mNameTextView;
