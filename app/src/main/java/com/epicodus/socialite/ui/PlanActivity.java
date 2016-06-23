@@ -149,7 +149,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == mCreateButton) {
             mEventCreateDate = mSharedPreferences.getString(Constants.PREFERENCES_CREATE_EVENT, null);
-            Log.d("created", mEventCreateDate+" event create date");
             String event = mEventEditText.getText().toString();
             location = mMyLocation.getText().toString();
             date = mDateEditText.getText().toString();
