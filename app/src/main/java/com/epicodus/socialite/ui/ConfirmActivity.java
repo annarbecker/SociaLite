@@ -106,7 +106,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                             Intent intentHome = new Intent(ConfirmActivity.this, MainActivity.class);
                             startActivity(intentHome);
 
-                            String message = userName + " invited you to: \n" + newEvent.getName() + "\n" + newEvent.getDate() + " at " + newEvent.getTime() + "\n" +newEvent.getLocation() + "\n \n Invite sent via SociaLite www.google.com";
+                            String message = userName + " invited you to: \n" + newEvent.getName() + "\n" + newEvent.getDate() + " at " + newEvent.getTime() + "\n" +newEvent.getLocation() + "\n \n Invite sent via SociaLite";
                             String phoneNumbers = mSharedPreferences.getString(Constants.INVITEE_PHONE_NUMBERS, null);
                             Uri smsUri = Uri.parse("smsto:" + phoneNumbers);
                             Intent intent = new Intent(Intent.ACTION_SENDTO, smsUri);
