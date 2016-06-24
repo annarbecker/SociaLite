@@ -10,7 +10,7 @@ Trying to plan a get together with friends but hate the chaos of group messages 
 
 Android app available in the Google Play Store :  [SociaLite](https://play.google.com/store/apps/details?id=com.epicodus.socialite)
 
-![SociaLite](https://lh3.googleusercontent.com/k3oeIhuvlHTmOOAkUl2LOziAswkydFLrDL5NFuR6W4JmV95LONE4GFQLT7GkOKfhhA=h900-rw)
+![SociaLite](https://lh3.googleusercontent.com/k3oeIhuvlHTmOOAkUl2LOziAswkydFLrDL5NFuR6W4JmV95LONE4GFQLT7GkOKfhhA=h900-rw=100x20)
 ![SociaLite](https://lh3.googleusercontent.com/tpdK2GvRIqRfZeCiKZ2adBBWfLa1r04Ct-Zxh3n-yIJulVWOJGkGnV2_BP8b3f07FHo=h900-rw )
 ![SociaLite](https://lh3.googleusercontent.com/iHV80q7TpQ5W6FQ9IeyiOdjRsAxaD5jT-rI1XPuTUvEPmgEpNgzzVtD3eARKRaaSLQ=h900-rw)
 ![SociaLite](https://lh3.googleusercontent.com/rybWc9p1O0lnGTs3aM393JWCrY4pkN8ydHa24ZWpDHwZZ0bqNtlMPzctCNoXVMW0Gw=h900-rw)
