@@ -10,12 +10,12 @@ Trying to plan a get together with friends but hate the chaos of group messages 
 
 Android app available in the Google Play Store :  [SociaLite](https://play.google.com/store/apps/details?id=com.epicodus.socialite)
 
-![SociaLite](https://lh3.googleusercontent.com/k3oeIhuvlHTmOOAkUl2LOziAswkydFLrDL5NFuR6W4JmV95LONE4GFQLT7GkOKfhhA=h220-rw)
-![SociaLite](https://lh3.googleusercontent.com/tpdK2GvRIqRfZeCiKZ2adBBWfLa1r04Ct-Zxh3n-yIJulVWOJGkGnV2_BP8b3f07FHo=h220-rw )
-![SociaLite](https://lh3.googleusercontent.com/iHV80q7TpQ5W6FQ9IeyiOdjRsAxaD5jT-rI1XPuTUvEPmgEpNgzzVtD3eARKRaaSLQ=h220-rw)
-![SociaLite](https://lh3.googleusercontent.com/rybWc9p1O0lnGTs3aM393JWCrY4pkN8ydHa24ZWpDHwZZ0bqNtlMPzctCNoXVMW0Gw=h220-rw)
-![SociaLite](https://lh3.googleusercontent.com/EsrfGwhQVjVE62B5KWfePv7i5abfMnHAbLpJqqHnV1l2Uume35uCGbFq1tSfHpidzHI=h220-rw)
-![SociaLite](https://lh3.googleusercontent.com/cDqWpKAtdSFsDr85TeIFU92DRZfXLbFhwm3pZnzxvaZbH6Ho0jCEAjhUxqh-MltC-ng=h220-rw)
+![SociaLite](https://lh3.googleusercontent.com/k3oeIhuvlHTmOOAkUl2LOziAswkydFLrDL5NFuR6W4JmV95LONE4GFQLT7GkOKfhhA=h250-rw)
+![SociaLite](https://lh3.googleusercontent.com/tpdK2GvRIqRfZeCiKZ2adBBWfLa1r04Ct-Zxh3n-yIJulVWOJGkGnV2_BP8b3f07FHo=h250-rw )
+![SociaLite](https://lh3.googleusercontent.com/iHV80q7TpQ5W6FQ9IeyiOdjRsAxaD5jT-rI1XPuTUvEPmgEpNgzzVtD3eARKRaaSLQ=h250-rw)
+![SociaLite](https://lh3.googleusercontent.com/rybWc9p1O0lnGTs3aM393JWCrY4pkN8ydHa24ZWpDHwZZ0bqNtlMPzctCNoXVMW0Gw=h250-rw)
+![SociaLite](https://lh3.googleusercontent.com/EsrfGwhQVjVE62B5KWfePv7i5abfMnHAbLpJqqHnV1l2Uume35uCGbFq1tSfHpidzHI=h250-rw)
+![SociaLite](https://lh3.googleusercontent.com/cDqWpKAtdSFsDr85TeIFU92DRZfXLbFhwm3pZnzxvaZbH6Ho0jCEAjhUxqh-MltC-ng=h250-rw)
 
 ## Setup/Installation Requirements
 You will need the following programs installed on your computer.
