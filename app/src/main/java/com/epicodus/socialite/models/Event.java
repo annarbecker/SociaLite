@@ -90,6 +90,10 @@ public class Event {
         return alert;
     }
 
+    public Long getDateInverse() {
+        return dateInverse;
+    }
+
     public Long getMillisecondDate() {
         return millisecondDate;
     }

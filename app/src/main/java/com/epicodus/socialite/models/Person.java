@@ -5,18 +5,15 @@ public class Person {
     String name;
     String phone;
     String event;
-    String RSVP;
     String rsvp;
-    String email;
-
     String pushId;
 
     public Person(){}
 
-    public Person(String name, String event, String RSVP) {
+    public Person(String name, String event, String rsvp) {
         this.name = name;
         this.event = event;
-        this.RSVP = RSVP;
+        this.rsvp = rsvp;
     }
 
     public String getName() {
@@ -35,9 +32,11 @@ public class Person {
         this.phone = phone;
     }
 
-    public String getRSVP() {
-        return RSVP;
+    public String getrsvp() {
+        return rsvp;
     }
+
+    public void setrsvp(String rsvp) {this.rsvp = rsvp;}
 
     public String getPushId() {
         return pushId;
