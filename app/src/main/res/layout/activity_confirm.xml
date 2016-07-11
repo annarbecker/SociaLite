@@ -11,161 +11,161 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
+            android:layout_height="wrap_content">
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:id="@+id/imageView"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:src="@drawable/concert"
-                android:scaleType="centerCrop"
-                android:tint="#4b41260a"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/toolbar" />
+                android:layout_height="match_parent">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:minHeight="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
-                android:layout_width="match_parent"
-                android:layout_height="54dp">
-            </android.support.v7.widget.Toolbar>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/imageView"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/concert"
+                    android:scaleType="centerCrop"
+                    android:tint="#4b41260a"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/toolbar" />
 
-            <TextView
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="User Event"
-                android:id="@+id/userEventTextView"
-                android:textAlignment="gravity"
-                android:textSize="34sp"
-                android:textStyle="bold"
-                android:textColor="@color/bright_foreground_inverse_material_light"
-                android:layout_alignBottom="@+id/imageView"
-                android:gravity="center_vertical|center"
-                android:layout_marginBottom="3dp"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/imageView"
-                android:layout_alignParentStart="true" />
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:minHeight="?attr/actionBarSize"
+                    android:background="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp">
+                </android.support.v7.widget.Toolbar>
 
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:src="@drawable/ic_send_white_36dp"
-                android:cropToPadding="false"
-                app:backgroundTint="@color/colorPrimaryLight"
-                android:layout_marginLeft="@dimen/fab_margin"
-                android:layout_marginRight="@dimen/fab_margin"
-                android:layout_marginEnd="33dp"
-                android:layout_alignBottom="@+id/locationTextView"
-                android:layout_alignParentEnd="true" />
+                <TextView
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="User Event"
+                    android:id="@+id/userEventTextView"
+                    android:textAlignment="gravity"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/bright_foreground_inverse_material_light"
+                    android:layout_alignBottom="@+id/imageView"
+                    android:gravity="center_vertical|center"
+                    android:layout_marginBottom="3dp"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/imageView"
+                    android:layout_alignParentStart="true" />
 
 
-            <TextView
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location"
-                android:id="@+id/locationTextView"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="5dp"
-                android:layout_below="@+id/imageView"/>
-
-            <TextView
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Event Location"
-                android:id="@+id/userLocationTextView"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:textSize="16sp"
-                android:layout_below="@id/locationTextView"/>
-
-            <TextView
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Date &amp; Time"
-                android:id="@+id/dateTextView"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginBottom="0dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/userLocationTextView"/>
-
-            <TextView
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Date"
-                android:id="@+id/userDateTextView"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="0dp"
-                android:textSize="16sp"
-                android:layout_below="@+id/dateTextView"/>
-
-            <TextView
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Time"
-                android:id="@+id/userTimeTextView"
-                android:textSize="16sp"
-                android:layout_alignTop="@+id/userDateTextView"
-                android:layout_alignEnd="@+id/userLocationTextView" />
-
-            <TextView
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Invitees"
-                android:id="@+id/textView4"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
-                android:layout_below="@+id/userTimeTextView"
-                android:layout_alignParentStart="true" />
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:src="@drawable/ic_send_white_36dp"
+                    android:cropToPadding="false"
+                    app:backgroundTint="@color/colorPrimaryLight"
+                    android:layout_marginLeft="@dimen/fab_margin"
+                    android:layout_marginRight="@dimen/fab_margin"
+                    android:layout_marginEnd="33dp"
+                    android:layout_alignBottom="@+id/locationTextView"
+                    android:layout_alignParentEnd="true" />
 
 
-            <android.support.v7.widget.RecyclerView
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:id="@+id/personRecyclerView"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/textView4"/>
+                <TextView
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location"
+                    android:id="@+id/locationTextView"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/imageView"/>
 
-        </RelativeLayout>
-    </LinearLayout>
+                <TextView
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Event Location"
+                    android:id="@+id/userLocationTextView"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:textSize="16sp"
+                    android:layout_below="@id/locationTextView"/>
+
+                <TextView
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date &amp; Time"
+                    android:id="@+id/dateTextView"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginBottom="0dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/userLocationTextView"/>
+
+                <TextView
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:id="@+id/userDateTextView"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="0dp"
+                    android:textSize="16sp"
+                    android:layout_below="@+id/dateTextView"/>
+
+                <TextView
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time"
+                    android:id="@+id/userTimeTextView"
+                    android:textSize="16sp"
+                    android:layout_alignTop="@+id/userDateTextView"
+                    android:layout_alignEnd="@+id/userLocationTextView" />
+
+                <TextView
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Invitees"
+                    android:id="@+id/textView4"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_below="@+id/userTimeTextView"
+                    android:layout_alignParentStart="true" />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:id="@+id/personRecyclerView"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/textView4"/>
+
+            </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
 </RelativeLayout>

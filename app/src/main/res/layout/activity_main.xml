@@ -112,10 +112,5 @@
             android:layout_below="@+id/makePlansButton"
             android:layout_alignStart="@+id/makePlansButton"
             android:layout_marginTop="30dp" />
-
-
-
     </RelativeLayout>
-
-
 </RelativeLayout>

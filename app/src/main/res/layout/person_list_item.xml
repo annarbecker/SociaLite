@@ -30,9 +30,5 @@
             android:background="#FFFFFF"
             android:padding="10dp"
             android:checked="false" />
-
-
-
     </RelativeLayout>
-
 </LinearLayout>

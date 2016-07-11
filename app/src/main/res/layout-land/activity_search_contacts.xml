@@ -56,9 +56,6 @@
                     android:layout_below="@id/listView2"/>
 
             </RelativeLayout>
-
-
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

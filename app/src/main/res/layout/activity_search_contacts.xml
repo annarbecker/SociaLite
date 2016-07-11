@@ -45,5 +45,4 @@
         tools:layout="@layout/fragment_friend_list"
         android:id="@+id/fragmentFriendList" />
 
-
 </LinearLayout>
