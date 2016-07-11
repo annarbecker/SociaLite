@@ -29,7 +29,7 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
     private ArrayList<Person> mPersons = new ArrayList<>();
     private String name;
     private String event;
-    private String RSVP;
+    private String rsvp;
     private String phone;
     private String pushId;
 
@@ -49,11 +49,11 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
                 phone = mPersons.get(itemPosition).getPhone();
                 pushId = mPersons.get(itemPosition).getPushId();
                 if (isChecked) {
-                    RSVP = "yes";
-                    updateRSVP(RSVP);
+                    rsvp = "yes";
+                    updatersvp(rsvp);
                 } else {
-                    RSVP = "no";
-                    updateRSVP(RSVP);
+                    rsvp = "no";
+                    updatersvp(rsvp);
                 }
             }
         });
@@ -67,7 +67,7 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindPerson(Person person) {
-        if(person.getRSVP().equals("yes")) {
+        if(person.getrsvp().equals("yes")) {
             mNameCheckBox.setChecked(true);
             mNameTextView.setText(person.getName());
             mNameCheckBox.setText(person.getName());
@@ -79,12 +79,12 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void updateRSVP(String RSVP) {
+    public void updatersvp(String rsvp) {
         Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL);
         Firebase inviteeListRef = firebaseRef.child(event);
         Firebase inviteeRef = inviteeListRef.child(pushId);
         Map<String,Object> inviteeMap = new HashMap<String,Object>();
-        inviteeMap.put("RSVP", RSVP);
+        inviteeMap.put("rsvp", rsvp);
         inviteeMap.put("event", event);
         inviteeMap.put("name", name);
         inviteeMap.put("phone", phone);

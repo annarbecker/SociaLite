@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -31,7 +30,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     private ArrayList<User> mUsers = new ArrayList<>();
     private String name;
     private String event;
-    private String RSVP;
+    private String rsvp;
     private String phone;
     private SharedPreferences mSharedPreferences;
     private String mEventCreatedDate;
@@ -64,41 +63,41 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
         organizer = mSharedPreferences.getString(Constants.KEY_USER_NAME, null);
         mNameCheckBox.setVisibility(View.INVISIBLE);
 
-    itemView.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int itemPosition = getLayoutPosition();
-            name = mUsers.get(itemPosition).getName();
-            phone = mUsers.get(itemPosition).getEmail();
-            event = mEventCreatedDate;
-            RSVP = "no";
-            String uid = mUsers.get(itemPosition).getPushId();
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int itemPosition = getLayoutPosition();
+                name = mUsers.get(itemPosition).getName();
+                phone = mUsers.get(itemPosition).getEmail();
+                event = mEventCreatedDate;
+                rsvp = "no";
+                String uid = mUsers.get(itemPosition).getPushId();
 
-            Person newContact = new Person(name, event, RSVP);
-            newContact.setPhone(phone);
-            Toast.makeText(mContext, newContact.getName() + " added to your event", Toast.LENGTH_SHORT).show();
+                Person newContact = new Person(name, event, rsvp);
+                newContact.setPhone(phone);
+                Toast.makeText(mContext, newContact.getName() + " added to your event", Toast.LENGTH_SHORT).show();
 
-            Firebase inviteeFirebaseRef = new Firebase(Constants.FIREBASE_URL).child(event);
-            Firebase pushRef = inviteeFirebaseRef.push();
-            String pushId = pushRef.getKey();
-            newContact.setPushId(pushId);
-            pushRef.setValue(newContact);
+                Firebase inviteeFirebaseRef = new Firebase(Constants.FIREBASE_URL).child(event);
+                Firebase pushRef = inviteeFirebaseRef.push();
+                String pushId = pushRef.getKey();
+                newContact.setPushId(pushId);
+                newContact.setrsvp(rsvp);
+                pushRef.setValue(newContact);
 
-            if(mUsers.get(itemPosition).getPushId().equals(mCurrentUser)) {
-                Log.d("EVENT ADDED", "event is already added to users list");
-            } else {
-                String alert = "yes";
-                Event newEvent = new Event(eventName, location, date, time, latLong, image, millisecondDate, mEventCreatedDate, alert);
-                Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_USER_EVENT).child(uid);
-                Firebase eventPushRef = userEventsFirebaseRef.push();
-                String eventPushId = eventPushRef.getKey();
-                newEvent.setPushId(eventPushId);
-                newEvent.setOrganizer(organizer);
-                eventPushRef.setValue(newEvent);
+                if(mUsers.get(itemPosition).getPushId().equals(mCurrentUser)) {
+                } else {
+                    String alert = "yes";
+                    Event newEvent = new Event(eventName, location, date, time, latLong, image, millisecondDate, mEventCreatedDate, alert);
+                    Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_USER_EVENT).child(uid);
+                    Firebase eventPushRef = userEventsFirebaseRef.push();
+                    String eventPushId = eventPushRef.getKey();
+                    newEvent.setPushId(eventPushId);
+                    newEvent.setOrganizer(organizer);
+                    eventPushRef.setValue(newEvent);
+                }
+
             }
-
-        }
-    });
+        });
     }
 
     public void bindUser(User user) {
