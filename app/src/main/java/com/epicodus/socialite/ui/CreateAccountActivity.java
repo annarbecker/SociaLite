@@ -9,7 +9,6 @@ import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -148,8 +147,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onError(FirebaseError firebaseError) {
-                Log.d(TAG, "error occurred " +
-                        firebaseError);
+
             }
         });
     }

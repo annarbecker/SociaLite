@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,6 +41,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
     private String phoneNumber;
     private SharedPreferences mSharedPreferences;
     private String mEventCreatedDate;
+    private String rsvp;
     private SharedPreferences.Editor mSharedPreferencesEditor;
     private ArrayList<String> phoneNumbersList = new ArrayList<>();
 
@@ -79,11 +79,8 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
 
 
         if(tv == null) {
-            Log.e(TAG, "TextView null");
         } else if (mContext == null) {
-            Log.e(TAG, "Context is null");
         } else {
-            Log.e(TAG, "Nothing is null");
         }
         tv.setText("Select Contact to Invite");
 
@@ -137,8 +134,8 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
                 String name = ((TextView)view).getText().toString();
                 String phone = phones.get(name);
                 String event = mEventCreatedDate;
-                String RSVP = "no";
-                Person newContact = new Person(name, event, RSVP);
+                rsvp = "no";
+                Person newContact = new Person(name, event, rsvp);
                 newContact.setPhone(phone);
 
                 phoneNumbersList.add(phone);
@@ -151,6 +148,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
                 Firebase pushRef = userEventsFirebaseRef.push();
                 String pushId = pushRef.getKey();
                 newContact.setPushId(pushId);
+                newContact.setrsvp(rsvp);
                 pushRef.setValue(newContact);
 
             }

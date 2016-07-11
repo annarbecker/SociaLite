@@ -125,7 +125,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 unsplashService.processPhotos(response);
-                 image = unsplashService.getImage();
+                image = unsplashService.getImage();
 
                 PlanActivity.this.runOnUiThread(new Runnable() {
                     @Override

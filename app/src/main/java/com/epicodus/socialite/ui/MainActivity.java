@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Long millisecondDate;
     private String image;
     private String organizer;
+    private Long dateInverse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,28 +101,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         millisecondDate = newEvent.getMillisecondDate();
                         image = newEvent.getImage();
                         organizer = newEvent.getOrganizer();
+                        dateInverse = newEvent.getDateInverse();
+
 
                         if(newEvent.getAlert().equals("yes")) {
                             new AlertDialog.Builder(mContext)
-                                .setCancelable(false)
-                                .setTitle("New Event Invite From " + organizer)
-                                .setMessage(eventName + "\n" + eventDate + " at" + eventTime + "\n" + eventLocation)
-                                .setPositiveButton("See Full Invitation", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        updateAlert();
-                                        Intent intent = new Intent(MainActivity.this, SavedEventsActivity.class);
-                                        startActivity(intent);
-                                    }
-                                })
-                                .setNegativeButton("View Later", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        updateAlert();
-                                    }
-                                })
-                                .create()
-                                .show();
+                                    .setCancelable(false)
+                                    .setTitle("New Event Invite From " + organizer)
+                                    .setMessage(eventName + "\n" + eventDate + " at " + eventTime + "\n" + eventLocation)
+                                    .setPositiveButton("See Full Invitation", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            updateAlert();
+                                            Intent intent = new Intent(MainActivity.this, SavedEventsActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    })
+                                    .setNegativeButton("View Later", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            updateAlert();
+                                        }
+                                    })
+                                    .create()
+                                    .show();
                         }
                     }
                 }
@@ -145,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                Log.d("ERROR", "Read failed");
             }
         });
 
@@ -239,16 +241,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Firebase eventRef = eventListRef.child(eventId);
         Map<String,Object> eventMap = new HashMap<String,Object>();
         eventMap.put("alert", "no");
-        eventMap.put("name", eventName);
-        eventMap.put("date", eventDate);
-        eventMap.put("time", eventTime);
-        eventMap.put("pushId", eventId);
         eventMap.put("createEventTimestamp", createEventTimestamp);
+        eventMap.put("date", eventDate);
+        eventMap.put("dateInverse", dateInverse);
         eventMap.put("image", image);
         eventMap.put("latLong", latLong);
         eventMap.put("location", eventLocation);
         eventMap.put("millisecondDate", millisecondDate);
+        eventMap.put("name", eventName);
         eventMap.put("organizer", organizer);
+        eventMap.put("pushId", eventId);
+        eventMap.put("time", eventTime);
         eventRef.updateChildren(eventMap);
+        Log.d("updated", "event updated");
     }
 }
