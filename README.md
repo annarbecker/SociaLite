@@ -6,7 +6,7 @@
 
 ## Description
 
-Trying to plan a get together with friends but hate the chaos of group messages and the formality of official invites? SociaLite can help, it's the social organization app that lets you easily create and share events with friends. SociaLite users can send in app and invitations, text invitations, and track RSVP's. All events are saved privately in the users account.
+Trying to plan a get together with friends but hate the chaos of group messages and the formality of official invites? SociaLite can help, it's the social organization app that lets you easily create and share events with friends. SociaLite users can send in-app invitations, text invitations, and track RSVP's. All events are saved privately in the users account.
 
 Android app available in the Google Play Store :  [SociaLite](https://play.google.com/store/apps/details?id=com.epicodus.socialite)
 
