@@ -35,22 +35,6 @@ public class PlanActivityInstrumentationTest {
             e.printStackTrace();
         }
 
-        onView(withId(R.id.inviteeEditText)).perform(typeText("Jane"))
-                .check(matches(withText("Jane")));
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        onView(withId(R.id.locationEditText)).perform(typeText("1234 NW Alphabet Lane"), closeSoftKeyboard())
-                .check(matches(withText("1234 NW Alphabet Lane")));
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         onView(withId(R.id.dateEditText)).perform(typeText("04/25/2016"), closeSoftKeyboard())
                 .check(matches(withText("04/25/2016")));
         try {
@@ -76,27 +60,6 @@ public class PlanActivityInstrumentationTest {
         String date = "04/25/2016";
         String time = "6:00pm";
         onView(withId(R.id.eventEditText)).perform(typeText(event));
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        onView(withId(R.id.inviteeEditText)).perform(typeText(invitee));
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        onView(withId(R.id.inviteButton)).perform(click());
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        onView(withId(R.id.locationEditText)).perform(typeText(location) ,closeSoftKeyboard());
         try {
             Thread.sleep(50);
         } catch (InterruptedException e) {

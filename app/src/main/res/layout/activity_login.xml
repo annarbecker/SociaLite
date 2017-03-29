@@ -69,7 +69,10 @@
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
                         android:hint="Email"
-                        android:textColorHint="@color/colorTextIcons"
+                        android:nextFocusDown="@+id/passwordEditText"
+                        android:textColor="@color/colorTextIcons"
+                        android:textColorHint="@color/colorPrimaryLight"
+                        android:textCursorDrawable="@null"
                         android:layout_marginTop="30dp"
                         android:textSize="20sp"/>
 
@@ -80,7 +83,9 @@
                         android:inputType="textPassword"
                         android:padding="10dp"
                         android:hint="Password"
-                        android:textColorHint="@color/colorTextIcons"
+                        android:textColor="@color/colorTextIcons"
+                        android:textColorHint="@color/colorPrimaryLight"
+                        android:textCursorDrawable="@null"
                         android:textSize="20sp"/>
 
                     <Button

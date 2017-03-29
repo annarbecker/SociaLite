@@ -23,6 +23,8 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
+import java.util.logging.Logger;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -36,6 +38,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mSharedPreferencesEditor;
     private ProgressDialog mAuthProgressDialog;
+
+    private static final Logger LOGGER = Logger.getLogger(LoginActivity.class.getName());
 
 
     @Override
@@ -52,9 +56,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/bario.ttf");
         mLoginTextView.setTypeface(myCustomFont);
-
-        mEmailEditText.setTextColor(Color.parseColor("#FFFFFF"));
-        mPasswordEditText.setTextColor(Color.parseColor("#FFFFFF"));
 
         mAuthProgressDialog = new ProgressDialog(this);
         mAuthProgressDialog.setTitle("Loading...");

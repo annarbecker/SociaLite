@@ -58,11 +58,6 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/bario.ttf");
         mSignUpTextView.setTypeface(myCustomFont);
 
-        mNameEditText.setTextColor(Color.parseColor("#FFFFFF"));
-        mEmailEditText.setTextColor(Color.parseColor("#FFFFFF"));
-        mPasswordEditText.setTextColor(Color.parseColor("#FFFFFF"));
-        mConfirmPasswordEditText.setTextColor(Color.parseColor("#FFFFFF"));
-
         mNameEditText.requestFocus();
         mConfirmPasswordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
