@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "953828983976",
+    "firebase_url": "https://socialite-f3a4e.firebaseio.com",
+    "project_id": "socialite-f3a4e",
+    "storage_bucket": "socialite-f3a4e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953828983976:android:eb42bb11e3648738",
+        "android_client_info": {
+          "package_name": "com.epicodus.socialite"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953828983976-5g6iiqtonighlt2ro9eilj7s5jecuo57.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.epicodus.socialite",
+            "certificate_hash": "13a6f65ea3cf379131c3eb234f3ba6beea4c5694"
+          }
+        },
+        {
+          "client_id": "953828983976-p8ef880j3os3faq5hqfuf8cjv4lo1b9j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzRNfoDG8pXMhRtDhoWDnRAWUHlvVvypc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953828983976-p8ef880j3os3faq5hqfuf8cjv4lo1b9j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
