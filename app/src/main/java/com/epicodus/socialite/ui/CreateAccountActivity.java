@@ -1,14 +1,16 @@
 package com.epicodus.socialite.ui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -19,9 +21,12 @@ import android.widget.Toast;
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.User;
-import com.firebase.client.AuthData;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.Map;
 
@@ -30,137 +35,125 @@ import butterknife.ButterKnife;
 
 public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = CreateAccountActivity.class.getSimpleName();
+
     @Bind(R.id.createUserButton) Button mCreateUserButton;
     @Bind(R.id.nameEditText) EditText mNameEditText;
     @Bind(R.id.emailEditText) EditText mEmailEditText;
     @Bind(R.id.passwordEditText) EditText mPasswordEditText;
     @Bind(R.id.confirmPasswordEditText) EditText mConfirmPasswordEditText;
     @Bind(R.id.loginTextView) TextView mLoginTextView;
+
     @Bind(R.id.textView4) TextView mSignUpTextView;
-    private Firebase mFirebaseRef;
     private SharedPreferences.Editor mSharedPreferencesEditor;
     private SharedPreferences mSharedPreferences;
     private String uid;
 
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
+    private ProgressDialog mAuthProgressDialog;
+    private String mName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
         ButterKnife.bind(this);
-        mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
-        mCreateUserButton.setOnClickListener(this);
-        mLoginTextView.setOnClickListener(this);
 
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mSharedPreferencesEditor = mSharedPreferences.edit();
+        mLoginTextView.setOnClickListener(this);
+        mCreateUserButton.setOnClickListener(this);
+
+        mAuth = FirebaseAuth.getInstance();
+        this.createAuthStateListener();
+        this.createAuthProgressDialog();
+
+//        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        mSharedPreferencesEditor = mSharedPreferences.edit();
 
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/bario.ttf");
         mSignUpTextView.setTypeface(myCustomFont);
-
-        mNameEditText.requestFocus();
-        mConfirmPasswordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard(v);
-                }
-            }
-        });
     }
 
-    public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
     @Override
     public void onClick(View view) {
         if (view == mCreateUserButton) {
-            createNewUser();
+            this.createNewUser();
         }
         if (view == mLoginTextView) {
             Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
-            startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            this.startActivity(intent);
+            this.finish();
         }
     }
     public void createNewUser() {
-        final String name = mNameEditText.getText().toString();
-        final String email = mEmailEditText.getText().toString();
-        final String password = mPasswordEditText.getText().toString();
-        final String confirmPassword = mConfirmPasswordEditText.getText().toString();
-
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(mConfirmPasswordEditText.getWindowToken(), 0);
+        mName = this.mNameEditText.getText().toString().trim();
+        final String email = this.mEmailEditText.getText().toString().trim();
+        final String password = this.mPasswordEditText.getText().toString();
+        final String confirmPassword = this.mConfirmPasswordEditText.getText().toString();
 
         boolean validEmail = isValidEmail(email);
-        boolean validName = isValidName(name);
+        boolean validName = isValidName(mName);
         boolean validPassword = isValidPassword(password, confirmPassword);
+
         if (!validEmail || !validName || !validPassword) return;
 
-        mFirebaseRef.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
-            @Override
-            public void onSuccess(Map<String, Object> result) {
-                uid = result.get("uid").toString();
-                createUserInFirebaseHelper(name, email, uid);
+//        mAuthProgressDialog.show();
 
-
-                mFirebaseRef.authWithPassword(email, password, new Firebase.AuthResultHandler() {
-
+        this.mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onAuthenticated(AuthData authData) {
-                        if (authData != null) {
-                            loginWithPassword();
-                            String userUid = authData.getUid();
-                            mSharedPreferencesEditor.putString(Constants.KEY_UID, userUid).apply();
-                            Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            finish();
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        mAuthProgressDialog.dismiss();
+
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Authentication successful");
+                            createFirebaseUserProfile(task.getResult().getUser());
                         }
-                    }
-
-                    @Override
-                    public void onAuthenticationError(FirebaseError firebaseError) {
-                        switch (firebaseError.getCode()) {
-                            case FirebaseError.INVALID_EMAIL:
-                            case FirebaseError.USER_DOES_NOT_EXIST:
-                                mEmailEditText.setError("Please check that you entered your email correctly");
-                                break;
-                            case FirebaseError.INVALID_PASSWORD:
-                                mEmailEditText.setError(firebaseError.getMessage());
-                                break;
-                            case FirebaseError.NETWORK_ERROR:
-                                showErrorToast("There was a problem with the network connection");
-                                break;
-                            default:
-                                showErrorToast(firebaseError.toString());
+                        else {
+                            showErrorToast("Authentication failed.");
                         }
                     }
                 });
-            }
-
-            @Override
-            public void onError(FirebaseError firebaseError) {
-
-            }
-        });
     }
 
-    private void createUserInFirebaseHelper(final String name, final String email, final String uid) {
-        final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(uid);
-        User newUser = new User(name, email);
-        newUser.setPushId(uid);
-        userLocation.setValue(newUser);
+    private void createAuthStateListener() {
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                final FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+        };
     }
 
     private void showErrorToast(String message) {
-        Toast.makeText(CreateAccountActivity.this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(CreateAccountActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
     private boolean isValidEmail(String email) {
-        boolean isGoodEmail =
-                (email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        boolean isGoodEmail = (email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
         if (!isGoodEmail) {
             mEmailEditText.setError("Please enter a valid email address");
             return false;
@@ -186,22 +179,30 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         }
         return true;
     }
-    public void loginWithPassword() {
-        final String email = mEmailEditText.getText().toString();
-        String password = mPasswordEditText.getText().toString();
 
-        if (email.equals("")) {
-            mEmailEditText.setError("Please enter your email");
-        }
-        if (password.equals("")) {
-            mPasswordEditText.setError("Password cannot be blank");
-        }
-        mSharedPreferencesEditor.putString(Constants.KEY_USER_EMAIL, email).apply();
+    private void createAuthProgressDialog() {
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("Loading...");
+        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
+        mAuthProgressDialog.setCancelable(false);
+    }
 
-        mSharedPreferencesEditor.putString(Constants.KEY_UID, uid).apply();
-        Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
+    private void createFirebaseUserProfile(final FirebaseUser user) {
+
+        UserProfileChangeRequest addProfileName = new UserProfileChangeRequest.Builder()
+                .setDisplayName(mName)
+                .build();
+
+        user.updateProfile(addProfileName)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, user.getDisplayName());
+                        }
+                    }
+
+                });
     }
 }
