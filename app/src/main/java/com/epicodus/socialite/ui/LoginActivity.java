@@ -8,8 +8,10 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -19,9 +21,10 @@ import android.widget.Toast;
 
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
-import com.firebase.client.AuthData;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.logging.Logger;
 
@@ -29,18 +32,18 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+    public static final String TAG = LoginActivity.class.getSimpleName();
+
     @Bind(R.id.passwordLoginButton) Button mPasswordLoginButton;
     @Bind(R.id.emailEditText) EditText mEmailEditText;
     @Bind(R.id.passwordEditText) EditText mPasswordEditText;
     @Bind(R.id.registerTextView) TextView mRegisterTextView;
     @Bind(R.id.textView4) TextView mLoginTextView;
-    private Firebase mFirebaseRef;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mSharedPreferencesEditor;
     private ProgressDialog mAuthProgressDialog;
 
-    private static final Logger LOGGER = Logger.getLogger(LoginActivity.class.getName());
-
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +52,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         ButterKnife.bind(this);
         mRegisterTextView.setOnClickListener(this);
 
+        mAuth = FirebaseAuth.getInstance();
+        createAuthProgressDialog();
+
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
         mSharedPreferencesEditor = mSharedPreferences.edit();
-        mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         mPasswordLoginButton.setOnClickListener(this);
 
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/bario.ttf");
@@ -67,26 +72,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mEmailEditText.setText(signupEmail);
         }
 
-        mEmailEditText.requestFocus();
-        mPasswordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard(v);
-                }
-            }
-        });
-    }
-
-    public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     @Override
     public void onClick(View view) {
         if (view == mPasswordLoginButton) {
-            loginWithPassword();
+            this.loginWithPassword();
         }
         if (view == mRegisterTextView) {
             Intent intent = new Intent(LoginActivity.this, CreateAccountActivity.class);
@@ -95,67 +86,46 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    public void loginWithPassword() {
-        final String email = mEmailEditText.getText().toString();
-        String password = mPasswordEditText.getText().toString();
-
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(mPasswordEditText.getWindowToken(), 0);
+    private void loginWithPassword() {
+        String email = mEmailEditText.getText().toString().trim();
+        String password = mPasswordEditText.getText().toString().trim();
 
         if (email.equals("")) {
             mEmailEditText.setError("Please enter your email");
+            return;
         }
+
         if (password.equals("")) {
             mPasswordEditText.setError("Password cannot be blank");
+            return;
         }
 
-        mAuthProgressDialog.show();
-
-        mFirebaseRef.authWithPassword(email, password, new Firebase.AuthResultHandler() {
-
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
-            public void onAuthenticated(AuthData authData) {
-                mSharedPreferencesEditor.putString(Constants.KEY_USER_EMAIL, email).apply();
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
                 mAuthProgressDialog.dismiss();
-                if (authData != null) {
 
-                    String userUid = authData.getUid();
-                    String userInfo = authData.toString();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
 
-                    mSharedPreferencesEditor.putString(Constants.KEY_UID, userUid).apply();
-
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-
-            @Override
-            public void onAuthenticationError(FirebaseError firebaseError) {
-                mAuthProgressDialog.dismiss();
-                switch (firebaseError.getCode()) {
-                    case FirebaseError.INVALID_EMAIL:
-                    case FirebaseError.USER_DOES_NOT_EXIST:
-                        mEmailEditText.setError("Please check that you entered your email correctly");
-                        break;
-                    case FirebaseError.INVALID_PASSWORD:
-                        mEmailEditText.setError(firebaseError.getMessage());
-                        break;
-                    case FirebaseError.NETWORK_ERROR:
-                        showErrorToast("There was a problem with the network connection");
-                        break;
-                    default:
-                        showErrorToast(firebaseError.toString());
+                if (!task.isSuccessful()) {
+                    Log.w(TAG, "signInWithEmail", task.getException());
+                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
     }
 
-    private void showErrorToast(String message) {
-        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
+    private void createAuthProgressDialog() {
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("Loading...");
+        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
+        mAuthProgressDialog.setCancelable(false);
     }
-
-
-
 }
