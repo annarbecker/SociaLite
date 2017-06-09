@@ -14,15 +14,15 @@ public class User {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public String getPushId() {
-        return pushId;
+        return this.pushId;
     }
 
     public void setPushId(String pushId) {
