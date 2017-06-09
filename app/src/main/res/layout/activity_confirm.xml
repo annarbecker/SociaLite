@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.ConfirmActivity"
-    android:backgroundTint="@color/common_action_bar_splitter">
+    android:backgroundTint="@color/cardview_shadow_start_color">
 
     <ScrollView
         android:layout_width="match_parent"
