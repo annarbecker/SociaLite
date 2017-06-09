@@ -40,9 +40,9 @@ public class UnsplashService {
         try {
             String jsonData = response.body().string();
             if(response.isSuccessful()) {
-                JSONObject photoDatabaseJON = new JSONObject(jsonData);
-                JSONObject urlsJSON = photoDatabaseJON.getJSONObject("urls");
-                imageUrl = urlsJSON.getString("regular");
+                JSONObject photoDatabaseJSON = new JSONObject(jsonData);
+                JSONObject urlsJSON = photoDatabaseJSON.getJSONObject("urls");
+                UnsplashService.imageUrl = urlsJSON.getString("regular");
             }
         } catch(IOException e) {
             e.printStackTrace();
@@ -52,7 +52,7 @@ public class UnsplashService {
     }
 
     public String getImage() {
-        return imageUrl;
+        return UnsplashService.imageUrl;
     }
 
 
