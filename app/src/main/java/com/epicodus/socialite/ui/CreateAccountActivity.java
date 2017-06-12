@@ -1,34 +1,25 @@
 package com.epicodus.socialite.ui;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
-import com.epicodus.socialite.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,17 +33,14 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     @Bind(R.id.passwordEditText) EditText mPasswordEditText;
     @Bind(R.id.confirmPasswordEditText) EditText mConfirmPasswordEditText;
     @Bind(R.id.loginTextView) TextView mLoginTextView;
-
     @Bind(R.id.textView4) TextView mSignUpTextView;
-    private SharedPreferences.Editor mSharedPreferencesEditor;
-    private SharedPreferences mSharedPreferences;
-    private String uid;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-
     private ProgressDialog mAuthProgressDialog;
     private String mName;
+
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +52,8 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         mCreateUserButton.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
-        this.createAuthStateListener();
-        this.createAuthProgressDialog();
-
-//        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        mSharedPreferencesEditor = mSharedPreferences.edit();
+        createAuthStateListener();
+        createAuthProgressDialog();
 
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/bario.ttf");
         mSignUpTextView.setTypeface(myCustomFont);
@@ -91,13 +76,13 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View view) {
         if (view == mCreateUserButton) {
-            this.createNewUser();
+            createNewUser();
         }
         if (view == mLoginTextView) {
             Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            this.startActivity(intent);
-            this.finish();
+            startActivity(intent);
+            finish();
         }
     }
     public void createNewUser() {
@@ -112,7 +97,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
         if (!validEmail || !validName || !validPassword) return;
 
-//        mAuthProgressDialog.show();
+        mAuthProgressDialog.show();
 
         this.mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -131,6 +116,25 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                 });
     }
 
+    private void createFirebaseUserProfile(final FirebaseUser user) {
+
+        UserProfileChangeRequest addProfileName = new UserProfileChangeRequest.Builder()
+                .setDisplayName(mName)
+                .build();
+
+        user.updateProfile(addProfileName)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, user.getDisplayName());
+                        }
+                    }
+
+                });
+    }
+
     private void createAuthStateListener() {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
 
@@ -146,6 +150,13 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
             }
 
         };
+    }
+
+    private void createAuthProgressDialog() {
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("Loading...");
+        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
+        mAuthProgressDialog.setCancelable(false);
     }
 
     private void showErrorToast(String message) {
@@ -180,29 +191,4 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         return true;
     }
 
-    private void createAuthProgressDialog() {
-        mAuthProgressDialog = new ProgressDialog(this);
-        mAuthProgressDialog.setTitle("Loading...");
-        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
-        mAuthProgressDialog.setCancelable(false);
-    }
-
-    private void createFirebaseUserProfile(final FirebaseUser user) {
-
-        UserProfileChangeRequest addProfileName = new UserProfileChangeRequest.Builder()
-                .setDisplayName(mName)
-                .build();
-
-        user.updateProfile(addProfileName)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, user.getDisplayName());
-                        }
-                    }
-
-                });
-    }
 }
