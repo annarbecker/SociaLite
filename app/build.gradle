@@ -38,6 +38,7 @@ android {
         }
     }
 
+    //api key and firebase url stored in gradle.properties
     buildTypes.each {
 //        it.buildConfigField 'String', 'UNSPLASH_API_KEY', UnsplashAPIKey
 //        it.buildConfigField 'String', 'FIREBASE_ROOT_URL', FirebaseRootUrl
@@ -46,7 +47,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
     testCompile 'junit:junit:4.12'
+    //unit testing
     testCompile 'org.robolectric:robolectric:3.0'
     testCompile 'org.robolectric:shadows-support-v4:3.0'
 
