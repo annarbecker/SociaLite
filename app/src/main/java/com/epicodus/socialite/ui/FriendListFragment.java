@@ -14,7 +14,6 @@ import com.epicodus.socialite.R;
 import com.epicodus.socialite.adapters.FirebaseUserListAdapter;
 import com.epicodus.socialite.adapters.UserViewHolder;
 import com.epicodus.socialite.models.User;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
@@ -24,14 +23,13 @@ import butterknife.ButterKnife;
 
 public class FriendListFragment extends Fragment{
     private Query mQuery;
-    private DatabaseReference mFirebaseFriendsRef;
     private FirebaseUserListAdapter mAdapter;
     @BindView(R.id.friendRecyclerView) RecyclerView mRecyclerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFirebaseFriendsRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL_USERS_LIST);
+        mQuery = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL_USERS_LIST);
     }
 
 
@@ -40,15 +38,9 @@ public class FriendListFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_friend_list, container, false);
         ButterKnife.bind(this, view);
 
-        setUpFirebaseQuery();
         setUpRecyclerView();
 
         return view;
-    }
-
-    private void setUpFirebaseQuery() {
-        String friend = mFirebaseFriendsRef.toString();
-        mQuery = FirebaseDatabase.getInstance().getReference(friend);
     }
 
     private void setUpRecyclerView() {
