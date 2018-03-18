@@ -2,8 +2,10 @@ package com.epicodus.socialite.ui;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,13 +15,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
+import com.epicodus.socialite.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,13 +46,17 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     private ProgressDialog mAuthProgressDialog;
     private String mName;
 
-    private String uid;
+    private SharedPreferences.Editor mSharedPreferencesEditor;
+    private SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
         ButterKnife.bind(this);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mSharedPreferencesEditor = mSharedPreferences.edit();
 
         mLoginTextView.setOnClickListener(this);
         mCreateUserButton.setOnClickListener(this);
@@ -114,6 +124,8 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                         }
                     }
                 });
+
+
     }
 
     private void createFirebaseUserProfile(final FirebaseUser user) {
@@ -133,6 +145,15 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                     }
 
                 });
+
+        // add new user to user list
+        DatabaseReference userLocation = FirebaseDatabase.getInstance().getReference(
+                Constants.FIREBASE_URL_USERS).child(user.getUid());
+        User newUser = new User(mName, user.getEmail());
+        userLocation.setValue(newUser);
+
+        mSharedPreferencesEditor.putString(Constants.KEY_USER_EMAIL, user.getEmail()).apply();
+        mSharedPreferencesEditor.putString(Constants.KEY_UID, user.getUid()).apply();
     }
 
     private void createAuthStateListener() {
@@ -142,6 +163,9 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    String userUid = user.getUid();
+                    mSharedPreferencesEditor.putString(Constants.KEY_UID, userUid).apply();
+
                     Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
