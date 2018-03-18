@@ -16,15 +16,15 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class EventViewHolder extends RecyclerView.ViewHolder {
-    @Bind(R.id.eventImageView) ImageView mEventImageView;
-    @Bind(R.id.eventNameTextView) TextView mNameTextView;
-    @Bind(R.id.dateTextView) TextView mDateTextView;
-    @Bind(R.id.timeTextView) TextView mTimeTextView;
+    @BindView(R.id.eventImageView) ImageView mEventImageView;
+    @BindView(R.id.eventNameTextView) TextView mNameTextView;
+    @BindView(R.id.dateTextView) TextView mDateTextView;
+    @BindView(R.id.timeTextView) TextView mTimeTextView;
 
     private Context mContext;
     private ArrayList<Event> mEvents = new ArrayList<>();

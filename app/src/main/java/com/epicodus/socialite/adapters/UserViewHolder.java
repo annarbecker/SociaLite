@@ -14,17 +14,18 @@ import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Event;
 import com.epicodus.socialite.models.Person;
 import com.epicodus.socialite.models.User;
-import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class UserViewHolder extends RecyclerView.ViewHolder {
-    @Bind(R.id.nameTextView) TextView mNameTextView;
-    @Bind(R.id.nameTextView2) CheckBox mNameCheckBox;
+    @BindView(R.id.nameTextView) TextView mNameTextView;
+    @BindView(R.id.nameTextView2) CheckBox mNameCheckBox;
 
     private Context mContext;
     private ArrayList<User> mUsers = new ArrayList<>();
@@ -77,8 +78,8 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
                 newContact.setPhone(phone);
                 Toast.makeText(mContext, newContact.getName() + " added to your event", Toast.LENGTH_SHORT).show();
 
-                Firebase inviteeFirebaseRef = new Firebase(Constants.FIREBASE_URL).child(event);
-                Firebase pushRef = inviteeFirebaseRef.push();
+                DatabaseReference inviteeFirebaseRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL).child(event);
+                DatabaseReference pushRef = inviteeFirebaseRef.push();
                 String pushId = pushRef.getKey();
                 newContact.setPushId(pushId);
                 newContact.setrsvp(rsvp);
@@ -87,15 +88,16 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
                 if(mUsers.get(itemPosition).getPushId().equals(mCurrentUser)) {
                 } else {
                     String alert = "yes";
-                    Event newEvent = new Event(eventName, location, date, time, latLong, image, millisecondDate, mEventCreatedDate, alert);
-                    Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_USER_EVENT).child(uid);
-                    Firebase eventPushRef = userEventsFirebaseRef.push();
+                    Event newEvent = new Event(eventName, location, date, time, latLong, image,
+                            millisecondDate, mEventCreatedDate, alert);
+                    DatabaseReference userEventsFirebaseRef = FirebaseDatabase.getInstance()
+                            .getReference(Constants.FIREBASE_URL_USER_EVENT).child(uid);
+                    DatabaseReference eventPushRef = userEventsFirebaseRef.push();
                     String eventPushId = eventPushRef.getKey();
                     newEvent.setPushId(eventPushId);
                     newEvent.setOrganizer(organizer);
                     eventPushRef.setValue(newEvent);
                 }
-
             }
         });
     }

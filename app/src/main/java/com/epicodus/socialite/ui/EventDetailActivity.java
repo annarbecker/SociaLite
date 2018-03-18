@@ -11,12 +11,12 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class EventDetailActivity extends AppCompatActivity {
-    @Bind(R.id.viewPager)
+    @BindView(R.id.viewPager)
     ViewPager mViewPager;
     private EventPagerAdapter adapterViewPager;
     ArrayList<Event> mEvents = new ArrayList<>();

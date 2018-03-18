@@ -18,31 +18,33 @@ import android.widget.TextView;
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.adapters.FirebasePersonListAdapter;
+import com.epicodus.socialite.adapters.PersonViewHolder;
 import com.epicodus.socialite.models.Event;
 import com.epicodus.socialite.models.Person;
-import com.firebase.client.Firebase;
-import com.firebase.client.Query;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class EventDetailFragment extends Fragment implements View.OnClickListener{
-    @Bind(R.id.eventImageView) ImageView mImageLabel;
-    @Bind(R.id.eventNameTextView) TextView mNameLabel;
-    @Bind(R.id.organizerTextView) TextView mOrganizerLabel;
-    @Bind(R.id.dateTextView) TextView mDateLabel;
-    @Bind(R.id.timeTextView) TextView mTimeLabel;
-    @Bind(R.id.addressTextView) TextView mAddressLabel;
-    @Bind(R.id.personRecyclerView) RecyclerView mRecyclerView;
+    @BindView(R.id.eventImageView) ImageView mImageLabel;
+    @BindView(R.id.eventNameTextView) TextView mNameLabel;
+    @BindView(R.id.organizerTextView) TextView mOrganizerLabel;
+    @BindView(R.id.dateTextView) TextView mDateLabel;
+    @BindView(R.id.timeTextView) TextView mTimeLabel;
+    @BindView(R.id.addressTextView) TextView mAddressLabel;
+    @BindView(R.id.personRecyclerView) RecyclerView mRecyclerView;
 
     private Event mEvent;
     private Context mContext;
     private Query mQuery;
-    private Firebase mFirebasePersonRef;
+    private DatabaseReference mFirebasePersonRef;
     private FirebasePersonListAdapter mAdapter;
 
     public static EventDetailFragment newInstance(Event event) {
@@ -81,7 +83,7 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
 
         mAddressLabel.setOnClickListener(this);
 
-        mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL + "/" + mEvent.getCreateEventTimestamp());
+        mFirebasePersonRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL + "/" + mEvent.getCreateEventTimestamp());
         setUpFirebaseQuery();
         setUpRecyclerView();
 
@@ -101,7 +103,8 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
     }
 
     private void setUpRecyclerView() {
-        mAdapter = new FirebasePersonListAdapter(mQuery, Person.class);
+        mAdapter = new FirebasePersonListAdapter(Person.class, R.layout.person_list_item,
+                PersonViewHolder.class, mQuery, this.getContext());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
     }

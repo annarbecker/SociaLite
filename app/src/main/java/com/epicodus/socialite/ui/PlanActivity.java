@@ -5,10 +5,10 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,11 +25,12 @@ import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Event;
 import com.epicodus.socialite.services.UnsplashService;
-import com.firebase.client.Firebase;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 
@@ -37,24 +38,23 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
-
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
 public class PlanActivity extends AppCompatActivity implements View.OnClickListener{
-    @Bind(R.id.eventEditText) EditText mEventEditText;
-    @Bind(R.id.inviteButton) Button mInviteButton;
-    @Bind(R.id.selectdate) Button mSelectDateButton;
-    @Bind(R.id.selecttime) Button mSelectTimeButton;
-    @Bind(R.id.dateEditText) EditText mDateEditText;
-    @Bind(R.id.timeEditText) EditText mTimeEditText;
-    @Bind(R.id.createButton) Button mCreateButton;
-    @Bind(R.id.pickLocationButton) Button mPickLocationButton;
-    @Bind(R.id.myLocation) AutoCompleteTextView mMyLocation;
-    @Bind(R.id.toolbar) Toolbar topToolBar;
+    @BindView(R.id.eventEditText) EditText mEventEditText;
+    @BindView(R.id.inviteButton) Button mInviteButton;
+    @BindView(R.id.selectdate) Button mSelectDateButton;
+    @BindView(R.id.selecttime) Button mSelectTimeButton;
+    @BindView(R.id.dateEditText) EditText mDateEditText;
+    @BindView(R.id.timeEditText) EditText mTimeEditText;
+    @BindView(R.id.createButton) Button mCreateButton;
+    @BindView(R.id.pickLocationButton) Button mPickLocationButton;
+    @BindView(R.id.myLocation) AutoCompleteTextView mMyLocation;
+    @BindView(R.id.toolbar) Toolbar topToolBar;
 
 
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -172,15 +172,19 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
 
                 String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
-                Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL_USER_EVENT).child(userUid);
-                Firebase pushRef = userEventsFirebaseRef.push();
+                DatabaseReference userEventsFirebaseRef = FirebaseDatabase.getInstance()
+                        .getReference(Constants.FIREBASE_URL_USER_EVENT).child(userUid);
+                DatabaseReference pushRef = userEventsFirebaseRef.push();
                 String eventPushId = pushRef.getKey();
                 newEvent.setPushId(eventPushId);
                 pushRef.setValue(newEvent);
             }
         }
         if(v == mInviteButton) {
-            if((mEventEditText.getText().toString()).equals("") || (mMyLocation.getText().toString()).equals("") || (mDateEditText.getText().toString()).equals("") || (mTimeEditText.getText().toString()).equals("")) {
+            if((mEventEditText.getText().toString()).equals("")
+                    || (mMyLocation.getText().toString()).equals("")
+                    || (mDateEditText.getText().toString()).equals("")
+                    || (mTimeEditText.getText().toString()).equals("")) {
                 new AlertDialog.Builder(this)
                         .setTitle("Almost!")
                         .setMessage("Please fill out all event fields")

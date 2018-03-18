@@ -22,33 +22,35 @@ import android.support.design.widget.FloatingActionButton;
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.adapters.FirebasePersonListAdapter;
+import com.epicodus.socialite.adapters.PersonViewHolder;
 import com.epicodus.socialite.models.Event;
 import com.epicodus.socialite.models.Person;
-import com.firebase.client.Firebase;
-import com.firebase.client.Query;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ConfirmActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String TAG = ConfirmActivity.class.getSimpleName();
-    @Bind(R.id.imageView) ImageView mImage;
-    @Bind(R.id.userEventTextView) TextView mUserEventTextView;
-    @Bind(R.id.userLocationTextView) TextView mUserLocationTextView;
-    @Bind(R.id.userDateTextView) TextView mUserDateTextView;
-    @Bind(R.id.userTimeTextView) TextView mUserTimeTextView;
-    @Bind(R.id.toolbar) Toolbar topToolBar;
-    @Bind(R.id.personRecyclerView) RecyclerView mRecyclerView;
-    @Bind(R.id.fab) FloatingActionButton mShareButton;
+    @BindView(R.id.imageView) ImageView mImage;
+    @BindView(R.id.userEventTextView) TextView mUserEventTextView;
+    @BindView(R.id.userLocationTextView) TextView mUserLocationTextView;
+    @BindView(R.id.userDateTextView) TextView mUserDateTextView;
+    @BindView(R.id.userTimeTextView) TextView mUserTimeTextView;
+    @BindView(R.id.toolbar) Toolbar topToolBar;
+    @BindView(R.id.personRecyclerView) RecyclerView mRecyclerView;
+    @BindView(R.id.fab) FloatingActionButton mShareButton;
 
     private String mLatLong;
     private Event newEvent;
     private String mLocation;
     private Query mQuery;
-    private Firebase mFirebasePersonRef;
+    private DatabaseReference mFirebasePersonRef;
     private FirebasePersonListAdapter mAdapter;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
@@ -88,7 +90,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         String eventTimeStamp = newEvent.getCreateEventTimestamp();
         if(eventTimeStamp != null) {
-            mFirebasePersonRef = new Firebase(Constants.FIREBASE_URL  + "/" + eventTimeStamp);
+            mFirebasePersonRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL  + "/" + eventTimeStamp);
             setUpFirebaseQuery();
             setUpRecyclerView();
         }
@@ -169,7 +171,8 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setUpRecyclerView() {
-        mAdapter = new FirebasePersonListAdapter(mQuery, Person.class);
+        mAdapter = new FirebasePersonListAdapter(Person.class, R.id.personRecyclerView,
+                PersonViewHolder.class, mQuery, this.getApplicationContext());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
     }

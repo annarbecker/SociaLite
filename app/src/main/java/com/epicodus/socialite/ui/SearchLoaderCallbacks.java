@@ -22,8 +22,8 @@ import android.widget.Toast;
 import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Person;
-import com.firebase.client.Firebase;
-
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -144,8 +144,9 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
 
                 Toast.makeText(mContext, name + " added to your event", Toast.LENGTH_SHORT).show();
 
-                Firebase userEventsFirebaseRef = new Firebase(Constants.FIREBASE_URL).child(event);
-                Firebase pushRef = userEventsFirebaseRef.push();
+                DatabaseReference userEventsFirebaseRef = FirebaseDatabase.getInstance()
+                        .getReference(Constants.FIREBASE_URL).child(event);
+                DatabaseReference pushRef = userEventsFirebaseRef.push();
                 String pushId = pushRef.getKey();
                 newContact.setPushId(pushId);
                 newContact.setrsvp(rsvp);

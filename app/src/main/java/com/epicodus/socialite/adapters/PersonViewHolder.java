@@ -11,19 +11,20 @@ import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Person;
 import com.epicodus.socialite.ui.ConfirmActivity;
-import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class PersonViewHolder extends RecyclerView.ViewHolder {
-    @Bind(R.id.nameTextView) TextView mNameTextView;
-    @Bind(R.id.nameTextView2) CheckBox mNameCheckBox;
+    @BindView(R.id.nameTextView) TextView mNameTextView;
+    @BindView(R.id.nameTextView2) CheckBox mNameCheckBox;
 
     private Context mContext;
     private ArrayList<Person> mPersons = new ArrayList<>();
@@ -50,10 +51,10 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
                 pushId = mPersons.get(itemPosition).getPushId();
                 if (isChecked) {
                     rsvp = "yes";
-                    updatersvp(rsvp);
+                    updateRsvp(rsvp);
                 } else {
                     rsvp = "no";
-                    updatersvp(rsvp);
+                    updateRsvp(rsvp);
                 }
             }
         });
@@ -79,10 +80,10 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void updatersvp(String rsvp) {
-        Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL);
-        Firebase inviteeListRef = firebaseRef.child(event);
-        Firebase inviteeRef = inviteeListRef.child(pushId);
+    public void updateRsvp(String rsvp) {
+        DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL);
+        DatabaseReference inviteeListRef = firebaseRef.child(event);
+        DatabaseReference inviteeRef = inviteeListRef.child(pushId);
         Map<String,Object> inviteeMap = new HashMap<String,Object>();
         inviteeMap.put("rsvp", rsvp);
         inviteeMap.put("event", event);

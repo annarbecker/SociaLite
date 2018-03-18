@@ -6,10 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -23,29 +23,31 @@ import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Event;
 import com.epicodus.socialite.models.User;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    @Bind(R.id.makePlansButton) Button mMakePlansButton;
-    @Bind(R.id.textView) TextView mTextView;
-    @Bind(R.id.viewEventsButton) Button mViewEventsButton;
-    @Bind(R.id.toolbar) Toolbar topToolBar;
-    @Bind(R.id.welcomeTextView)TextView mWelcomeTextView;
+    @BindView(R.id.makePlansButton) Button mMakePlansButton;
+    @BindView(R.id.textView) TextView mTextView;
+    @BindView(R.id.viewEventsButton) Button mViewEventsButton;
+    @BindView(R.id.toolbar) Toolbar topToolBar;
+    @BindView(R.id.welcomeTextView)TextView mWelcomeTextView;
 
-    private Firebase mSavedEventRef;
-    private Firebase mFirebaseRef;
+    private DatabaseReference mSavedEventRef;
+    private DatabaseReference mFirebaseRef;
     private ValueEventListener mSavedEventRefListener;
     private String mUId;
-    private Firebase mUserRef;
+    private DatabaseReference mUserRef;
     private SharedPreferences mSharedPreferences;
     private ValueEventListener mUserRefListener;
     private SharedPreferences.Editor mEditor;
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
         mUId = mSharedPreferences.getString(Constants.KEY_UID, null);
-        mUserRef = new Firebase(Constants.FIREBASE_URL_USERS).child(mUId);
+        mUserRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL_USERS).child(mUId);
 
         mMakePlansButton.setOnClickListener(this);
         mViewEventsButton.setOnClickListener(this);
@@ -82,8 +84,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setTitle(null);
         setSupportActionBar(topToolBar);
 
-        mSavedEventRef = new Firebase(Constants.FIREBASE_URL_USER_EVENT + "/" + mUId);
-        mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
+        mSavedEventRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL_USER_EVENT + "/" + mUId);
+        mFirebaseRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL);
 
         mSavedEventRefListener = mSavedEventRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
@@ -147,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
+            public void onCancelled(DatabaseError databaseError) {
             }
         });
 
@@ -220,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     protected void logout() {
-        mFirebaseRef.unauth();
+        FirebaseAuth.getInstance().signOut();
         takeUserToLoginScreenOnUnAuth();
     }
 
@@ -236,9 +238,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void updateAlert() {
-        Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_USER_EVENT);
-        Firebase eventListRef = firebaseRef.child(mUId);
-        Firebase eventRef = eventListRef.child(eventId);
+        DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL_USER_EVENT);
+        DatabaseReference eventListRef = firebaseRef.child(mUId);
+        DatabaseReference eventRef = eventListRef.child(eventId);
         Map<String,Object> eventMap = new HashMap<String,Object>();
         eventMap.put("alert", "no");
         eventMap.put("createEventTimestamp", createEventTimestamp);
