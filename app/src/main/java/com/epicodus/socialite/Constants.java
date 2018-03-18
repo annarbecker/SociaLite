@@ -1,8 +1,10 @@
 package com.epicodus.socialite;
 
 
+import android.os.Build;
+
 public class Constants {
-    public static final String UNSPLASH_API_KEY = "871ddf6a87d6570cd1b98ca0a1c1f984bccdc4e173433578b8a63252d1541ef6";
+    public static final String UNSPLASH_API_KEY = BuildConfig.UNSPLASH_API_KEY;
     public static final String PHOTO_BASE_URL = "https://api.unsplash.com/photos/random";
     public static final String CLIENT_ID_PARAM = "client_id";
 

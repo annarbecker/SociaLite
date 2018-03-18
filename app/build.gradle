@@ -37,12 +37,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    // defined in gradle.properties
+    buildTypes.each {
+        it.buildConfigField 'String', 'UNSPLASH_API_KEY', UnsplashApiKey
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    
-    // testing
+
     testCompile 'junit:junit:4.12'
     testCompile 'org.robolectric:robolectric:3.0'
     testCompile 'org.robolectric:shadows-support-v4:3.0'
@@ -60,18 +64,12 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:25.3.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation "com.android.support:support-v4:25.3.1"
-
-//    compile 'com.google.android.gms:play-services-location:10.2.1'
     implementation 'com.squareup.okhttp3:okhttp:3.2.0'
     implementation 'com.android.support:cardview-v7:25.3.1'
     implementation 'com.android.support:design:25.3.1'
-
-    // firebase
     implementation 'com.google.firebase:firebase-database:9.0.2'
     implementation 'com.firebaseui:firebase-ui-database:0.4.1'
     implementation 'com.google.firebase:firebase-auth:9.0.2'
-
-    // parceler
     implementation 'org.parceler:parceler-api:1.1.9'
     annotationProcessor 'org.parceler:parceler:1.1.9'
 
