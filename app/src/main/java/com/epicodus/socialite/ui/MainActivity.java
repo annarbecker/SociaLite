@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
         mUId = mSharedPreferences.getString(Constants.KEY_UID, null);
-        mUserRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL_USERS).child(mUId);
+        mUserRef = FirebaseDatabase.getInstance().getReference("users").child(mUId);
 
         mMakePlansButton.setOnClickListener(this);
         mViewEventsButton.setOnClickListener(this);
@@ -84,8 +84,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setTitle(null);
         setSupportActionBar(topToolBar);
 
+        mFirebaseRef = FirebaseDatabase.getInstance().getReference();
+
         mSavedEventRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL_USER_EVENT + "/" + mUId);
-        mFirebaseRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL);
 
         mSavedEventRefListener = mSavedEventRef.addValueEventListener(new ValueEventListener() {
             @Override
