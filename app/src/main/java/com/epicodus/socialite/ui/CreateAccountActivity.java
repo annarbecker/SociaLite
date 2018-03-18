@@ -146,10 +146,12 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
                 });
 
-        // add new user to user list
+        // save user to database {databaseUrl}/users/{newUser}
         DatabaseReference userLocation = FirebaseDatabase.getInstance().getReference(
                 Constants.FIREBASE_URL_USERS).child(user.getUid());
         User newUser = new User(mName, user.getEmail());
+        newUser.setPushId(user.getUid());
+
         userLocation.setValue(newUser);
 
         mSharedPreferencesEditor.putString(Constants.KEY_USER_EMAIL, user.getEmail()).apply();
