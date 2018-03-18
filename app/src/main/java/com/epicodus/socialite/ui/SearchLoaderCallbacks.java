@@ -145,7 +145,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
                 Toast.makeText(mContext, name + " added to your event", Toast.LENGTH_SHORT).show();
 
                 DatabaseReference userEventsFirebaseRef = FirebaseDatabase.getInstance()
-                        .getReference(Constants.FIREBASE_URL).child(event);
+                        .getReference().child(event);
                 DatabaseReference pushRef = userEventsFirebaseRef.push();
                 String pushId = pushRef.getKey();
                 newContact.setPushId(pushId);

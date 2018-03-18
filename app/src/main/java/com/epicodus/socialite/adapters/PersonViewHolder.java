@@ -81,7 +81,7 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void updateRsvp(String rsvp) {
-        DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL);
+        DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference inviteeListRef = firebaseRef.child(event);
         DatabaseReference inviteeRef = inviteeListRef.child(pushId);
         Map<String,Object> inviteeMap = new HashMap<String,Object>();

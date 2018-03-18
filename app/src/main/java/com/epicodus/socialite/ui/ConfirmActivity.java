@@ -90,7 +90,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         String eventTimeStamp = newEvent.getCreateEventTimestamp();
         if(eventTimeStamp != null) {
-            mFirebasePersonRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL  + "/" + eventTimeStamp);
+            mFirebasePersonRef = FirebaseDatabase.getInstance().getReference(eventTimeStamp);
             setUpFirebaseQuery();
             setUpRecyclerView();
         }

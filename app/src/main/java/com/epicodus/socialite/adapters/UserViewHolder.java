@@ -78,7 +78,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
                 newContact.setPhone(phone);
                 Toast.makeText(mContext, newContact.getName() + " added to your event", Toast.LENGTH_SHORT).show();
 
-                DatabaseReference inviteeFirebaseRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL).child(event);
+                DatabaseReference inviteeFirebaseRef = FirebaseDatabase.getInstance().getReference().child(event);
                 DatabaseReference pushRef = inviteeFirebaseRef.push();
                 String pushId = pushRef.getKey();
                 newContact.setPushId(pushId);

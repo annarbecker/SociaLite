@@ -83,7 +83,7 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
 
         mAddressLabel.setOnClickListener(this);
 
-        mFirebasePersonRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL + "/" + mEvent.getCreateEventTimestamp());
+        mFirebasePersonRef = FirebaseDatabase.getInstance().getReference(mEvent.getCreateEventTimestamp());
         setUpFirebaseQuery();
         setUpRecyclerView();
 
