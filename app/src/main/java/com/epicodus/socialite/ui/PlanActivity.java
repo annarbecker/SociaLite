@@ -322,18 +322,13 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
         if(id == R.id.action_add) {
             mEditor.clear();
-
-            Intent intent = new Intent(PlanActivity.this, PlanActivity.class);
-            startActivity(intent);
+            this.goToNextActivity(PlanActivity.class);
         }
         if(id == R.id.action_view){
-
-            Intent intent = new Intent(PlanActivity.this, SavedEventsActivity.class);
-            startActivity(intent);
+            this.goToNextActivity(SavedEventsActivity.class);
         }
         if(id == R.id.action_home) {
-            Intent intent = new Intent(PlanActivity.this, MainActivity.class);
-            startActivity(intent);
+            this.goToNextActivity(MainActivity.class);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -349,5 +344,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             return true;
         }
         return false;
+    }
+
+    private void goToNextActivity(Class nextActivity) {
+        Intent intent = new Intent(PlanActivity.this, nextActivity);
+        startActivity(intent);
     }
 }
