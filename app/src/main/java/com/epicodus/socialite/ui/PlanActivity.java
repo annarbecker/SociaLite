@@ -35,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.parceler.Parcels;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -212,10 +213,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         if(v == mSelectDateButton){
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                     new DatePickerDialog.OnDateSetListener() {
@@ -235,9 +236,9 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             datePickerDialog.show();
         }
         if(v == mSelectTimeButton) {
-            final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
+            final Calendar calendar = Calendar.getInstance();
+            int calendarHour = calendar.get(Calendar.HOUR_OF_DAY);
+            final int calendarMinute = calendar.get(Calendar.MINUTE);
 
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                     new TimePickerDialog.OnTimeSetListener() {
@@ -245,32 +246,14 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute) {
-                            if(hourOfDay > 12 && minute < 10) {
-                                mTimeEditText.setText((hourOfDay - 12) + ":0" + minute + " PM");
-                            }
-                            if(hourOfDay > 12 && minute >= 10) {
-                                mTimeEditText.setText((hourOfDay - 12) + ":" + minute + " PM");
-                            }
-                            if(hourOfDay == 12 && minute < 10 || hourOfDay < 12 && minute < 10) {
-                                mTimeEditText.setText(hourOfDay + ":0" + minute + " PM");
-                            }
-                            if(hourOfDay == 12 && minute > 10 || hourOfDay < 12 && minute > 10) {
-                                mTimeEditText.setText(hourOfDay + ":" + minute + " PM");
-                            }
-                            if(hourOfDay < 12 && minute < 10) {
-                                mTimeEditText.setText((hourOfDay) + ":0" + minute + " AM");
-                            }
-                            if(hourOfDay < 12 && minute >= 10) {
-                                mTimeEditText.setText((hourOfDay) + ":" + minute + " AM");
-                            }
-                            if(hourOfDay == 0 && minute >= 10) {
-                                mTimeEditText.setText((hourOfDay  + 12) + ":" + minute + " AM");
-                            }
-                            if(hourOfDay == 0 && minute < 10) {
-                                mTimeEditText.setText((hourOfDay + 12) + ":0" + minute + " AM");
-                            }
+                            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                            calendar.set(Calendar.MINUTE, minute);
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+
+                            String time = dateFormat.format(calendar.getTime());
+                            mTimeEditText.setText(time);
                         }
-                    }, hour, minute, false);
+                    }, calendarHour, calendarMinute, false);
             timePickerDialog.show();
 
         }
