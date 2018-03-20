@@ -153,11 +153,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             alert = "no";
 
 
-            if((mEventEditText.getText().toString()).equals("")
-                    || (mMyLocation.getText().toString()).equals("")
-                    || (mDateEditText.getText().toString()).equals("")
-                    || (mTimeEditText.getText().toString()).equals("")
-                    || (mEventCreateDate.equals(""))) {
+            if(this.requiredFieldsAreEmpty()) {
                 new AlertDialog.Builder(this)
                         .setTitle("Almost!")
                         .setMessage("Please fill out all event fields & add invitees")
@@ -165,8 +161,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                         .create()
                         .show();
             } else {
-                Long milliSecondDateLong = Long.valueOf(mSharedPreferences.getString(Constants.PREFERENCES_MILLISECOND_DATE, null));
-                Event newEvent = new Event(event, location, date, time, latLong, image, milliSecondDateLong, mEventCreateDate, alert);
+                Long milliSecondDateLong = Long.valueOf(mSharedPreferences.getString(
+                        Constants.PREFERENCES_MILLISECOND_DATE, null));
+                Event newEvent = new Event(event, location, date, time, latLong, image,
+                        milliSecondDateLong, mEventCreateDate, alert);
                 newEvent.setOrganizer(mSharedPreferences.getString(Constants.KEY_USER_NAME, null));
 
                 Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
@@ -185,10 +183,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         if(v == mInviteButton) {
-            if((mEventEditText.getText().toString()).equals("")
-                    || (mMyLocation.getText().toString()).equals("")
-                    || (mDateEditText.getText().toString()).equals("")
-                    || (mTimeEditText.getText().toString()).equals("")) {
+            if(this.requiredFieldsAreEmpty()) {
                 new AlertDialog.Builder(this)
                         .setTitle("Almost!")
                         .setMessage("Please fill out all event fields")
@@ -326,15 +321,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         if(id == R.id.action_add) {
-            mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
-            mEditor.putString(Constants.PREFERENCES_DATE, "").apply();
-            mEditor.putString(Constants.PREFERENCES_TIME, "").apply();
-            mEditor.putString(Constants.PREFERENCES_LOCATION, "").apply();
-            mEditor.putString(Constants.PREFERENCES_LAT_LONG, "").apply();
-            mEditor.putString(Constants.PREFERENCES_CREATE_EVENT, "").apply();
-            mEditor.putString(Constants.PREFERENCES_IMAGE, "").apply();
-            mEditor.putString(Constants.PREFERENCES_MILLISECOND_DATE, "").apply();
-            mEditor.putString(Constants.INVITEE_PHONE_NUMBERS, "").apply();
+            mEditor.clear();
 
             Intent intent = new Intent(PlanActivity.this, PlanActivity.class);
             startActivity(intent);
@@ -353,5 +340,14 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
     private void addValueToSharedPreferences(String key, String value) {
         mEditor.putString(key, value).apply();
+    }
+
+    private boolean requiredFieldsAreEmpty() {
+        if(mEventEditText.getText().toString().isEmpty() || mMyLocation.getText().toString().isEmpty()
+                || mDateEditText.getText().toString().isEmpty() || mTimeEditText.getText().toString().isEmpty()
+                || mEventCreateDate.isEmpty()) {
+            return true;
+        }
+        return false;
     }
 }
