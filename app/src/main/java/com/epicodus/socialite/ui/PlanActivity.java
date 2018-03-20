@@ -98,7 +98,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         mDateEditText.setKeyListener(null);
         mTimeEditText.setKeyListener(null);
 
-        getEventImage();
+        this.getEventImage();
         mEventEditText.requestFocus();
         mEventEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -108,8 +108,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
-
-
     }
 
     private void getEventImage() {
@@ -139,22 +137,21 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-
     @Override
     public void onClick(View v) {
-        if(v == mCreateButton) {
+        if (v == mCreateButton) {
             this.createEvent();
         }
-        if(v == mInviteButton) {
+        if (v == mInviteButton) {
             this.setInvitees();
         }
-        if(v == mSelectDateButton) {
+        if (v == mSelectDateButton) {
             this.setEventDate();
         }
-        if(v == mSelectTimeButton) {
+        if (v == mSelectTimeButton) {
             this.setEventTime();
         }
-        if(v == mPickLocationButton) {
+        if (v == mPickLocationButton) {
             this.setEventLocation();
         }
     }
@@ -185,14 +182,14 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id == R.id.action_add) {
+        if (id == R.id.action_add) {
             mEditor.clear();
             this.goToNextActivity(PlanActivity.class);
         }
-        if(id == R.id.action_view){
+        if (id == R.id.action_view){
             this.goToNextActivity(SavedEventsActivity.class);
         }
-        if(id == R.id.action_home) {
+        if (id == R.id.action_home) {
             this.goToNextActivity(MainActivity.class);
         }
         return super.onOptionsItemSelected(item);
@@ -203,8 +200,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private boolean requiredFieldsAreEmpty() {
-        if(mEventEditText.getText().toString().isEmpty() || mMyLocation.getText().toString().isEmpty()
-                || mDateEditText.getText().toString().isEmpty() || mTimeEditText.getText().toString().isEmpty()
+        if (mEventEditText.getText().toString().isEmpty()
+                || mMyLocation.getText().toString().isEmpty()
+                || mDateEditText.getText().toString().isEmpty()
+                || mTimeEditText.getText().toString().isEmpty()
                 || mEventCreateDate.isEmpty()) {
             return true;
         }
@@ -222,11 +221,13 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = mBuilder.build(PlanActivity.this);
             startActivityForResult(intent, PLACE_PICKER_FLAG);
 
-        } catch (GooglePlayServicesRepairableException e) {
+        }
+        catch (GooglePlayServicesRepairableException e) {
             Toast.makeText(PlanActivity.this, "Google Play Services is not available.",
                     Toast.LENGTH_LONG)
                     .show();
-        } catch (GooglePlayServicesNotAvailableException e) {
+        }
+        catch (GooglePlayServicesNotAvailableException e) {
             Toast.makeText(PlanActivity.this, "Google Play Services is not available.",
                     Toast.LENGTH_LONG)
                     .show();
@@ -280,15 +281,15 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setInvitees() {
-        if(this.requiredFieldsAreEmpty()) {
+        if (this.requiredFieldsAreEmpty()) {
             new AlertDialog.Builder(this)
                     .setTitle("Almost!")
                     .setMessage("Please fill out all event fields")
                     .setPositiveButton("OK", null)
                     .create()
                     .show();
-
-        } else {
+        }
+        else {
             Date currentDate = new Date();
             Long eventCreated = currentDate.getTime();
             mEventCreateDate = eventCreated.toString();
@@ -305,8 +306,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             this.addValueToSharedPreferences(Constants.PREFERENCES_LAT_LONG, latLong);
             this.addValueToSharedPreferences(Constants.PREFERENCES_IMAGE, image);
 
-            Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
-            startActivity(intent);
+            this.goToNextActivity(SearchContactsActivity.class);
         }
     }
 
@@ -318,15 +318,15 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         time = mTimeEditText.getText().toString();
         alert = "no";
 
-
-        if(this.requiredFieldsAreEmpty()) {
+        if (this.requiredFieldsAreEmpty()) {
             new AlertDialog.Builder(this)
                     .setTitle("Almost!")
                     .setMessage("Please fill out all event fields & add invitees")
                     .setPositiveButton("OK", null)
                     .create()
                     .show();
-        } else {
+        }
+        else {
             Long milliSecondDateLong = Long.valueOf(mSharedPreferences.getString(
                     Constants.PREFERENCES_MILLISECOND_DATE, null));
             Event newEvent = new Event(event, location, date, time, latLong, image,
