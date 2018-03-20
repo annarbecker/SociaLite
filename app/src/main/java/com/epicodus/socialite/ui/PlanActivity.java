@@ -98,7 +98,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         mDateEditText.setKeyListener(null);
         mTimeEditText.setKeyListener(null);
 
-
         getEventImage();
         mEventEditText.requestFocus();
         mEventEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -144,134 +143,19 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == mCreateButton) {
-            mEventCreateDate = mSharedPreferences.getString(Constants.PREFERENCES_CREATE_EVENT, null);
-            String event = mEventEditText.getText().toString();
-            location = mMyLocation.getText().toString();
-            date = mDateEditText.getText().toString();
-            time = mTimeEditText.getText().toString();
-            alert = "no";
-
-
-            if(this.requiredFieldsAreEmpty()) {
-                new AlertDialog.Builder(this)
-                        .setTitle("Almost!")
-                        .setMessage("Please fill out all event fields & add invitees")
-                        .setPositiveButton("OK", null)
-                        .create()
-                        .show();
-            } else {
-                Long milliSecondDateLong = Long.valueOf(mSharedPreferences.getString(
-                        Constants.PREFERENCES_MILLISECOND_DATE, null));
-                Event newEvent = new Event(event, location, date, time, latLong, image,
-                        milliSecondDateLong, mEventCreateDate, alert);
-                newEvent.setOrganizer(mSharedPreferences.getString(Constants.KEY_USER_NAME, null));
-
-                Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("newEvent", Parcels.wrap(newEvent));
-                startActivity(intent);
-                finish();
-
-                String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
-                DatabaseReference userEventsFirebaseRef = FirebaseDatabase.getInstance()
-                        .getReference(Constants.FIREBASE_URL_USER_EVENT).child(userUid);
-                DatabaseReference pushRef = userEventsFirebaseRef.push();
-                String eventPushId = pushRef.getKey();
-                newEvent.setPushId(eventPushId);
-                pushRef.setValue(newEvent);
-            }
+            this.createEvent();
         }
         if(v == mInviteButton) {
-            if(this.requiredFieldsAreEmpty()) {
-                new AlertDialog.Builder(this)
-                        .setTitle("Almost!")
-                        .setMessage("Please fill out all event fields")
-                        .setPositiveButton("OK", null)
-                        .create()
-                        .show();
-
-            } else {
-                Date currentDate = new Date();
-                Long eventCreated = currentDate.getTime();
-                mEventCreateDate = eventCreated.toString();
-
-                this.addValueToSharedPreferences(Constants.PREFERENCES_EVENT,
-                        mEventEditText.getText().toString());
-                this.addValueToSharedPreferences(Constants.PREFERENCES_CREATE_EVENT, mEventCreateDate);
-                this.addValueToSharedPreferences(Constants.PREFERENCES_DATE,
-                        mDateEditText.getText().toString());
-                this.addValueToSharedPreferences(Constants.PREFERENCES_TIME,
-                        mTimeEditText.getText().toString());
-                this.addValueToSharedPreferences(Constants.PREFERENCES_LOCATION,
-                        mMyLocation.getText().toString());
-                this.addValueToSharedPreferences(Constants.PREFERENCES_LAT_LONG, latLong);
-                this.addValueToSharedPreferences(Constants.PREFERENCES_IMAGE, image);
-
-                Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
-                startActivity(intent);
-            }
-
+            this.setInvitees();
         }
-        if(v == mSelectDateButton){
-            final Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                    new DatePickerDialog.OnDateSetListener() {
-
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            mDateEditText.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
-
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.set(year, monthOfYear, dayOfMonth);
-                            mMillisecondDate = calendar.getTimeInMillis();
-
-                            addValueToSharedPreferences(Constants.PREFERENCES_MILLISECOND_DATE,
-                                    mMillisecondDate.toString());
-                        }
-                    }, year, month, day);
-            datePickerDialog.show();
+        if(v == mSelectDateButton) {
+            this.setEventDate();
         }
         if(v == mSelectTimeButton) {
-            final Calendar calendar = Calendar.getInstance();
-            int calendarHour = calendar.get(Calendar.HOUR_OF_DAY);
-            final int calendarMinute = calendar.get(Calendar.MINUTE);
-
-            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                    new TimePickerDialog.OnTimeSetListener() {
-
-                        @Override
-                        public void onTimeSet(TimePicker view, int hourOfDay,
-                                              int minute) {
-                            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                            calendar.set(Calendar.MINUTE, minute);
-                            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-
-                            String time = dateFormat.format(calendar.getTime());
-                            mTimeEditText.setText(time);
-                        }
-                    }, calendarHour, calendarMinute, false);
-            timePickerDialog.show();
-
+            this.setEventTime();
         }
         if(v == mPickLocationButton) {
-            try {
-                mBuilder = new PlacePicker.IntentBuilder();
-                Intent intent = mBuilder.build(PlanActivity.this);
-                startActivityForResult(intent, PLACE_PICKER_FLAG);
-
-            } catch (GooglePlayServicesRepairableException e) {
-                Toast.makeText(PlanActivity.this, "Google Play Services is not available.",
-                        Toast.LENGTH_LONG)
-                        .show();
-            } catch (GooglePlayServicesNotAvailableException e) {
-                Toast.makeText(PlanActivity.this, "Google Play Services is not available.",
-                        Toast.LENGTH_LONG)
-                        .show();
-            }
+            this.setEventLocation();
         }
     }
 
@@ -330,5 +214,138 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     private void goToNextActivity(Class nextActivity) {
         Intent intent = new Intent(PlanActivity.this, nextActivity);
         startActivity(intent);
+    }
+
+    private void setEventLocation() {
+        try {
+            mBuilder = new PlacePicker.IntentBuilder();
+            Intent intent = mBuilder.build(PlanActivity.this);
+            startActivityForResult(intent, PLACE_PICKER_FLAG);
+
+        } catch (GooglePlayServicesRepairableException e) {
+            Toast.makeText(PlanActivity.this, "Google Play Services is not available.",
+                    Toast.LENGTH_LONG)
+                    .show();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            Toast.makeText(PlanActivity.this, "Google Play Services is not available.",
+                    Toast.LENGTH_LONG)
+                    .show();
+        }
+    }
+
+    private void setEventTime() {
+        final Calendar calendar = Calendar.getInstance();
+        int calendarHour = calendar.get(Calendar.HOUR_OF_DAY);
+        final int calendarMinute = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay,
+                                          int minute) {
+                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        calendar.set(Calendar.MINUTE, minute);
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+
+                        String time = dateFormat.format(calendar.getTime());
+                        mTimeEditText.setText(time);
+                    }
+                }, calendarHour, calendarMinute, false);
+        timePickerDialog.show();
+    }
+
+    private void setEventDate() {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        mDateEditText.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
+
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(year, monthOfYear, dayOfMonth);
+                        mMillisecondDate = calendar.getTimeInMillis();
+
+                        addValueToSharedPreferences(Constants.PREFERENCES_MILLISECOND_DATE,
+                                mMillisecondDate.toString());
+                    }
+                }, year, month, day);
+        datePickerDialog.show();
+    }
+
+    private void setInvitees() {
+        if(this.requiredFieldsAreEmpty()) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Almost!")
+                    .setMessage("Please fill out all event fields")
+                    .setPositiveButton("OK", null)
+                    .create()
+                    .show();
+
+        } else {
+            Date currentDate = new Date();
+            Long eventCreated = currentDate.getTime();
+            mEventCreateDate = eventCreated.toString();
+
+            this.addValueToSharedPreferences(Constants.PREFERENCES_EVENT,
+                    mEventEditText.getText().toString());
+            this.addValueToSharedPreferences(Constants.PREFERENCES_CREATE_EVENT, mEventCreateDate);
+            this.addValueToSharedPreferences(Constants.PREFERENCES_DATE,
+                    mDateEditText.getText().toString());
+            this.addValueToSharedPreferences(Constants.PREFERENCES_TIME,
+                    mTimeEditText.getText().toString());
+            this.addValueToSharedPreferences(Constants.PREFERENCES_LOCATION,
+                    mMyLocation.getText().toString());
+            this.addValueToSharedPreferences(Constants.PREFERENCES_LAT_LONG, latLong);
+            this.addValueToSharedPreferences(Constants.PREFERENCES_IMAGE, image);
+
+            Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    private void createEvent() {
+        mEventCreateDate = mSharedPreferences.getString(Constants.PREFERENCES_CREATE_EVENT, null);
+        String event = mEventEditText.getText().toString();
+        location = mMyLocation.getText().toString();
+        date = mDateEditText.getText().toString();
+        time = mTimeEditText.getText().toString();
+        alert = "no";
+
+
+        if(this.requiredFieldsAreEmpty()) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Almost!")
+                    .setMessage("Please fill out all event fields & add invitees")
+                    .setPositiveButton("OK", null)
+                    .create()
+                    .show();
+        } else {
+            Long milliSecondDateLong = Long.valueOf(mSharedPreferences.getString(
+                    Constants.PREFERENCES_MILLISECOND_DATE, null));
+            Event newEvent = new Event(event, location, date, time, latLong, image,
+                    milliSecondDateLong, mEventCreateDate, alert);
+            newEvent.setOrganizer(mSharedPreferences.getString(Constants.KEY_USER_NAME, null));
+
+            Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("newEvent", Parcels.wrap(newEvent));
+            startActivity(intent);
+            finish();
+
+            String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+            DatabaseReference userEventsFirebaseRef = FirebaseDatabase.getInstance()
+                    .getReference(Constants.FIREBASE_URL_USER_EVENT).child(userUid);
+            DatabaseReference pushRef = userEventsFirebaseRef.push();
+            String eventPushId = pushRef.getKey();
+            newEvent.setPushId(eventPushId);
+            pushRef.setValue(newEvent);
+        }
     }
 }
