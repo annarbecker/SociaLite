@@ -56,8 +56,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.myLocation) AutoCompleteTextView mMyLocation;
     @BindView(R.id.toolbar) Toolbar topToolBar;
 
-
-    private int mYear, mMonth, mDay, mHour, mMinute;
     private Long mMillisecondDate;
     private String latLong;
     private String image;
@@ -215,9 +213,9 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(v == mSelectDateButton){
             final Calendar c = Calendar.getInstance();
-            mYear = c.get(Calendar.YEAR);
-            mMonth = c.get(Calendar.MONTH);
-            mDay = c.get(Calendar.DAY_OF_MONTH);
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                     new DatePickerDialog.OnDateSetListener() {
@@ -233,13 +231,13 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                             addValueToSharedPreferences(Constants.PREFERENCES_MILLISECOND_DATE,
                                     mMillisecondDate.toString());
                         }
-                    }, mYear, mMonth, mDay);
+                    }, year, month, day);
             datePickerDialog.show();
         }
         if(v == mSelectTimeButton) {
             final Calendar c = Calendar.getInstance();
-            mHour = c.get(Calendar.HOUR_OF_DAY);
-            mMinute = c.get(Calendar.MINUTE);
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
 
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                     new TimePickerDialog.OnTimeSetListener() {
@@ -272,7 +270,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                                 mTimeEditText.setText((hourOfDay + 12) + ":0" + minute + " AM");
                             }
                         }
-                    }, mHour, mMinute, false);
+                    }, hour, minute, false);
             timePickerDialog.show();
 
         }
