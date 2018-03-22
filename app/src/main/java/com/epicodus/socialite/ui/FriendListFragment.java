@@ -1,7 +1,9 @@
 package com.epicodus.socialite.ui;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,23 +15,39 @@ import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.adapters.FirebaseUserListAdapter;
 import com.epicodus.socialite.adapters.UserViewHolder;
+import com.epicodus.socialite.models.Event;
 import com.epicodus.socialite.models.User;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class FriendListFragment extends Fragment{
+    @BindView(R.id.friendRecyclerView) RecyclerView mRecyclerView;
+
     private Query mQuery;
     private FirebaseUserListAdapter mAdapter;
-    @BindView(R.id.friendRecyclerView) RecyclerView mRecyclerView;
+    private Event event;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mQuery = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL_USERS_LIST);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        String eventPushId = sharedPreferences.getString("EventPushId", null);
+
+        //TODO
+        // use the pushId to get the event from the database
+        // deserialize json to Event object
+        String eventAsJson = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL_USER_EVENT)
+                .child(eventPushId).toString();
     }
 
 
@@ -45,7 +63,7 @@ public class FriendListFragment extends Fragment{
 
     private void setUpRecyclerView() {
         mAdapter = new FirebaseUserListAdapter(User.class, R.layout.person_list_item,
-                UserViewHolder.class, mQuery, this.getContext());
+                UserViewHolder.class, mQuery, this.getContext(), event);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
     }
