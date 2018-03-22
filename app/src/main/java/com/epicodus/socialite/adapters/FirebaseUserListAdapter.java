@@ -66,7 +66,7 @@ public class FirebaseUserListAdapter extends FirebaseRecyclerAdapter<User, UserV
     }
 
     @Override
-    protected void populateViewHolder(final UserViewHolder userViewHolder, User user, int posiiton) {
+    protected void populateViewHolder(final UserViewHolder userViewHolder, User user, int position) {
         userViewHolder.bindUser(user);
     }
 
