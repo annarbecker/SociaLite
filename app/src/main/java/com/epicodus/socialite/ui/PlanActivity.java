@@ -284,6 +284,20 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                     .show();
         }
         else {
+            // save the event
+            this.newEvent.setName(mEventEditText.getText().toString());
+            this.newEvent.setOrganizer(mSharedPreferences.getString(Constants.KEY_USER_NAME, null));
+
+            String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+            DatabaseReference userEventsFirebaseRef = FirebaseDatabase.getInstance()
+                    .getReference(Constants.FIREBASE_URL_USER_EVENT).child(userUid);
+            DatabaseReference pushRef = userEventsFirebaseRef.push();
+            String eventPushId = pushRef.getKey();
+            newEvent.setPushId(eventPushId);
+            pushRef.setValue(newEvent);
+
+            mEditor.putString("EventPushId", eventPushId).apply();
+
             this.goToNextActivity(SearchContactsActivity.class);
         }
     }
@@ -307,14 +321,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("newEvent", Parcels.wrap(newEvent));
             startActivity(intent);
             finish();
-
-            String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
-            DatabaseReference userEventsFirebaseRef = FirebaseDatabase.getInstance()
-                    .getReference(Constants.FIREBASE_URL_USER_EVENT).child(userUid);
-            DatabaseReference pushRef = userEventsFirebaseRef.push();
-            String eventPushId = pushRef.getKey();
-            newEvent.setPushId(eventPushId);
-            pushRef.setValue(newEvent);
         }
     }
 }
