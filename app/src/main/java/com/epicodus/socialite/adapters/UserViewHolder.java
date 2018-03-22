@@ -71,10 +71,9 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
                 name = mUsers.get(itemPosition).getName();
                 phone = mUsers.get(itemPosition).getEmail();
                 event = mEventCreatedDate;
-                rsvp = "no";
                 String uid = mUsers.get(itemPosition).getPushId();
 
-                Person newContact = new Person(name, event, rsvp);
+                Person newContact = new Person(name, event);
                 newContact.setPhone(phone);
                 Toast.makeText(mContext, newContact.getName() + " added to your event", Toast.LENGTH_SHORT).show();
 
@@ -82,7 +81,6 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
                 DatabaseReference pushRef = inviteeFirebaseRef.push();
                 String pushId = pushRef.getKey();
                 newContact.setPushId(pushId);
-                newContact.setrsvp(rsvp);
                 pushRef.setValue(newContact);
 
                 if(mUsers.get(itemPosition).getPushId().equals(mCurrentUser)) {

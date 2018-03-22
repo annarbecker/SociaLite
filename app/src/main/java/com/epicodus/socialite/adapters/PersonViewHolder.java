@@ -7,7 +7,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.epicodus.socialite.Constants;
 import com.epicodus.socialite.R;
 import com.epicodus.socialite.models.Person;
 import com.epicodus.socialite.ui.ConfirmActivity;
@@ -30,7 +29,6 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
     private ArrayList<Person> mPersons = new ArrayList<>();
     private String name;
     private String event;
-    private String rsvp;
     private String phone;
     private String pushId;
 
@@ -39,7 +37,6 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
         mContext = itemView.getContext();
         mPersons = persons;
-
 
         mNameCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -50,11 +47,10 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
                 phone = mPersons.get(itemPosition).getPhone();
                 pushId = mPersons.get(itemPosition).getPushId();
                 if (isChecked) {
-                    rsvp = "yes";
-                    updateRsvp(rsvp);
-                } else {
-                    rsvp = "no";
-                    updateRsvp(rsvp);
+                    updateRsvp(true);
+                }
+                else {
+                    updateRsvp(false);
                 }
             }
         });
@@ -68,11 +64,12 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindPerson(Person person) {
-        if(person.getrsvp().equals("yes")) {
+        if(person.getRsvp()) {
             mNameCheckBox.setChecked(true);
             mNameTextView.setText(person.getName());
             mNameCheckBox.setText(person.getName());
-        } else {
+        }
+        else {
             mNameCheckBox.setChecked(false);
             mNameTextView.setText(person.getName());
             mNameCheckBox.setText(person.getName());
@@ -80,12 +77,12 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void updateRsvp(String rsvp) {
+    public void updateRsvp(boolean attending) {
         DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference inviteeListRef = firebaseRef.child(event);
         DatabaseReference inviteeRef = inviteeListRef.child(pushId);
-        Map<String,Object> inviteeMap = new HashMap<String,Object>();
-        inviteeMap.put("rsvp", rsvp);
+        Map<String,Object> inviteeMap = new HashMap<>();
+        inviteeMap.put("rsvp", attending);
         inviteeMap.put("event", event);
         inviteeMap.put("name", name);
         inviteeMap.put("phone", phone);

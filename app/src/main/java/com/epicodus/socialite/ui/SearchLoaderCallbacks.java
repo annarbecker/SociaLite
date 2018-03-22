@@ -134,8 +134,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
                 String name = ((TextView)view).getText().toString();
                 String phone = phones.get(name);
                 String event = mEventCreatedDate;
-                rsvp = "no";
-                Person newContact = new Person(name, event, rsvp);
+                Person newContact = new Person(name, event);
                 newContact.setPhone(phone);
 
                 phoneNumbersList.add(phone);
@@ -149,9 +148,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
                 DatabaseReference pushRef = userEventsFirebaseRef.push();
                 String pushId = pushRef.getKey();
                 newContact.setPushId(pushId);
-                newContact.setrsvp(rsvp);
                 pushRef.setValue(newContact);
-
             }
         });
     }
