@@ -2,18 +2,17 @@ package com.epicodus.socialite.models;
 
 
 public class Person {
-    String name;
-    String phone;
-    String event;
-    String rsvp;
-    String pushId;
+    private String name;
+    private String phone;
+    private String event;
+    private boolean rsvp = false;
+    private String pushId;
 
     public Person(){}
 
-    public Person(String name, String event, String rsvp) {
+    public Person(String name, String event) {
         this.name = name;
         this.event = event;
-        this.rsvp = rsvp;
     }
 
     public String getName() {
@@ -32,11 +31,11 @@ public class Person {
         this.phone = phone;
     }
 
-    public String getrsvp() {
+    public boolean getRsvp() {
         return rsvp;
     }
 
-    public void setrsvp(String rsvp) {this.rsvp = rsvp;}
+    public void setRsvp(boolean rsvp) {this.rsvp = rsvp;}
 
     public String getPushId() {
         return pushId;
