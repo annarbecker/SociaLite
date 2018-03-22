@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String eventTime;
     private String eventLocation;
     private String eventId;
-    private String createEventTimestamp;
+    private long createEventTimestamp;
     private String latLong;
     private Long millisecondDate;
     private String image;
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         dateInverse = newEvent.getDateInverse();
 
 
-                        if(newEvent.getAlert().equals("yes")) {
+                        if(newEvent.getAlert()) {
                             new AlertDialog.Builder(mContext)
                                     .setCancelable(false)
                                     .setTitle("New Event Invite From " + organizer)

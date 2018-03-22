@@ -57,20 +57,11 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.myLocation) AutoCompleteTextView mMyLocation;
     @BindView(R.id.toolbar) Toolbar topToolBar;
 
-    private Long mMillisecondDate;
-    private String latLong;
-    private String image;
-    private String mEventCreateDate;
-    private String date;
-    private String time;
-    private String location;
-
+    private Event newEvent;
     private PlacePicker.IntentBuilder mBuilder;
     private static final int PLACE_PICKER_FLAG = 1;
-
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +72,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         setTitle(null);
         setSupportActionBar(topToolBar);
 
+        this.newEvent = new Event();
+
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
-        mEventEditText.setText(mSharedPreferences.getString(Constants.PREFERENCES_EVENT, null));
-        mTimeEditText.setText(mSharedPreferences.getString(Constants.PREFERENCES_TIME, null));
-        mDateEditText.setText(mSharedPreferences.getString(Constants.PREFERENCES_DATE, null));
-        mMyLocation.setText(mSharedPreferences.getString(Constants.PREFERENCES_LOCATION, null));
 
         mCreateButton.setOnClickListener(this);
         mInviteButton.setOnClickListener(this);
@@ -120,7 +109,8 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 unsplashService.processPhotos(response);
-                image = unsplashService.getImage();
+                String image = unsplashService.getImage();
+                PlanActivity.this.newEvent.setImage(image);
 
                 PlanActivity.this.runOnUiThread(new Runnable() {
                     @Override
@@ -161,16 +151,24 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case PLACE_PICKER_FLAG:
+                    // get latitute and longitude of location
                     Place place = PlacePicker.getPlace(this, intent);
-                    latLong = place.getLatLng().toString();
+                    String latLong = place.getLatLng().toString();
                     latLong = latLong.substring(10);
                     latLong = latLong.substring(0, latLong.length() - 1);
+
+                    this.newEvent.setLatLong(latLong);
+
                     mMyLocation.setVisibility(View.VISIBLE);
-                    mMyLocation.setText(place.getName() + "\n" + place.getAddress());
+                    String location = place.getName() + "\n" + place.getAddress();
+                    mMyLocation.setText(location);
+
+                    this.newEvent.setLocation(location);
                     break;
             }
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -182,7 +180,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         if (id == R.id.action_add) {
-            mEditor.clear();
             this.goToNextActivity(PlanActivity.class);
         }
         if (id == R.id.action_view){
@@ -194,16 +191,11 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    private void addValueToSharedPreferences(String key, String value) {
-        mEditor.putString(key, value).apply();
-    }
-
     private boolean requiredFieldsAreEmpty() {
         if (mEventEditText.getText().toString().isEmpty()
                 || mMyLocation.getText().toString().isEmpty()
                 || mDateEditText.getText().toString().isEmpty()
-                || mTimeEditText.getText().toString().isEmpty()
-                || mEventCreateDate.isEmpty()) {
+                || mTimeEditText.getText().toString().isEmpty()) {
             return true;
         }
         return false;
@@ -250,6 +242,8 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
                         String time = dateFormat.format(calendar.getTime());
                         mTimeEditText.setText(time);
+
+                        PlanActivity.this.newEvent.setTime(time);
                     }
                 }, calendarHour, calendarMinute, false);
         timePickerDialog.show();
@@ -263,17 +257,18 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 new DatePickerDialog.OnDateSetListener() {
-
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        mDateEditText.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
+                        calendar.set(Calendar.YEAR, year);
+                        calendar.set(Calendar.MONTH, monthOfYear);
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                        String eventDate = dateFormat.format(new Date(calendar.getTimeInMillis()));
 
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.set(year, monthOfYear, dayOfMonth);
-                        mMillisecondDate = calendar.getTimeInMillis();
+                        mDateEditText.setText(eventDate);
 
-                        addValueToSharedPreferences(Constants.PREFERENCES_MILLISECOND_DATE,
-                                mMillisecondDate.toString());
+                        PlanActivity.this.newEvent.setDate(eventDate);
+                        PlanActivity.this.newEvent.setMillisecondDate(calendar.getTimeInMillis());
                     }
                 }, year, month, day);
         datePickerDialog.show();
@@ -289,32 +284,12 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                     .show();
         }
         else {
-            Date currentDate = new Date();
-            Long eventCreated = currentDate.getTime();
-            mEventCreateDate = eventCreated.toString();
-
-            this.addValueToSharedPreferences(Constants.PREFERENCES_EVENT,
-                    mEventEditText.getText().toString());
-            this.addValueToSharedPreferences(Constants.PREFERENCES_CREATE_EVENT, mEventCreateDate);
-            this.addValueToSharedPreferences(Constants.PREFERENCES_DATE,
-                    mDateEditText.getText().toString());
-            this.addValueToSharedPreferences(Constants.PREFERENCES_TIME,
-                    mTimeEditText.getText().toString());
-            this.addValueToSharedPreferences(Constants.PREFERENCES_LOCATION,
-                    mMyLocation.getText().toString());
-            this.addValueToSharedPreferences(Constants.PREFERENCES_LAT_LONG, latLong);
-            this.addValueToSharedPreferences(Constants.PREFERENCES_IMAGE, image);
-
             this.goToNextActivity(SearchContactsActivity.class);
         }
     }
 
     private void createEvent() {
-        mEventCreateDate = mSharedPreferences.getString(Constants.PREFERENCES_CREATE_EVENT, null);
-        String event = mEventEditText.getText().toString();
-        location = mMyLocation.getText().toString();
-        date = mDateEditText.getText().toString();
-        time = mTimeEditText.getText().toString();
+        this.newEvent.setName(mEventEditText.getText().toString());
 
         if (this.requiredFieldsAreEmpty()) {
             new AlertDialog.Builder(this)
@@ -325,11 +300,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                     .show();
         }
         else {
-            Long milliSecondDateLong = Long.valueOf(mSharedPreferences.getString(
-                    Constants.PREFERENCES_MILLISECOND_DATE, null));
-            Event newEvent = new Event(event, location, date, time, latLong, image,
-                    milliSecondDateLong, mEventCreateDate);
-            newEvent.setOrganizer(mSharedPreferences.getString(Constants.KEY_USER_NAME, null));
+            this.newEvent.setOrganizer(mSharedPreferences.getString(Constants.KEY_USER_NAME, null));
 
             Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
