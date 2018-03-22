@@ -22,7 +22,7 @@ public class Event {
     public Event() {}
 
     public Event(String name, String location, String date, String time, String latLong,
-                  String image, Long millisecondDate, long createEventTimestamp) {
+                  String image, Long millisecondDate) {
         this.name = name;
         this.location = location;
         this.date = date;
@@ -31,7 +31,6 @@ public class Event {
         this.image = image;
         this.millisecondDate = millisecondDate;
         this.dateInverse = millisecondDate*-1;
-        this.createEventTimestamp = createEventTimestamp;
     }
 
     public String getName() {
