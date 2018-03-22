@@ -71,7 +71,7 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
 
         mNameLabel.setTypeface(myCustomFont);
         mNameLabel.setText(mEvent.getName());
-        mOrganizerLabel.setText("Event Organizer: " +mEvent.getOrganizer());
+        mOrganizerLabel.setText("Event Organizer: " + mEvent.getOrganizer());
         mDateLabel.setText(mEvent.getDate());
         mTimeLabel.setText(mEvent.getTime());
         mAddressLabel.setText(mEvent.getLocation());
@@ -83,7 +83,8 @@ public class EventDetailFragment extends Fragment implements View.OnClickListene
 
         mAddressLabel.setOnClickListener(this);
 
-        mFirebasePersonRef = FirebaseDatabase.getInstance().getReference(mEvent.getCreateEventTimestamp());
+        String eventTimestampString = Long.toString(mEvent.getCreateEventTimestamp());
+        mFirebasePersonRef = FirebaseDatabase.getInstance().getReference(eventTimestampString);
         setUpFirebaseQuery();
         setUpRecyclerView();
 

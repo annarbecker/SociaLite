@@ -6,23 +6,23 @@ import org.parceler.Parcel;
 
 @Parcel
 public class Event {
-    private String name;
-    private String location;
-    private String date;
-    private String time;
-    private String latLong;
-    private String image;
-    private String pushId;
-    private Long millisecondDate;
-    private Long dateInverse;
-    private String createEventTimestamp;
-    private boolean alert = false;
-    private String organizer;
+    protected String name;
+    protected String location;
+    protected String date;
+    protected String time;
+    protected String latLong;
+    protected String image;
+    protected String pushId;
+    protected long millisecondDate;
+    protected long dateInverse;
+    protected long createEventTimestamp = System.currentTimeMillis();
+    protected boolean alert = false;
+    protected String organizer;
 
     public Event() {}
 
     public Event(String name, String location, String date, String time, String latLong,
-                  String image, Long millisecondDate, String createEventTimestamp) {
+                  String image, Long millisecondDate, long createEventTimestamp) {
         this.name = name;
         this.location = location;
         this.date = date;
@@ -54,6 +54,10 @@ public class Event {
         return latLong;
     }
 
+    public void setLatLong(String latLong) {
+        this.latLong = latLong;
+    }
+
     public String getImage() {
         return image;
     }
@@ -82,7 +86,7 @@ public class Event {
         return pushId;
     }
 
-    public String getCreateEventTimestamp() {
+    public long getCreateEventTimestamp() {
         return createEventTimestamp;
     }
 
@@ -108,5 +112,13 @@ public class Event {
 
     public void setOrganizer(String organizer) {
         this.organizer = organizer;
+    }
+
+    public void setMillisecondDate(Long millisecondDate) {
+        this.millisecondDate = millisecondDate;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
