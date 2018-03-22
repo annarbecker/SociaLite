@@ -30,37 +30,22 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     private Context mContext;
     private ArrayList<User> mUsers = new ArrayList<>();
     private String name;
-    private String event;
-    private String rsvp;
     private String phone;
     private SharedPreferences mSharedPreferences;
-    private String mEventCreatedDate;
-    private String eventName;
-    private String time;
-    private String date;
-    private String location;
-    private String latLong;
-    private String image;
-    private Long millisecondDate;
     private String mCurrentUser;
     private String organizer;
 
-    public UserViewHolder(final View itemView, ArrayList<User> users) {
+    private Event event;
+
+    public UserViewHolder(final View itemView, ArrayList<User> users, final Event event) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         mContext = itemView.getContext();
         mUsers = users;
+        this.event = event;
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         mCurrentUser = mSharedPreferences.getString(Constants.KEY_UID, null);
-        mEventCreatedDate = mSharedPreferences.getString(Constants.PREFERENCES_CREATE_EVENT, null);
-        eventName = mSharedPreferences.getString(Constants.PREFERENCES_EVENT, null);
-        time = mSharedPreferences.getString(Constants.PREFERENCES_TIME, null);
-        date = mSharedPreferences.getString(Constants.PREFERENCES_DATE, null);
-        location = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION, null);
-        latLong = mSharedPreferences.getString(Constants.PREFERENCES_LAT_LONG, null);
-        image = mSharedPreferences.getString(Constants.PREFERENCES_IMAGE, null);
-        millisecondDate = Long.valueOf(mSharedPreferences.getString(Constants.PREFERENCES_MILLISECOND_DATE, null));
         organizer = mSharedPreferences.getString(Constants.KEY_USER_NAME, null);
         mNameCheckBox.setVisibility(View.INVISIBLE);
 
@@ -70,14 +55,17 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
                 int itemPosition = getLayoutPosition();
                 name = mUsers.get(itemPosition).getName();
                 phone = mUsers.get(itemPosition).getEmail();
-                event = mEventCreatedDate;
+                String eventTimestampString = Long.toString(UserViewHolder.this.event
+                        .getCreateEventTimestamp());
                 String uid = mUsers.get(itemPosition).getPushId();
 
-                Person newContact = new Person(name, event);
+                Person newContact = new Person(name, eventTimestampString);
                 newContact.setPhone(phone);
-                Toast.makeText(mContext, newContact.getName() + " added to your event", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, newContact.getName() + " added to your event",
+                        Toast.LENGTH_SHORT).show();
 
-                DatabaseReference inviteeFirebaseRef = FirebaseDatabase.getInstance().getReference().child(event);
+                DatabaseReference inviteeFirebaseRef = FirebaseDatabase.getInstance().getReference()
+                        .child(Long.toString(event.getCreateEventTimestamp()));
                 DatabaseReference pushRef = inviteeFirebaseRef.push();
                 String pushId = pushRef.getKey();
                 newContact.setPushId(pushId);
@@ -85,8 +73,9 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
 
                 if(mUsers.get(itemPosition).getPushId().equals(mCurrentUser)) {
                 } else {
-                    Event newEvent = new Event(eventName, location, date, time, latLong, image,
-                            millisecondDate, mEventCreatedDate);
+                    Event newEvent = new Event(event.getName(), event.getLocation(), event.getDate(),
+                            event.getTime(), event.getLatLong(), event.getImage(),
+                            event.getMillisecondDate());
                     newEvent.setAlert(true);
 
                     DatabaseReference userEventsFirebaseRef = FirebaseDatabase.getInstance()

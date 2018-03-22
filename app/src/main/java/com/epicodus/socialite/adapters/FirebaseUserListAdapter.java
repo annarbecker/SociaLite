@@ -22,14 +22,16 @@ public class FirebaseUserListAdapter extends FirebaseRecyclerAdapter<User, UserV
     private ChildEventListener mChildEventListener;
     private Context mContext;
     private ArrayList<User> mUsers = new ArrayList<>();
+    private Event event;
 
     public FirebaseUserListAdapter(Class<User> modelClass, int modelLayout,
                                    Class<UserViewHolder> viewHolderClass, Query ref,
-                                   Context context) {
+                                   Context context, Event event) {
         super(modelClass, modelLayout, viewHolderClass, ref);
 
         mRef = ref.getRef();
         mContext = context;
+        this.event = event;
 
         mChildEventListener = mRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -62,7 +64,7 @@ public class FirebaseUserListAdapter extends FirebaseRecyclerAdapter<User, UserV
     public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.person_list_item, parent, false);
-        return new UserViewHolder(view, mUsers);
+        return new UserViewHolder(view, mUsers, this.event);
     }
 
     @Override
