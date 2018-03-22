@@ -64,7 +64,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     private String date;
     private String time;
     private String location;
-    private String alert;
 
     private PlacePicker.IntentBuilder mBuilder;
     private static final int PLACE_PICKER_FLAG = 1;
@@ -316,7 +315,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         location = mMyLocation.getText().toString();
         date = mDateEditText.getText().toString();
         time = mTimeEditText.getText().toString();
-        alert = "no";
 
         if (this.requiredFieldsAreEmpty()) {
             new AlertDialog.Builder(this)
@@ -330,7 +328,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             Long milliSecondDateLong = Long.valueOf(mSharedPreferences.getString(
                     Constants.PREFERENCES_MILLISECOND_DATE, null));
             Event newEvent = new Event(event, location, date, time, latLong, image,
-                    milliSecondDateLong, mEventCreateDate, alert);
+                    milliSecondDateLong, mEventCreateDate);
             newEvent.setOrganizer(mSharedPreferences.getString(Constants.KEY_USER_NAME, null));
 
             Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
