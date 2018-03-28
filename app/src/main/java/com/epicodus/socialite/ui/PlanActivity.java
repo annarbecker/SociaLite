@@ -284,20 +284,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                     .show();
         }
         else {
-            // save the event
-            this.newEvent.setName(mEventEditText.getText().toString());
-            this.newEvent.setOrganizer(mSharedPreferences.getString(Constants.KEY_USER_NAME, null));
-
-            String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
-            DatabaseReference userEventsFirebaseRef = FirebaseDatabase.getInstance()
-                    .getReference(Constants.FIREBASE_URL_USER_EVENT).child(userUid);
-            DatabaseReference pushRef = userEventsFirebaseRef.push();
-            String eventPushId = pushRef.getKey();
-            newEvent.setPushId(eventPushId);
-            pushRef.setValue(newEvent);
-
-            mEditor.putString("EventPushId", eventPushId).apply();
-
             Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("newEvent", Parcels.wrap(newEvent));
@@ -318,6 +304,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         }
         else {
             this.newEvent.setOrganizer(mSharedPreferences.getString(Constants.KEY_USER_NAME, null));
+            this.saveEvent();
 
             Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -325,5 +312,18 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
             finish();
         }
+    }
+
+    private void saveEvent() {
+        this.newEvent.setName(mEventEditText.getText().toString());
+        this.newEvent.setOrganizer(mSharedPreferences.getString(Constants.KEY_USER_NAME, null));
+
+        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        DatabaseReference userEventsFirebaseRef = FirebaseDatabase.getInstance()
+                .getReference(Constants.FIREBASE_URL_USER_EVENT).child(userUid);
+        DatabaseReference pushRef = userEventsFirebaseRef.push();
+        String eventPushId = pushRef.getKey();
+        newEvent.setPushId(eventPushId);
+        pushRef.setValue(newEvent);
     }
 }
