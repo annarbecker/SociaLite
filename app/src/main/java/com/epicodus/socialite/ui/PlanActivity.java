@@ -298,7 +298,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
             mEditor.putString("EventPushId", eventPushId).apply();
 
-            this.goToNextActivity(SearchContactsActivity.class);
+            Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("newEvent", Parcels.wrap(newEvent));
+            startActivity(intent);
         }
     }
 
