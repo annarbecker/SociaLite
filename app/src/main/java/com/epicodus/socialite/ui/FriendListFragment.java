@@ -29,18 +29,14 @@ import butterknife.ButterKnife;
 public class FriendListFragment extends Fragment{
     @BindView(R.id.friendRecyclerView) RecyclerView mRecyclerView;
 
-    private Query mQuery;
+    private Query query;
     private FirebaseUserListAdapter mAdapter;
     private Event event;
-    private SharedPreferences sharedPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mQuery = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL_USERS_LIST);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        String eventPushId = sharedPreferences.getString("EventPushId", null);
-
+        query = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL_USERS_LIST);
         event = Parcels.unwrap(this.getActivity().getIntent().getParcelableExtra("newEvent"));
     }
 
@@ -49,7 +45,6 @@ public class FriendListFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friend_list, container, false);
         ButterKnife.bind(this, view);
-
         setUpRecyclerView();
 
         return view;
@@ -57,7 +52,7 @@ public class FriendListFragment extends Fragment{
 
     private void setUpRecyclerView() {
         mAdapter = new FirebaseUserListAdapter(User.class, R.layout.person_list_item,
-                UserViewHolder.class, mQuery, this.getContext(), event);
+                UserViewHolder.class, query, this.getContext(), event);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
     }
