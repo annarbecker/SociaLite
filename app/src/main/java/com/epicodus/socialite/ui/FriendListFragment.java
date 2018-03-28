@@ -20,9 +20,7 @@ import com.epicodus.socialite.models.User;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,11 +41,7 @@ public class FriendListFragment extends Fragment{
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
         String eventPushId = sharedPreferences.getString("EventPushId", null);
 
-        //TODO
-        // use the pushId to get the event from the database
-        // deserialize json to Event object
-        String eventAsJson = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_URL_USER_EVENT)
-                .child(eventPushId).toString();
+        event = Parcels.unwrap(this.getActivity().getIntent().getParcelableExtra("newEvent"));
     }
 
 
