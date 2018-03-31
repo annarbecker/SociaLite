@@ -46,22 +46,21 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class PlanActivity extends AppCompatActivity implements View.OnClickListener{
-    @BindView(R.id.eventEditText) EditText mEventEditText;
-    @BindView(R.id.inviteButton) Button mInviteButton;
-    @BindView(R.id.selectdate) Button mSelectDateButton;
-    @BindView(R.id.selecttime) Button mSelectTimeButton;
-    @BindView(R.id.dateEditText) EditText mDateEditText;
-    @BindView(R.id.timeEditText) EditText mTimeEditText;
-    @BindView(R.id.createButton) Button mCreateButton;
-    @BindView(R.id.pickLocationButton) Button mPickLocationButton;
-    @BindView(R.id.myLocation) AutoCompleteTextView mMyLocation;
+    @BindView(R.id.eventEditText) EditText eventEditText;
+    @BindView(R.id.inviteButton) Button inviteButton;
+    @BindView(R.id.selectdate) Button selectDateButton;
+    @BindView(R.id.selecttime) Button selectTimeButton;
+    @BindView(R.id.dateEditText) EditText dateEditText;
+    @BindView(R.id.timeEditText) EditText timeEditText;
+    @BindView(R.id.createButton) Button createButton;
+    @BindView(R.id.pickLocationButton) Button pickLocationButton;
+    @BindView(R.id.myLocation) AutoCompleteTextView myLocation;
     @BindView(R.id.toolbar) Toolbar topToolBar;
 
     private Event newEvent;
-    private PlacePicker.IntentBuilder mBuilder;
+    private PlacePicker.IntentBuilder builder;
     private static final int PLACE_PICKER_FLAG = 1;
-    private SharedPreferences mSharedPreferences;
-    private SharedPreferences.Editor mEditor;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,21 +73,20 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
         this.newEvent = new Event();
 
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mEditor = mSharedPreferences.edit();
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        mCreateButton.setOnClickListener(this);
-        mInviteButton.setOnClickListener(this);
-        mSelectDateButton.setOnClickListener(this);
-        mSelectTimeButton.setOnClickListener(this);
-        mPickLocationButton.setOnClickListener(this);
-        mMyLocation.setKeyListener(null);
-        mDateEditText.setKeyListener(null);
-        mTimeEditText.setKeyListener(null);
+        this.createButton.setOnClickListener(this);
+        this.inviteButton.setOnClickListener(this);
+        this.selectDateButton.setOnClickListener(this);
+        this.selectTimeButton.setOnClickListener(this);
+        this.pickLocationButton.setOnClickListener(this);
+        this.myLocation.setKeyListener(null);
+        this.dateEditText.setKeyListener(null);
+        this.timeEditText.setKeyListener(null);
 
         this.getEventImage();
-        mEventEditText.requestFocus();
-        mEventEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        this.eventEditText.requestFocus();
+        this.eventEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
@@ -121,26 +119,27 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+    private void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(
+                Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     @Override
     public void onClick(View v) {
-        if (v == mCreateButton) {
+        if (v == createButton) {
             this.createEvent();
         }
-        if (v == mInviteButton) {
+        if (v == inviteButton) {
             this.setInvitees();
         }
-        if (v == mSelectDateButton) {
+        if (v == selectDateButton) {
             this.setEventDate();
         }
-        if (v == mSelectTimeButton) {
+        if (v == selectTimeButton) {
             this.setEventTime();
         }
-        if (v == mPickLocationButton) {
+        if (v == pickLocationButton) {
             this.setEventLocation();
         }
     }
@@ -159,9 +158,9 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
                     this.newEvent.setLatLong(latLong);
 
-                    mMyLocation.setVisibility(View.VISIBLE);
+                    myLocation.setVisibility(View.VISIBLE);
                     String location = place.getName() + "\n" + place.getAddress();
-                    mMyLocation.setText(location);
+                    myLocation.setText(location);
 
                     this.newEvent.setLocation(location);
                     break;
@@ -192,10 +191,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private boolean requiredFieldsAreEmpty() {
-        if (mEventEditText.getText().toString().isEmpty()
-                || mMyLocation.getText().toString().isEmpty()
-                || mDateEditText.getText().toString().isEmpty()
-                || mTimeEditText.getText().toString().isEmpty()) {
+        if (eventEditText.getText().toString().isEmpty()
+                || myLocation.getText().toString().isEmpty()
+                || dateEditText.getText().toString().isEmpty()
+                || timeEditText.getText().toString().isEmpty()) {
             return true;
         }
         return false;
@@ -208,8 +207,8 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setEventLocation() {
         try {
-            mBuilder = new PlacePicker.IntentBuilder();
-            Intent intent = mBuilder.build(PlanActivity.this);
+            builder = new PlacePicker.IntentBuilder();
+            Intent intent = builder.build(PlanActivity.this);
             startActivityForResult(intent, PLACE_PICKER_FLAG);
 
         }
@@ -241,7 +240,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                         SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
 
                         String time = dateFormat.format(calendar.getTime());
-                        mTimeEditText.setText(time);
+                        timeEditText.setText(time);
 
                         PlanActivity.this.newEvent.setTime(time);
                     }
@@ -265,7 +264,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                         String eventDate = dateFormat.format(new Date(calendar.getTimeInMillis()));
 
-                        mDateEditText.setText(eventDate);
+                        dateEditText.setText(eventDate);
 
                         PlanActivity.this.newEvent.setDate(eventDate);
                         PlanActivity.this.newEvent.setMillisecondDate(calendar.getTimeInMillis());
@@ -292,7 +291,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void createEvent() {
-        this.newEvent.setName(mEventEditText.getText().toString());
+        this.newEvent.setName(eventEditText.getText().toString());
 
         if (this.requiredFieldsAreEmpty()) {
             new AlertDialog.Builder(this)
@@ -303,7 +302,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                     .show();
         }
         else {
-            this.newEvent.setOrganizer(mSharedPreferences.getString(Constants.KEY_USER_NAME, null));
+            this.newEvent.setOrganizer(sharedPreferences.getString(Constants.KEY_USER_NAME, null));
             this.saveEvent();
 
             Intent intent = new Intent(PlanActivity.this, ConfirmActivity.class);
@@ -315,10 +314,10 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void saveEvent() {
-        this.newEvent.setName(mEventEditText.getText().toString());
-        this.newEvent.setOrganizer(mSharedPreferences.getString(Constants.KEY_USER_NAME, null));
+        this.newEvent.setName(eventEditText.getText().toString());
+        this.newEvent.setOrganizer(sharedPreferences.getString(Constants.KEY_USER_NAME, null));
 
-        String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        String userUid = sharedPreferences.getString(Constants.KEY_UID, null);
         DatabaseReference userEventsFirebaseRef = FirebaseDatabase.getInstance()
                 .getReference(Constants.FIREBASE_URL_USER_EVENT).child(userUid);
         DatabaseReference pushRef = userEventsFirebaseRef.push();

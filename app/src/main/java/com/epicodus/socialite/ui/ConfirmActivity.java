@@ -69,7 +69,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/bario.ttf");
         mUserEventTextView.setTypeface(myCustomFont);
 
-
         newEvent = Parcels.unwrap(getIntent().getParcelableExtra("newEvent"));
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
