@@ -21,16 +21,19 @@ public class Event {
 
     public Event() {}
 
-    public Event(String name, String location, String date, String time, String latLong,
-                  String image, Long millisecondDate) {
-        this.name = name;
-        this.location = location;
-        this.date = date;
-        this.time = time;
-        this.latLong = latLong;
-        this.image = image;
-        this.millisecondDate = millisecondDate;
-        this.dateInverse = millisecondDate*-1;
+    public Event(Event event) {
+        this.name = event.getName();
+        this.location = event.getLocation();
+        this.date = event.getDate();
+        this.time = event.getTime();
+        this.latLong = event.getLatLong();
+        this.image = event.getImage();
+        this.pushId = event.getPushId();
+        this.millisecondDate = event.getMillisecondDate();
+        this.dateInverse = event.getDateInverse();
+        this.createEventTimestamp = event.getCreateEventTimestamp();
+        this.alert = event.getAlert();
+        this.organizer = event.getOrganizer();
     }
 
     public String getName() {
