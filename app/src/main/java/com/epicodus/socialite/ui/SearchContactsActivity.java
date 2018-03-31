@@ -29,6 +29,10 @@ public class SearchContactsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_contacts);
 
+        this.getSupportActionBar().setHomeButtonEnabled(false); // disable the button
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(false); // remove the left caret
+        this.getSupportActionBar().setDisplayShowHomeEnabled(false);
+
         if (getIntent() != null) {
             handleIntent(getIntent());
         }
@@ -41,7 +45,8 @@ public class SearchContactsActivity extends AppCompatActivity {
     }
 
     private boolean weHavePermissionToReadContacts() {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED;
     }
 
     private void readTheContacts() {
@@ -49,8 +54,10 @@ public class SearchContactsActivity extends AppCompatActivity {
     }
 
     private void requestReadContactsPermissionFirst() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
-            Toast.makeText(this, "We need permission so you can text your friends.", Toast.LENGTH_LONG).show();
+        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                this, Manifest.permission.READ_CONTACTS)) {
+            Toast.makeText(this, "We need permission so you can text your friends.",
+                    Toast.LENGTH_LONG).show();
             requestForResultContactsPermission();
         } else {
             requestForResultContactsPermission();
@@ -58,7 +65,8 @@ public class SearchContactsActivity extends AppCompatActivity {
     }
 
     private void requestForResultContactsPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, 123);
+        ActivityCompat.requestPermissions(
+                this, new String[]{Manifest.permission.READ_CONTACTS}, 123);
     }
 
     @Override
