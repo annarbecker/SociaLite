@@ -71,8 +71,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
                 newContact.setPushId(pushId);
                 pushRef.setValue(newContact);
 
-                if(mUsers.get(itemPosition).getPushId().equals(mCurrentUser)) {
-                } else {
+                if(!mUsers.get(itemPosition).getPushId().equals(mCurrentUser)) {
                     Event newEvent = new Event(UserViewHolder.this.event);
                     newEvent.setAlert(true);
 
