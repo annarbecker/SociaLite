@@ -73,9 +73,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
 
                 if(mUsers.get(itemPosition).getPushId().equals(mCurrentUser)) {
                 } else {
-                    Event newEvent = new Event(event.getName(), event.getLocation(), event.getDate(),
-                            event.getTime(), event.getLatLong(), event.getImage(),
-                            event.getMillisecondDate());
+                    Event newEvent = new Event(UserViewHolder.this.event);
                     newEvent.setAlert(true);
 
                     DatabaseReference userEventsFirebaseRef = FirebaseDatabase.getInstance()
