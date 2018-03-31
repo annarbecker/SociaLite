@@ -2,9 +2,9 @@ package com.epicodus.socialite.models;
 
 
 public class User {
-    String name;
-    String email;
-    String pushId;
+    private String name;
+    private String email;
+    private String pushId;
 
     public User() {}
 
