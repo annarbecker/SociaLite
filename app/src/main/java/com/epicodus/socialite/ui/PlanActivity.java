@@ -71,7 +71,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         setTitle(null);
         setSupportActionBar(topToolBar);
 
-        this.newEvent = new Event();
+        this.setEvent();
 
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -283,6 +283,8 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                     .show();
         }
         else {
+            this.newEvent.setName(eventEditText.getText().toString());
+
             Intent intent = new Intent(PlanActivity.this, SearchContactsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("newEvent", Parcels.wrap(newEvent));
@@ -291,8 +293,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void createEvent() {
-        this.newEvent.setName(eventEditText.getText().toString());
-
         if (this.requiredFieldsAreEmpty()) {
             new AlertDialog.Builder(this)
                     .setTitle("Almost!")
@@ -314,7 +314,6 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void saveEvent() {
-        this.newEvent.setName(eventEditText.getText().toString());
         this.newEvent.setOrganizer(sharedPreferences.getString(Constants.KEY_USER_NAME, null));
 
         String userUid = sharedPreferences.getString(Constants.KEY_UID, null);
@@ -324,5 +323,19 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         String eventPushId = pushRef.getKey();
         newEvent.setPushId(eventPushId);
         pushRef.setValue(newEvent);
+    }
+
+    private void setEvent() {
+        Event event = Parcels.unwrap(getIntent().getParcelableExtra("newEvent"));
+        if (event != null) {
+            this.newEvent = event;
+            this.eventEditText.setText(this.newEvent.getName());
+            this.dateEditText.setText(this.newEvent.getDate());
+            this.timeEditText.setText(this.newEvent.getTime());
+            this.myLocation.setText(this.newEvent.getLocation());
+        }
+        else {
+            this.newEvent = new Event();
+        }
     }
 }
