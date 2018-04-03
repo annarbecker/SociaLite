@@ -160,14 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == mMakePlansButton) {
-            mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
-            mEditor.putString(Constants.PREFERENCES_DATE, "").apply();
-            mEditor.putString(Constants.PREFERENCES_TIME, "").apply();
-            mEditor.putString(Constants.PREFERENCES_LOCATION, "").apply();
-            mEditor.putString(Constants.PREFERENCES_LAT_LONG, "").apply();
             mEditor.putString(Constants.PREFERENCES_CREATE_EVENT, "").apply();
-            mEditor.putString(Constants.PREFERENCES_IMAGE, "").apply();
-            mEditor.putString(Constants.PREFERENCES_MILLISECOND_DATE, "").apply();
             mEditor.putString(Constants.INVITEE_PHONE_NUMBERS, "").apply();
             Intent intent = new Intent(MainActivity.this, PlanActivity.class);
             startActivity(intent);
@@ -190,14 +183,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         if(id == R.id.action_add){
-            mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
-            mEditor.putString(Constants.PREFERENCES_DATE, "").apply();
-            mEditor.putString(Constants.PREFERENCES_TIME, "").apply();
-            mEditor.putString(Constants.PREFERENCES_LOCATION, "").apply();
-            mEditor.putString(Constants.PREFERENCES_LAT_LONG, "").apply();
             mEditor.putString(Constants.PREFERENCES_CREATE_EVENT, "").apply();
-            mEditor.putString(Constants.PREFERENCES_IMAGE, "").apply();
-            mEditor.putString(Constants.PREFERENCES_MILLISECOND_DATE, "").apply();
             mEditor.putString(Constants.INVITEE_PHONE_NUMBERS, "").apply();
             Intent intent = new Intent(MainActivity.this, PlanActivity.class);
             startActivity(intent);

@@ -51,9 +51,9 @@ public class SavedEventsActivity extends AppCompatActivity {
         setUpRecyclerView();
     }
 
-
     private void setUpFirebaseQuery() {
         String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
+        // order children events by date attribute?
         mQuery = mFirebaseEventsRef.child(userUid);
     }
 
@@ -74,15 +74,8 @@ public class SavedEventsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id == R.id.action_add){
-            mEditor.putString(Constants.PREFERENCES_EVENT, "").apply();
-            mEditor.putString(Constants.PREFERENCES_DATE, "").apply();
-            mEditor.putString(Constants.PREFERENCES_TIME, "").apply();
-            mEditor.putString(Constants.PREFERENCES_LOCATION, "").apply();
-            mEditor.putString(Constants.PREFERENCES_LAT_LONG, "").apply();
+        if(id == R.id.action_add) {
             mEditor.putString(Constants.PREFERENCES_CREATE_EVENT, "").apply();
-            mEditor.putString(Constants.PREFERENCES_IMAGE, "").apply();
-            mEditor.putString(Constants.PREFERENCES_MILLISECOND_DATE, "").apply();
             mEditor.putString(Constants.INVITEE_PHONE_NUMBERS, "").apply();
             Intent intent = new Intent(SavedEventsActivity.this, PlanActivity.class);
             startActivity(intent);
