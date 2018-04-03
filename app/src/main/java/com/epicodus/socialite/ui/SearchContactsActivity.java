@@ -11,27 +11,29 @@ import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-
-import android.view.Menu;
 import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.epicodus.socialite.R;
+import com.epicodus.socialite.models.Event;
+
+import org.parceler.Parcels;
 
 
 public class SearchContactsActivity extends AppCompatActivity {
 
     public static final int CONTACT_QUERY_LOADER = 0;
     public static final String QUERY_KEY = "query";
+    private Event event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_contacts);
 
-        this.getSupportActionBar().setHomeButtonEnabled(false); // disable the button
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(false); // remove the left caret
-        this.getSupportActionBar().setDisplayShowHomeEnabled(false);
+        this.event = Parcels.unwrap(getIntent().getParcelableExtra("newEvent"));
 
         if (getIntent() != null) {
             handleIntent(getIntent());
@@ -106,6 +108,17 @@ public class SearchContactsActivity extends AppCompatActivity {
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
 
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() ==  android.R.id.home) {
+            Intent intent = new Intent(SearchContactsActivity.this, PlanActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("newEvent", Parcels.wrap(this.event));
+            startActivity(intent);
+        }
         return true;
     }
 }
