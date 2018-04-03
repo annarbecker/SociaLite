@@ -14,7 +14,6 @@ public class Event {
     protected String image;
     protected String pushId;
     protected long millisecondDate;
-    protected long dateInverse;
     protected long createEventTimestamp = System.currentTimeMillis();
     protected boolean alert = false;
     protected String organizer;
@@ -30,7 +29,6 @@ public class Event {
         this.image = event.getImage();
         this.pushId = event.getPushId();
         this.millisecondDate = event.getMillisecondDate();
-        this.dateInverse = event.getDateInverse();
         this.createEventTimestamp = event.getCreateEventTimestamp();
         this.alert = event.getAlert();
         this.organizer = event.getOrganizer();
@@ -98,10 +96,6 @@ public class Event {
 
     public void setAlert(boolean alert) {
         this.alert = alert;
-    }
-
-    public Long getDateInverse() {
-        return dateInverse;
     }
 
     public Long getMillisecondDate() {

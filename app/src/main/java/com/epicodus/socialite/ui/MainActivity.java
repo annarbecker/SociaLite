@@ -104,8 +104,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         millisecondDate = newEvent.getMillisecondDate();
                         image = newEvent.getImage();
                         organizer = newEvent.getOrganizer();
-                        dateInverse = newEvent.getDateInverse();
-
 
                         if(newEvent.getAlert()) {
                             new AlertDialog.Builder(mContext)
