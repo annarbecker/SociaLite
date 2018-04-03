@@ -54,7 +54,7 @@ public class SavedEventsActivity extends AppCompatActivity {
 
     private void setUpFirebaseQuery() {
         String userUid = mSharedPreferences.getString(Constants.KEY_UID, null);
-        mQuery = mFirebaseEventsRef.child(userUid).orderByChild("dateInverse");
+        mQuery = mFirebaseEventsRef.child(userUid);
     }
 
     private void setUpRecyclerView() {

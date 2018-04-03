@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Long millisecondDate;
     private String image;
     private String organizer;
-    private Long dateInverse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,8 +135,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-
-
 
         mUserRefListener = mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -244,7 +241,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         eventMap.put("alert", "no");
         eventMap.put("createEventTimestamp", createEventTimestamp);
         eventMap.put("date", eventDate);
-        eventMap.put("dateInverse", dateInverse);
         eventMap.put("image", image);
         eventMap.put("latLong", latLong);
         eventMap.put("location", eventLocation);
