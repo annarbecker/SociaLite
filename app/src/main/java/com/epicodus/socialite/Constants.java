@@ -1,8 +1,6 @@
 package com.epicodus.socialite;
 
 
-import android.os.Build;
-
 public class Constants {
     public static final String UNSPLASH_API_KEY = BuildConfig.UNSPLASH_API_KEY;
     public static final String PHOTO_BASE_URL = "https://api.unsplash.com/photos/random";
@@ -17,13 +15,5 @@ public class Constants {
     public static final String FIREBASE_URL_USERS_LIST = "users";
     public static final String INVITEE_PHONE_NUMBERS = "phoneNumbers";
 
-    public static final String PREFERENCES_EVENT = "event";
-    public static final String PREFERENCES_DATE = "date";
-    public static final String PREFERENCES_TIME = "time";
-    public static final String PREFERENCES_LOCATION = "location";
-    public static final String PREFERENCES_LAT_LONG = "latLong";
     public static final String PREFERENCES_CREATE_EVENT = "create event time";
-    public static final String PREFERENCES_IMAGE = "image";
-    public static final String PREFERENCES_MILLISECOND_DATE = "millisecond";
-
 }
