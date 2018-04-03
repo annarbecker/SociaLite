@@ -35,16 +35,13 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
     private HashMap<String, String> phones = new HashMap<>();
     private Context mContext;
     public static final String QUERY_KEY = "query";
-    public static final String TAG = "SearchLoaderCallbacks";
     private List<String> names = new ArrayList<>();
     private String displayName;
     private String phoneNumber;
     private SharedPreferences mSharedPreferences;
     private String mEventCreatedDate;
-    private String rsvp;
     private SharedPreferences.Editor mSharedPreferencesEditor;
     private ArrayList<String> phoneNumbersList = new ArrayList<>();
-
 
     public SearchLoaderCallbacks(Context context) {
         mContext = context;
@@ -52,8 +49,6 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
 
     @Override
     public Loader<Cursor> onCreateLoader(int loaderIndex, Bundle args) {
-
-
         String query = args.getString(QUERY_KEY);
         Uri uri = Uri.withAppendedPath(
                 ContactsContract.CommonDataKinds.Contactables.CONTENT_FILTER_URI, query);
@@ -117,7 +112,7 @@ public class SearchLoaderCallbacks implements LoaderManager.LoaderCallbacks<Curs
                 if((column).equals("sort_key")) {
                     contact.put("Name", cursor.getString(cursor.getColumnIndex(column)));
 
-                } if (column.equals("data1")){
+                } if (column.equals("data1")) {
                     contact.put("Phone", cursor.getString(cursor.getColumnIndex(column)));
                 }
             }
